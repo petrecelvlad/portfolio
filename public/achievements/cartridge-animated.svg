@@ -1,0 +1,280 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 110 800 450" width="800" height="450" style="background:#5c94fc; shape-rendering: crispEdges;">
+  <defs>
+    <style>
+      .layer-clouds { animation: scroll-clouds 12s linear infinite; }
+      .layer-hills  { animation: scroll-hills 12s linear infinite; }
+      .layer-main   { animation: scroll-main 12s linear infinite; }
+      @keyframes scroll-clouds { from { transform: translateX(0); } to { transform: translateX(-400px); } }
+      @keyframes scroll-hills  { from { transform: translateX(0); } to { transform: translateX(-800px); } }
+      @keyframes scroll-main   { from { transform: translateX(0); } to { transform: translateX(-1600px); } }
+
+      /* Mario's height: every jump is a true parabola (one gravity), timed to the level's obstacles. */
+      .hero-y { animation: hero-y 12s linear infinite; }
+      @keyframes hero-y {
+        0.000% { transform: translateY(0px); animation-timing-function: linear; }
+        9.875% { transform: translateY(0px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+        14.239% { transform: translateY(-96px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+        18.604% { transform: translateY(0px); animation-timing-function: linear; }
+        21.375% { transform: translateY(0px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+        26.004% { transform: translateY(-108px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+        28.959% { transform: translateY(-64px); animation-timing-function: linear; }
+        29.875% { transform: translateY(-64px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+        32.692% { transform: translateY(-104px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+        34.874% { transform: translateY(-80px); animation-timing-function: linear; }
+        35.375% { transform: translateY(-80px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+        37.557% { transform: translateY(-104px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+        41.337% { transform: translateY(-32px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+        44.787% { transform: translateY(-92px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+        49.060% { transform: translateY(0px); animation-timing-function: linear; }
+        53.125% { transform: translateY(0px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+        56.398% { transform: translateY(-54px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+        59.672% { transform: translateY(0px); animation-timing-function: linear; }
+        62.500% { transform: translateY(0px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+        66.864% { transform: translateY(-96px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+        71.229% { transform: translateY(0px); animation-timing-function: linear; }
+        83.812% { transform: translateY(0px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+        87.376% { transform: translateY(-64px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+        90.939% { transform: translateY(0px); animation-timing-function: linear; }
+        100.000% { transform: translateY(0px); animation-timing-function: linear; }
+      }
+      .pose-run  { animation: pose-run 12s step-end infinite; }
+      .pose-jump { animation: pose-jump 12s step-end infinite; }
+      @keyframes pose-run  { 0% { opacity: 1; } 9.875% { opacity: 0; } 18.604% { opacity: 1; } 21.375% { opacity: 0; } 28.959% { opacity: 1; } 29.875% { opacity: 0; } 34.874% { opacity: 1; } 35.375% { opacity: 0; } 49.060% { opacity: 1; } 53.125% { opacity: 0; } 59.672% { opacity: 1; } 62.500% { opacity: 0; } 71.229% { opacity: 1; } 83.812% { opacity: 0; } 90.939% { opacity: 1; } 100% { opacity: 1; } }
+      @keyframes pose-jump { 0% { opacity: 0; } 9.875% { opacity: 1; } 18.604% { opacity: 0; } 21.375% { opacity: 1; } 28.959% { opacity: 0; } 29.875% { opacity: 1; } 34.874% { opacity: 0; } 35.375% { opacity: 1; } 49.060% { opacity: 0; } 53.125% { opacity: 1; } 59.672% { opacity: 0; } 62.500% { opacity: 1; } 71.229% { opacity: 0; } 83.812% { opacity: 1; } 90.939% { opacity: 0; } 100% { opacity: 0; } }
+      .leg-a { animation: leg-a 0.24s step-end infinite; }
+      .leg-b { animation: leg-b 0.24s step-end infinite; }
+      .body-bob { animation: body-bob 0.24s step-end infinite; }
+      @keyframes leg-a { 0% { opacity: 1; } 50% { opacity: 0; } }
+      @keyframes leg-b { 0% { opacity: 0; } 50% { opacity: 1; } }
+      @keyframes body-bob { 0% { transform: translateY(0); } 50% { transform: translateY(2px); } }
+
+      /* Goomba walks toward Mario, is flattened by the stomp, then vanishes. */
+      .goomba-walk { animation: goomba-walk 12s linear infinite; }
+      .goomba-alive { animation: goomba-alive 12s step-end infinite; }
+      .goomba-flat { animation: goomba-flat 12s step-end infinite; }
+      .gfeet-a { animation: leg-a 0.3s step-end infinite; }
+      .gfeet-b { animation: leg-b 0.3s step-end infinite; }
+      @keyframes goomba-walk { 0% { transform: translateX(0); } 41.337% { transform: translateX(-198.42px); } 100% { transform: translateX(-198.42px); } }
+      @keyframes goomba-alive { 0% { opacity: 1; } 41.337% { opacity: 0; } }
+      @keyframes goomba-flat { 0% { opacity: 0; } 41.337% { opacity: 1; } 45.503% { opacity: 0; } }
+
+      .coin-take-0 { animation: coin-take-0 12s step-end infinite; }
+      .coin-take-1 { animation: coin-take-1 12s step-end infinite; }
+      .coin-take-2 { animation: coin-take-2 12s step-end infinite; }
+      @keyframes coin-take-0 { 0% { opacity: 1; } 41.750% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes coin-take-1 { 0% { opacity: 1; } 43.350% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes coin-take-2 { 0% { opacity: 1; } 45.183% { opacity: 0; } 100% { opacity: 0; } }
+      .coin-spin { animation: coin-spin 0.6s steps(4) infinite; transform-origin: center; transform-box: fill-box; }
+      @keyframes coin-spin { 0%, 100% { transform: scaleX(1); } 25%, 75% { transform: scaleX(0.5); } 50% { transform: scaleX(0.1); } }
+
+      /* ? block: a soft shine (opacity only); once bumped it jumps, turns used, and pops a coin. */
+      .q-shine { animation: q-shine 0.8s ease-in-out infinite alternate; }
+      @keyframes q-shine { from { opacity: 0; } to { opacity: 0.3; } }
+      .q-bump { animation: q-bump 12s linear infinite; }
+      @keyframes q-bump { 0%, 56.398% { transform: translateY(0); } 57.023% { transform: translateY(-8px); } 57.648%, 100% { transform: translateY(0); } }
+      .q-fresh { animation: q-fresh 12s step-end infinite; }
+      .q-used { animation: q-used 12s step-end infinite; }
+      @keyframes q-fresh { 0% { opacity: 1; } 56.398% { opacity: 0; } }
+      @keyframes q-used { 0% { opacity: 0; } 56.398% { opacity: 1; } }
+      .q-coin { animation: q-coin-move 12s linear infinite, q-coin-show 12s step-end infinite; }
+      @keyframes q-coin-move { 0%, 56.398% { transform: translateY(0); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); } 58.898% { transform: translateY(-52px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); } 60.565%, 100% { transform: translateY(-16px); } }
+      @keyframes q-coin-show { 0% { opacity: 0; } 56.398% { opacity: 1; } 60.565% { opacity: 0; } }
+    </style>
+
+    <g id="tile-dirt">
+      <rect width="32" height="32" fill="#c84c0c"/>
+      <rect width="32" height="2" fill="#802800"/><rect width="2" height="32" fill="#802800"/>
+      <rect x="30" width="2" height="32" fill="#e45c10"/><rect y="30" width="32" height="2" fill="#e45c10"/>
+      <rect x="6" y="6" width="4" height="4" fill="#802800"/><rect x="20" y="10" width="6" height="4" fill="#e45c10"/>
+      <rect x="10" y="20" width="4" height="6" fill="#802800"/><rect x="22" y="22" width="4" height="4" fill="#e45c10"/>
+    </g>
+    <g id="tile-grass">
+      <use href="#tile-dirt"/>
+      <rect width="32" height="12" fill="#00a800"/><rect width="32" height="4" fill="#00d820"/>
+      <path d="M0,12 H4 V16 H0 Z M8,12 H12 V14 H8 Z M16,12 H20 V16 H16 Z M24,12 H28 V15 H24 Z" fill="#00a800"/>
+      <rect y="2" width="32" height="2" fill="#58f858" opacity="0.6"/>
+    </g>
+    <pattern id="grass-pat" patternUnits="userSpaceOnUse" x="0" y="460" width="32" height="32"><use href="#tile-grass"/></pattern>
+    <pattern id="dirt-pat" patternUnits="userSpaceOnUse" x="0" y="492" width="32" height="32"><use href="#tile-dirt"/></pattern>
+
+    <g id="tile-brick">
+      <rect width="32" height="32" fill="#000"/><rect x="2" y="2" width="28" height="28" fill="#b84418"/>
+      <rect x="2" y="2" width="28" height="2" fill="#f87858"/><rect x="2" y="15" width="28" height="2" fill="#000"/>
+      <rect x="2" y="17" width="28" height="2" fill="#f87858"/><rect x="15" y="2" width="2" height="13" fill="#000"/>
+      <rect x="8" y="17" width="2" height="13" fill="#000"/><rect x="24" y="17" width="2" height="13" fill="#000"/>
+    </g>
+    <g id="q-mark">
+      <rect x="10" y="6" width="12" height="2"/><rect x="8" y="8" width="4" height="4"/><rect x="20" y="8" width="4" height="6"/>
+      <rect x="16" y="14" width="6" height="2"/><rect x="14" y="16" width="4" height="4"/><rect x="14" y="22" width="4" height="4"/>
+    </g>
+    <g id="tile-q">
+      <rect width="32" height="32" fill="#000"/><rect x="2" y="2" width="28" height="28" fill="#fc9838"/>
+      <rect x="2" y="2" width="28" height="2" fill="#fcbc78"/><rect x="2" y="2" width="2" height="28" fill="#fcbc78"/>
+      <rect x="28" y="4" width="2" height="26" fill="#c84c0c"/><rect x="4" y="28" width="26" height="2" fill="#c84c0c"/>
+      <rect x="2" y="2" width="28" height="28" fill="#fff" class="q-shine"/>
+      <rect x="4" y="4" width="2" height="2" fill="#000"/><rect x="26" y="4" width="2" height="2" fill="#000"/>
+      <rect x="4" y="26" width="2" height="2" fill="#000"/><rect x="26" y="26" width="2" height="2" fill="#000"/>
+      <use href="#q-mark" x="2" y="2" fill="#802800"/><use href="#q-mark" fill="#fff8e0"/>
+    </g>
+    <g id="tile-used">
+      <rect width="32" height="32" fill="#000"/><rect x="2" y="2" width="28" height="28" fill="#c84c0c"/>
+      <rect x="28" y="4" width="2" height="26" fill="#802800"/><rect x="4" y="28" width="26" height="2" fill="#802800"/>
+      <rect x="4" y="4" width="2" height="2" fill="#000"/><rect x="26" y="4" width="2" height="2" fill="#000"/>
+      <rect x="4" y="26" width="2" height="2" fill="#000"/><rect x="26" y="26" width="2" height="2" fill="#000"/>
+    </g>
+    <g id="coin" class="coin-spin">
+      <rect x="2" width="12" height="20" fill="#000"/><rect y="2" width="16" height="16" fill="#000"/>
+      <rect x="4" y="2" width="8" height="16" fill="#f8d820"/><rect x="2" y="4" width="12" height="12" fill="#f8d820"/>
+      <rect x="4" y="4" width="2" height="12" fill="#fff"/><rect x="10" y="4" width="2" height="12" fill="#b87000"/>
+    </g>
+    <g id="pipe-short">
+      <rect width="48" height="20" fill="#000"/><rect x="2" y="2" width="44" height="16" fill="#00a800"/>
+      <rect x="6" y="2" width="6" height="16" fill="#b8f818"/><rect x="12" y="2" width="4" height="16" fill="#00d820"/>
+      <rect x="36" y="2" width="8" height="16" fill="#005000"/>
+      <rect x="4" y="20" width="40" height="30" fill="#000"/><rect x="6" y="20" width="36" height="30" fill="#00a800"/>
+      <rect x="10" y="20" width="6" height="30" fill="#b8f818"/><rect x="16" y="20" width="4" height="30" fill="#00d820"/>
+      <rect x="34" y="20" width="6" height="30" fill="#005000"/>
+    </g>
+    <g id="pipe-tall">
+      <use href="#pipe-short"/>
+      <rect x="4" y="50" width="40" height="30" fill="#000"/><rect x="6" y="50" width="36" height="30" fill="#00a800"/>
+      <rect x="10" y="50" width="6" height="30" fill="#b8f818"/><rect x="16" y="50" width="4" height="30" fill="#00d820"/>
+      <rect x="34" y="50" width="6" height="30" fill="#005000"/>
+    </g>
+    <g id="goomba-body">
+      <rect x="8" width="16" height="4" fill="#000"/><rect x="4" y="4" width="24" height="4" fill="#000"/>
+      <rect x="2" y="8" width="28" height="16" fill="#000"/><rect x="8" y="2" width="16" height="2" fill="#c84c0c"/>
+      <rect x="4" y="6" width="24" height="2" fill="#c84c0c"/><rect x="4" y="8" width="24" height="14" fill="#c84c0c"/>
+      <rect x="8" y="22" width="16" height="4" fill="#f8ce90"/>
+      <rect x="6" y="10" width="6" height="8" fill="#fff"/><rect x="20" y="10" width="6" height="8" fill="#fff"/>
+      <rect x="10" y="12" width="2" height="6" fill="#000"/><rect x="20" y="12" width="2" height="6" fill="#000"/>
+      <path d="M6,10 L12,14 V10 Z M26,10 L20,14 V10 Z" fill="#000"/>
+    </g>
+    <g id="goomba-squashed">
+      <rect x="4" y="2" width="24" height="2" fill="#000"/><rect x="2" y="4" width="28" height="8" fill="#000"/>
+      <rect x="4" y="4" width="24" height="6" fill="#c84c0c"/>
+      <rect x="8" y="6" width="4" height="2" fill="#fff"/><rect x="20" y="6" width="4" height="2" fill="#fff"/>
+      <rect x="8" y="10" width="16" height="2" fill="#f8ce90"/>
+      <rect y="12" width="12" height="4" fill="#000"/><rect x="20" y="12" width="12" height="4" fill="#000"/>
+    </g>
+    <path id="bush" d="M0,24 V24 H4 V12 H8 V8 H12 V8 H16 V8 H20 V8 H24 V8 H28 V4 H32 V4 H36 V4 H40 V4 H44 V8 H48 V8 H52 V8 H56 V8 H60 V8 H64 V12 H68 V24 H72 V24 Z" fill="#3cc81c" stroke="#000" stroke-width="2"/>
+    <path id="cloud-big" d="M0,30 V30 H4 V16 H8 V16 H12 V12 H16 V12 H20 V12 H24 V16 H28 V12 H32 V8 H36 V8 H40 V8 H44 V8 H48 V8 H52 V8 H56 V12 H60 V16 H64 V12 H68 V12 H72 V12 H76 V16 H80 V16 H84 V30 H88 V30 Z" fill="#fff" stroke="#000" stroke-width="2"/>
+    <path id="cloud-small" d="M0,24 V24 H4 V12 H8 V12 H12 V8 H16 V8 H20 V12 H24 V8 H28 V8 H32 V8 H36 V8 H40 V8 H44 V8 H48 V12 H52 V12 H56 V16 H60 V24 H64 V24 Z" fill="#fff" stroke="#000" stroke-width="2"/>
+
+    <!-- 400-wide hill block. Both hills reach the bottom, so a pit shows them carrying on down. -->
+    <g id="hills-400">
+      <path d="M152,600 V600 H156 V600 H160 V600 H164 V600 H168 V600 H172 V600 H176 V600 H180 V600 H184 V600 H188 V600 H192 V600 H196 V600 H200 V600 H204 V600 H208 V600 H212 V600 H216 V600 H220 V600 H224 V600 H228 V600 H232 V600 H236 V600 H240 V460 H244 V452 H248 V448 H252 V440 H256 V432 H260 V428 H264 V412 H268 V404 H272 V400 H276 V396 H280 V392 H284 V392 H288 V388 H292 V388 H296 V388 H300 V388 H304 V388 H308 V388 H312 V392 H316 V392 H320 V396 H324 V400 H328 V404 H332 V412 H336 V428 H340 V432 H344 V440 H348 V448 H352 V452 H356 V460 H360 V600 H364 V600 H368 V600 H372 V600 H376 V600 H380 V600 H384 V600 H388 V600 H392 V600 H396 V600 H400 V600 H404 V600 H408 V600 H412 V600 H416 V600 H420 V600 H424 V600 H428 V600 H432 V600 H436 V600 H440 V600 H444 V600 H448 V600 Z" fill="#00a800" stroke="#000" stroke-width="2"/>
+      <path d="M-92,600 V600 H-88 V600 H-84 V600 H-80 V600 H-76 V600 H-72 V600 H-68 V600 H-64 V600 H-60 V600 H-56 V600 H-52 V600 H-48 V600 H-44 V600 H-40 V600 H-36 V600 H-32 V600 H-28 V600 H-24 V600 H-20 V600 H-16 V600 H-12 V600 H-8 V600 H-4 V460 H0 V452 H4 V448 H8 V440 H12 V436 H16 V428 H20 V420 H24 V416 H28 V408 H32 V404 H36 V396 H40 V388 H44 V384 H48 V364 H52 V356 H56 V348 H60 V344 H64 V340 H68 V336 H72 V336 H76 V332 H80 V332 H84 V328 H88 V328 H92 V328 H96 V328 H100 V328 H104 V328 H108 V328 H112 V328 H116 V332 H120 V332 H124 V336 H128 V336 H132 V340 H136 V344 H140 V348 H144 V356 H148 V364 H152 V384 H156 V388 H160 V396 H164 V404 H168 V408 H172 V416 H176 V420 H180 V428 H184 V436 H188 V440 H192 V448 H196 V452 H200 V460 H204 V600 H208 V600 H212 V600 H216 V600 H220 V600 H224 V600 H228 V600 H232 V600 H236 V600 H240 V600 H244 V600 H248 V600 H252 V600 H256 V600 H260 V600 H264 V600 H268 V600 H272 V600 H276 V600 H280 V600 H284 V600 H288 V600 H292 V600 Z" fill="#00a800" stroke="#000" stroke-width="2"/>
+      <g fill="#005000">
+        <rect x="84" y="372" width="4" height="8"/><rect x="112" y="400" width="4" height="8"/><rect x="72" y="424" width="4" height="8"/>
+        <rect x="128" y="440" width="4" height="8"/><rect x="292" y="420" width="4" height="8"/><rect x="312" y="444" width="4" height="8"/>
+      </g>
+    </g>
+    <g id="clouds-400">
+      <use href="#cloud-big" x="40" y="160"/>
+      <use href="#cloud-small" x="250" y="276"/>
+    </g>
+  </defs>
+
+  <rect width="800" height="600" fill="#5c94fc"/>
+  <g class="layer-clouds"><use href="#clouds-400" x="0"/><use href="#clouds-400" x="400"/><use href="#clouds-400" x="800"/><use href="#clouds-400" x="1200"/></g>
+  <g class="layer-hills"><use href="#hills-400" x="0" y="0"/><use href="#hills-400" x="400" y="0"/><use href="#hills-400" x="800" y="0"/><use href="#hills-400" x="1200" y="0"/><use href="#hills-400" x="1600" y="0"/></g>
+  <!-- The 1600-wide level, drawn twice for a seamless scroll. Written out rather than <use>d: animations inside
+       a <use> copy can't be paused or seeked from outside, and everything here that changes state must stay in step. -->
+  <g class="layer-main">
+    <g>
+      <use href="#bush" x="296" y="436"/><use href="#bush" x="968" y="436"/><use href="#bush" x="1440" y="436"/>
+      <rect x="0" y="460" width="32" height="32" fill="url(#grass-pat)"/><rect x="0" y="492" width="32" height="108" fill="url(#dirt-pat)"/>
+      <rect x="96" y="460" width="352" height="32" fill="url(#grass-pat)"/><rect x="96" y="492" width="352" height="108" fill="url(#dirt-pat)"/>
+      <rect x="544" y="460" width="1056" height="32" fill="url(#grass-pat)"/><rect x="544" y="492" width="1056" height="108" fill="url(#dirt-pat)"/>
+      <use href="#tile-brick" x="656" y="428"/>
+      <use href="#tile-brick" x="688" y="428"/><use href="#tile-brick" x="688" y="396"/>
+      <use href="#tile-brick" x="720" y="428"/><use href="#tile-brick" x="720" y="396"/>
+      <use href="#pipe-tall" x="800" y="380"/>
+      <use href="#pipe-short" x="1312" y="410"/>
+      <use href="#tile-brick" x="1120" y="332"/><use href="#tile-brick" x="1184" y="332"/>
+      <g transform="translate(1160, 312)"><use href="#coin" class="q-coin"/></g>
+      <g transform="translate(1152, 332)">
+        <g class="q-bump"><use href="#tile-q" class="q-fresh"/><use href="#tile-used" class="q-used"/></g>
+      </g>
+      <use href="#coin" x="946.06" y="353.03" class="coin-take-0"/>
+      <use href="#coin" x="974.59" y="337" class="coin-take-1"/>
+      <use href="#coin" x="1003.93" y="353.94" class="coin-take-2"/>
+      <g transform="translate(1109.81, 428)">
+        <g class="goomba-walk">
+          <g class="goomba-alive">
+            <use href="#goomba-body"/>
+            <g class="gfeet-a"><rect y="26" width="12" height="6" fill="#000"/><rect x="2" y="28" width="8" height="3" fill="#502000"/><rect x="20" y="28" width="10" height="4" fill="#000"/></g>
+            <g class="gfeet-b"><rect x="2" y="28" width="10" height="4" fill="#000"/><rect x="20" y="26" width="12" height="6" fill="#000"/><rect x="22" y="28" width="8" height="3" fill="#502000"/></g>
+          </g>
+          <use href="#goomba-squashed" y="16" class="goomba-flat"/>
+        </g>
+      </g></g>
+    <g transform="translate(1600, 0)">
+      <use href="#bush" x="296" y="436"/><use href="#bush" x="968" y="436"/><use href="#bush" x="1440" y="436"/>
+      <rect x="0" y="460" width="32" height="32" fill="url(#grass-pat)"/><rect x="0" y="492" width="32" height="108" fill="url(#dirt-pat)"/>
+      <rect x="96" y="460" width="352" height="32" fill="url(#grass-pat)"/><rect x="96" y="492" width="352" height="108" fill="url(#dirt-pat)"/>
+      <rect x="544" y="460" width="1056" height="32" fill="url(#grass-pat)"/><rect x="544" y="492" width="1056" height="108" fill="url(#dirt-pat)"/>
+      <use href="#tile-brick" x="656" y="428"/>
+      <use href="#tile-brick" x="688" y="428"/><use href="#tile-brick" x="688" y="396"/>
+      <use href="#tile-brick" x="720" y="428"/><use href="#tile-brick" x="720" y="396"/>
+      <use href="#pipe-tall" x="800" y="380"/>
+      <use href="#pipe-short" x="1312" y="410"/>
+      <use href="#tile-brick" x="1120" y="332"/><use href="#tile-brick" x="1184" y="332"/>
+      <g transform="translate(1160, 312)"><use href="#coin" class="q-coin"/></g>
+      <g transform="translate(1152, 332)">
+        <g class="q-bump"><use href="#tile-q" class="q-fresh"/><use href="#tile-used" class="q-used"/></g>
+      </g>
+      <use href="#coin" x="946.06" y="353.03" class="coin-take-0"/>
+      <use href="#coin" x="974.59" y="337" class="coin-take-1"/>
+      <use href="#coin" x="1003.93" y="353.94" class="coin-take-2"/>
+      <g transform="translate(1109.81, 428)">
+        <g class="goomba-walk">
+          <g class="goomba-alive">
+            <use href="#goomba-body"/>
+            <g class="gfeet-a"><rect y="26" width="12" height="6" fill="#000"/><rect x="2" y="28" width="8" height="3" fill="#502000"/><rect x="20" y="28" width="10" height="4" fill="#000"/></g>
+            <g class="gfeet-b"><rect x="2" y="28" width="10" height="4" fill="#000"/><rect x="20" y="26" width="12" height="6" fill="#000"/><rect x="22" y="28" width="8" height="3" fill="#502000"/></g>
+          </g>
+          <use href="#goomba-squashed" y="16" class="goomba-flat"/>
+        </g>
+      </g></g>
+  </g>
+
+  <!-- Mario: fixed on screen, feet on the grass at y=460. -->
+  <g transform="translate(250, 418)">
+    <g class="hero-y">
+      <g class="pose-run">
+        <g class="body-bob">
+          <rect x="6" width="22" height="6" fill="#f82000"/><rect x="4" y="4" width="28" height="6" fill="#f82000"/>
+          <rect x="22" y="4" width="8" height="2" fill="#fff"/>
+          <rect x="6" y="10" width="20" height="8" fill="#f8c0a0"/><rect x="18" y="12" width="4" height="6" fill="#000"/>
+          <rect x="20" y="12" width="2" height="2" fill="#fff"/><rect x="22" y="14" width="6" height="4" fill="#f8c0a0"/>
+          <rect x="16" y="18" width="10" height="3" fill="#502000"/>
+          <rect x="8" y="20" width="16" height="10" fill="#f82000"/><rect x="10" y="22" width="12" height="10" fill="#0040f8"/>
+          <rect x="12" y="24" width="2" height="2" fill="#f8d800"/><rect x="20" y="24" width="2" height="2" fill="#f8d800"/>
+          <rect x="2" y="22" width="6" height="6" fill="#fff"/><rect x="22" y="20" width="6" height="6" fill="#fff"/>
+        </g>
+        <g class="leg-a">
+          <rect x="4" y="32" width="8" height="6" fill="#0040f8"/><rect x="2" y="38" width="10" height="4" fill="#683000"/>
+          <rect x="18" y="32" width="8" height="4" fill="#0040f8"/><rect x="20" y="36" width="10" height="6" fill="#683000"/>
+        </g>
+        <g class="leg-b">
+          <rect x="18" y="32" width="8" height="6" fill="#0040f8"/><rect x="18" y="38" width="10" height="4" fill="#683000"/>
+          <rect x="4" y="32" width="8" height="4" fill="#0040f8"/><rect y="36" width="10" height="6" fill="#683000"/>
+        </g>
+      </g>
+      <g class="pose-jump">
+        <rect x="4" width="22" height="6" fill="#f82000"/><rect x="2" y="4" width="28" height="6" fill="#f82000"/>
+        <rect x="20" y="4" width="8" height="2" fill="#fff"/>
+        <rect x="6" y="10" width="20" height="8" fill="#f8c0a0"/><rect x="18" y="11" width="4" height="5" fill="#000"/>
+        <rect x="20" y="11" width="2" height="2" fill="#fff"/><rect x="16" y="17" width="10" height="3" fill="#502000"/>
+        <rect x="6" y="18" width="16" height="12" fill="#0040f8"/><rect x="8" y="18" width="12" height="6" fill="#f82000"/>
+        <rect x="10" y="22" width="2" height="2" fill="#f8d800"/>
+        <rect x="20" y="8" width="6" height="10" fill="#f82000"/><rect x="20" y="4" width="8" height="6" fill="#fff"/>
+        <rect y="20" width="6" height="6" fill="#fff"/>
+        <rect x="2" y="28" width="10" height="6" fill="#0040f8"/><rect y="34" width="10" height="6" fill="#683000"/>
+        <rect x="16" y="30" width="8" height="8" fill="#0040f8"/><rect x="16" y="38" width="10" height="4" fill="#683000"/>
+      </g>
+    </g>
+  </g>
+</svg>

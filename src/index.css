@@ -1,0 +1,601 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surface & Ink (Backgrounds & Text) — warm cream paper/desk surfaces,
+     warm near-black ink. This is the site's real default resolution:
+     Gamified (the runtime default skin, see SkinContext.tsx) and Heritage
+     currently resolve identically here — see Skin_Gamified.md for the
+     honest state of that overlap. Formerly the retired Bauhaus skin's
+     pink-cream/near-black values; promoted from the old
+     [data-skin="heritage"], [data-skin="gamified"] override block to be the
+     actual sitewide default once Bauhaus was removed. */
+  --color-surface-base: #F6EEDC;
+  --color-surface-elevated: #EDE0BE;
+  --color-surface-inverse: #241C12;
+  --color-surface-soft: #FBF7EC;
+
+  --color-ink-base: #2B2016;
+  --color-ink-subtle: #5C4A34;
+  --color-ink-whisper: #8C7A5C;
+
+  /* Brand/Interaction */
+  --color-theme-accent: #D9622F;
+  --color-theme-accent-hover: #B14A20;
+  --color-theme-primary: #D9622F;
+
+  /* Keeping backward compatibility aliases for current components */
+  --surface-base: var(--color-surface-base);
+  --surface-elevated: var(--color-surface-elevated);
+  --surface-inverse: var(--color-surface-inverse);
+  --surface-soft: var(--color-surface-soft);
+
+  --ink-base: var(--color-ink-base);
+  --ink-subtle: var(--color-ink-subtle);
+  --ink-whisper: var(--color-ink-whisper);
+
+  --theme-accent: var(--color-theme-accent);
+  --theme-accent-hover: var(--color-theme-accent-hover);
+  --theme-primary: var(--color-theme-primary);
+
+  /* Secondary Palette for Data / Specific usages — burnt orange/olive/dusty
+     teal/gold/navy family (see the surface/ink note above) */
+  --color-coral: #D9622F;
+  --color-coral-deep: #B14A20;
+  --color-mint: #6C8F3E;
+  --color-mint-deep: #506B2C;
+  --color-sky: #3E7C8C;
+  --color-sky-deep: #2C5C68;
+  --color-butter: #F0B429;
+  --color-butter-deep: #C98F1A;
+  --color-rose: #D9622F;
+  --color-rose-deep: #B14A20;
+  /* Also the skill tree's leadership pill ramp — CATEGORIES.leadership in
+     core/domain/skillTreeTypes.ts reads these directly. */
+  --color-periwinkle: #C084FC;
+  --color-periwinkle-deep: #9333EA;
+  --color-periwinkle-darkest: #7E22CE;
+  --color-lilac: #D8B4FE;
+  /* Dedicated navy for BentoResponsibilities' BinderClip accent (see
+     --role-responsibilities-accent below) — this used to borrow
+     --color-periwinkle's value, which silently turned every other periwinkle
+     consumer (TimelineRail, the footer's "APPS"/"HAPPY" text, Badge/Avatar's
+     periwinkle option) navy along with it. Split out so retargeting one
+     component's accent never again reaches into the shared palette. */
+  --color-navy: #33415C;
+  /* LinkedIn's brand blues — the navbar's LinkedIn link only. */
+  --color-linkedin: #0A66C2;
+  --color-linkedin-deep: #004182;
+  /* Plain white button fill and its bevel's bottom line — the navbar's Astrocade link. */
+  --color-button-white: #FFFFFF;
+  --color-button-white-deep: #CFCFCF;
+
+  /*
+   * Component identity tokens — indirection between the raw palette and
+   * which project-card component uses which color. A mockup skin
+   * retargets one of these without touching the shared palette (which
+   * other, unrelated components may also consume) or any component file.
+   *
+   * IMPORTANT — CSS custom-property aliasing gotcha, confirmed by
+   * computed-style testing (2026-07-21), not assumed: a var()-aliased
+   * custom property's value is substituted once, where the alias itself
+   * is declared (here, effectively :root) — NOT re-resolved per element
+   * using whatever that element locally overrides the aliased-to
+   * variable to. Overriding --color-coral inside a [data-skin="..."]
+   * block does NOT retarget --role-header-accent on that subtree unless
+   * --role-header-accent is ALSO explicitly redeclared inside that same
+   * block. Every skin that wants a role token to track its palette must
+   * restate it — relevant again the day a second skin's palette actually
+   * diverges from these defaults (heritage and gamified currently share
+   * this exact palette, so neither needs to restate anything below). (An
+   * earlier version of this comment, and of Skin_System.md, claimed the
+   * opposite by analogy to the --surface-base-style aliases further
+   * below in this file — that claim was never actually verified and is
+   * wrong for the same reason; those aliases have the identical bug,
+   * currently latent only because nothing consumes them under an active
+   * non-default skin scope. Todo, not fixed here: `Primitives.tsx` reads
+   * `--ink-base`/`--surface-base` directly, but is dead code — imported
+   * in `Timeline.tsx`, never rendered — so this is inert today, not a
+   * live regression.)
+   */
+  --role-header-accent: var(--color-coral);
+  --role-responsibilities-accent: var(--color-navy);
+  --role-skills-accent: var(--color-sky);
+  --role-achievement-accent: var(--color-butter);
+
+  /* State */
+  --color-success: var(--color-mint);
+  --color-warning: #FFB84D;
+  --color-error: #E8554A;
+
+  /* Rules */
+  --color-rule: var(--color-ink-base);
+  --color-rule-soft: #DCCB9E;
+
+  /* Focus */
+  --color-focus: var(--color-sky);
+
+  /*
+   * Tier 2 — Structural/Variant tokens (Skin_System.md), defined here inside
+   * @theme deliberately. Moving these outside @theme corrupts Tailwind's
+   * build entirely: @theme values that reference a var() defined OUTSIDE
+   * @theme break Tailwind's internal CSS generation (confirmed by bisection,
+   * not guessed — 2026-07-21). Tailwind's own border-* namespace matching
+   * also silently drops --border-presence's OWN declared value from its
+   * computed-style output even while it stays inside @theme — harmless here
+   * because every consumer below uses a `, 1` fallback, so the mechanism is
+   * correct regardless of whether that value is visible via devtools.
+   */
+  --border-presence: 1;
+  --motif-dot-texture: 0;
+  --depth-style: embossed;
+  --motif-slot-machine: on;
+
+  /* Geometry — chunkier rounding than the retired Bauhaus scale */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  /* Border widths — gated by --border-presence via a fallback, see Tier 2 note above */
+  --border-width-xs: calc(2px * var(--border-presence, 1));
+  --border-width-sm: calc(3px * var(--border-presence, 1));
+  --border-width-md: calc(4px * var(--border-presence, 1));
+  --border-width-lg: calc(5px * var(--border-presence, 1));
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Physics / Interaction */
+  --transition-defaults: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --hover-transform: translateY(-2px);
+
+  /* Unified depth system — one physical depth for the entire UI */
+  --ui-depth: 4px;
+  /* Hard bottom edge for board-sized objects, and the one light-top / dark-bottom bevel line used at every size. */
+  --ui-depth-lg: 8px;
+  --bevel-width: 3px;
+  --shadow-color: #000000;
+  --inset-color: #E4DAC4;
+
+  /*
+   * Shadows — embossed (DR-017): a layered box-shadow bevel (light edge on
+   * top, dark edge on bottom) plus a soft ambient shadow, replacing the
+   * retired Bauhaus skin's flat hard-offset. This is the ONLY place this
+   * value is defined; every consumer (the achievement bar, the clipboard
+   * board, the page tabs — all via `shadow-[var(--shadow-raised)]` or an
+   * inline `boxShadow: 'var(--shadow-raised)'`, never the bare
+   * `.shadow-raised`/`.shadow-sunken` utility classes, which Tailwind v4
+   * inlines at build time and which therefore silently ignore this
+   * override — see Skin_System.md's DR-017 correction) inherits from here
+   * automatically. The top/bottom inset lines are deliberately the same
+   * 3px thickness (2026-07-24) — they started at 1.5px/3px, which read as
+   * barely-there on top vs. clearly visible on the bottom. The one
+   * exception is BinderClip's SVG, which can't consume a CSS custom
+   * property as a fill — it mirrors these exact rgba values as JS
+   * constants in `src/components/bento/skins/heritage/palette.ts`
+   * (EMBOSS_LIGHT/EMBOSS_DARK); keep both thicknesses equal in both places
+   * if this ever changes again.
+   */
+  --shadow-raised:
+    inset 0 3px 0 0 rgba(255, 246, 219, 0.5),
+    inset 0 -3px 0 0 rgba(36, 26, 16, 0.3),
+    0 var(--ui-depth) calc(var(--ui-depth) * 3) rgba(20, 14, 8, 0.4);
+  --shadow-sunken:
+    inset 0 3px 6px rgba(20, 14, 8, 0.5),
+    inset 0 -1px 0 0 rgba(255, 246, 219, 0.15);
+  /* Legacy tier names, kept only for call-site compatibility — degenerate,
+     all four resolve the same; not migrated to the embossed formula since
+     nothing in src/ still consumes them (confirmed by grep). */
+  --shadow-applet-sm: 0 var(--ui-depth) 0 0 var(--shadow-color);
+  --shadow-applet-md: 0 var(--ui-depth) 0 0 var(--shadow-color);
+  --shadow-applet-lg: 0 var(--ui-depth) 0 0 var(--shadow-color);
+  --shadow-applet-xl: 0 var(--ui-depth) 0 0 var(--shadow-color);
+
+  /* Fonts */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-arcade: 'Silkscreen', 'Press Start 2P', monospace;
+  /* Handwriting register — consumed by the project section's clipboard paper text
+     (BentoResponsibilities.tsx/BentoSkills.tsx, DR-019). Unconditional across both skins
+     (2026-08-26) — was heritage-only via a [data-skin="heritage"] override below, which meant
+     the identical shared component silently rendered in --font-body under gamified instead.
+     One token, one value, no skin fork to diverge on. */
+  --font-hand: 'Kalam', cursive;
+
+  /* Font sizes — named label tiers */
+  --text-label: 11px;
+  --text-label-sm: 10px;
+  --font-size-body: 17px;
+  --font-size-body-sm: 15px;
+
+  /* Slot machine motif — dark navy-slate inset, matching the site's own accent */
+  --color-slot-casing: #33415C;
+  --color-slot-surface: #24304A;
+  --color-slot-text: #F6EEDC;
+
+  /* Border radius additions */
+  --radius-slot: 12px;
+
+  /* Interaction physics — press depth matches ui-depth */
+  --press-depth: var(--ui-depth);
+  --press-inset-depth: var(--ui-depth);
+
+  /* Chrome dimensions (--chrome-navbar-height varies per screen tier, see below) */
+  --chrome-icon-slot-size: 90px;
+  --chrome-icon-size: 36px;
+
+  /*
+   * Device shell chrome — the "black mobile frame" around the project
+   * screenshot/video. Intentionally hardcoded literals, NOT var()
+   * references to --color-ink-base/--shadow-raised: a var() reference
+   * would still re-resolve against whatever skin is active at the point
+   * of use (same mechanism that makes --surface-base's alias above skin-
+   * aware), which is exactly what this must NOT do. This frame stays
+   * pixel-identical across every skin, including future mockups — see
+   * Skin_System.md's Locked Constraints.
+   */
+  --chrome-device-shell: #000000;
+  --chrome-device-shadow: 0 4px 0 0 #000000;
+
+  /* Background texture */
+  --texture-dot-size: 1px;
+  --texture-dot-gap: 28px;
+  --texture-overlay-opacity: 0.96;
+  --texture-stripe-width: 2px;
+  --texture-stripe-period: 8px;
+}
+
+/*
+ * Screen tiers (T-055). The four media conditions live only here: components
+ * use the variants below, and JS reads --screen-tier. tablet:/laptop:/desktop:
+ * apply from that tier up, like Tailwind's own breakpoints; mobile: applies to
+ * mobile only. Under 600px tall counts as mobile so a phone held sideways
+ * never gets a snap layout it can't fit.
+ */
+@custom-variant mobile (@media (width < 768px), (height < 600px));
+@custom-variant tablet (@media (width >= 768px) and (height >= 600px));
+@custom-variant laptop (@media (width >= 1280px) and (height >= 600px));
+@custom-variant desktop (@media (width >= 1600px) and (height >= 600px));
+
+/* The skill tree's details column is clamp(min, what the full-size tree leaves, max) at every tier. */
+:root {
+  --screen-tier: mobile;
+  --chrome-navbar-height: 56px;
+  --tier-gutter: 12px;
+  --tier-gutter-y: 12px;
+  --tier-column-gap: 12px;
+  --tier-hero-name-size: 56px;
+
+  @variant tablet {
+    --screen-tier: tablet;
+    --chrome-navbar-height: 64px;
+    --tier-gutter: 16px;
+    --tier-gutter-y: 24px;
+    --tier-column-gap: 24px;
+    --tier-hero-name-size: 72px;
+    --skilltree-pad: 8px;
+    --skilltree-gap-min: 16px;
+    --skilltree-gap-max: 60px;
+    --skilltree-row-gap-max: 10px;
+    --skilltree-details-min-width: 330px;
+    --skilltree-details-max-width: 330px;
+  }
+  @variant laptop {
+    --screen-tier: laptop;
+    --tier-gutter: 24px;
+    --tier-column-gap: 32px;
+    --skilltree-pad: 12px;
+    --skilltree-gap-min: 24px;
+    --skilltree-details-max-width: 400px;
+  }
+  @variant desktop {
+    --screen-tier: desktop;
+    --tier-gutter: 48px;
+    --tier-gutter-y: 40px;
+    --tier-column-gap: 48px;
+    --tier-hero-name-size: 96px;
+    --skilltree-pad: 24px;
+    --skilltree-gap-min: 60px;
+    --skilltree-gap-max: 160px;
+    --skilltree-row-gap-max: 20px;
+    --skilltree-details-min-width: 600px;
+    --skilltree-details-max-width: 600px;
+  }
+}
+
+/*
+ * "Heritage" skin — redirected 2026-07-21 (DR-019) from its original
+ * Castellum/Crown-of-Thrones-derived parchment identity (DR-014/016/017) to
+ * a desk/clipboard concept: structure AND visual language borrowed from a
+ * reference mood-board (image.png), reworked with original hex values and a
+ * handwriting register for the clipboard's own paper text — not a literal
+ * copy of that board's specific brand. See DR-019 for the full reasoning,
+ * including the named ANTI_PATTERNS.md guardrail this stays clear of.
+ *
+ * Heritage's full Tier 1/2 resolution used to live in this override block,
+ * duplicated across [data-skin="heritage"] AND [data-skin="gamified"] since
+ * both skins happened to share every value. Once Bauhaus was retired, that
+ * shared resolution was promoted to be the @theme block's own default
+ * (Gamified is the actual runtime-default skin — see SkinContext.tsx) —
+ * removing the duplication rather than keeping two skins' worth of
+ * identical overrides live. Its handwriting register (--font-hand) is now
+ * unconditional too (2026-08-26, see the @theme declaration above) — no
+ * [data-skin="heritage"] override block remains; there is currently no
+ * skin-conditional CSS anywhere in this file.
+ */
+
+* { box-sizing: border-box; }
+
+/* Global hidden scrollbars */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--surface-base);
+  color: var(--ink-base);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  /* --motif-dot-texture toggles the dot grid by scaling its own radius to 0
+     instead of fading the dot color's alpha via color-mix() (only supported
+     from Chrome 111 onward, and dropped, whole-declaration, on older
+     browsers — see BentoSkills.tsx/BentoResponsibilities.tsx for the same
+     fix applied to the heritage skin's sticky notes and binder clip). A
+     plain calc() on a length works everywhere calc() does, which is
+     effectively every browser this site needs to support. */
+  background-image: radial-gradient(var(--color-ink-base) calc(var(--texture-dot-size) * var(--motif-dot-texture, 1)), transparent calc(var(--texture-dot-size) + 0.5px));
+  background-size: var(--texture-dot-gap) var(--texture-dot-gap);
+  background-position: 0 0;
+  background-attachment: fixed;
+  background-color: var(--surface-base);
+  background-blend-mode: normal;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--surface-base);
+  opacity: var(--texture-overlay-opacity);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important;
+  }
+}
+
+/* Focus */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.font-arcade {
+  font-family: var(--font-arcade);
+}
+
+.font-pixelify {
+  font-family: 'Pixelify Sans', cursive;
+}
+
+.font-press-start {
+  font-family: 'Press Start 2P', monospace;
+}
+
+.font-jersey {
+  font-family: 'Jersey 15', monospace;
+}
+
+.font-jersey-10 {
+  font-family: 'Jersey 10', monospace;
+}
+
+.font-jersey-25 {
+  font-family: 'Jersey 25', monospace;
+}
+
+.font-jersey-10-charted {
+  font-family: 'Jersey 10 Charted', monospace;
+}
+
+.font-jersey-25-charted {
+  font-family: 'Jersey 25 Charted', monospace;
+}
+
+.font-tiny5 {
+  font-family: 'Tiny5', monospace;
+}
+
+/* The one raised-button behaviour (components/atoms/Button.tsx sets the parameters). Bevel = light
+   top line + dark bottom line; the undershadow is a hard offset of --btn-depth. Hover/press slides the
+   face down by exactly --btn-depth and drops the undershadow, so the button's lowest edge never moves. */
+.raised-button {
+  border-style: solid;
+  border-color: var(--color-ink-base);
+  border-width: var(--btn-border);
+  background-color: var(--btn-fill);
+  box-shadow:
+    inset 0 var(--btn-bevel) 0 0 rgba(255, 246, 219, var(--btn-highlight, 0.5)),
+    inset 0 calc(var(--btn-bevel) * -1) 0 0 var(--btn-deep),
+    0 var(--btn-depth) 0 0 var(--shadow-color);
+  transition: transform 100ms ease-out, box-shadow 100ms ease-out;
+  cursor: pointer;
+}
+
+.raised-button:hover,
+.raised-button:active {
+  transform: translateY(var(--btn-depth));
+  box-shadow:
+    inset 0 var(--btn-bevel) 0 0 rgba(255, 246, 219, var(--btn-highlight, 0.5)),
+    inset 0 calc(var(--btn-bevel) * -1) 0 0 var(--btn-deep);
+}
+
+.carved-text {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6B3A1C;
+  text-shadow: 0 -2px 0 rgba(110, 42, 46, 0.55), 0 2px 0 rgba(243, 206, 134, 0.45);
+}
+
+.carved-text-selected {
+  /* Flat fill (no carve bevel) with a 2px white ring: whole-pixel offsets on a disc, so the ring
+     rasterizes identically on every side instead of thinning where half-pixels round away. */
+  text-shadow:
+    -1px -2px 0 #FFFFFF,
+    0 -2px 0 #FFFFFF,
+    1px -2px 0 #FFFFFF,
+    -2px -1px 0 #FFFFFF,
+    -1px -1px 0 #FFFFFF,
+    0 -1px 0 #FFFFFF,
+    1px -1px 0 #FFFFFF,
+    2px -1px 0 #FFFFFF,
+    -2px 0 0 #FFFFFF,
+    -1px 0 0 #FFFFFF,
+    1px 0 0 #FFFFFF,
+    2px 0 0 #FFFFFF,
+    -2px 1px 0 #FFFFFF,
+    -1px 1px 0 #FFFFFF,
+    0 1px 0 #FFFFFF,
+    1px 1px 0 #FFFFFF,
+    2px 1px 0 #FFFFFF,
+    -1px 2px 0 #FFFFFF,
+    0 2px 0 #FFFFFF,
+    1px 2px 0 #FFFFFF;
+}
+
+.pixel-text-outline {
+  /* Every offset scales with --pixel-outline-unit so a smaller copy keeps the same proportions. */
+  --u: var(--pixel-outline-unit, 1px);
+  color: #FFFFFF;
+  text-shadow:
+    /* Tight 2.5px crisp dark outline all around */
+    calc(var(--u) * -2) calc(var(--u) * -2) 0 #1C1610,
+     calc(var(--u) * 2) calc(var(--u) * -2) 0 #1C1610,
+    calc(var(--u) * -2) calc(var(--u) * 2) 0 #1C1610,
+     calc(var(--u) * 2) calc(var(--u) * 2) 0 #1C1610,
+    calc(var(--u) * -3) 0 0 #1C1610,
+     calc(var(--u) * 3) 0 0 #1C1610,
+     0 calc(var(--u) * -3) 0 #1C1610,
+     0 calc(var(--u) * 3) 0 #1C1610,
+
+    /* Downward 3D block extrude / undershadow */
+     0 calc(var(--u) * 4) 0 #1C1610,
+     0 calc(var(--u) * 5) 0 #1C1610,
+     0 calc(var(--u) * 6) 0 #1C1610,
+     0 calc(var(--u) * 7) 0 #1C1610,
+     0 calc(var(--u) * 8) 0 #1C1610,
+    calc(var(--u) * -1) calc(var(--u) * 5) 0 #1C1610,
+     calc(var(--u) * 1) calc(var(--u) * 5) 0 #1C1610,
+    calc(var(--u) * -1) calc(var(--u) * 6) 0 #1C1610,
+     calc(var(--u) * 1) calc(var(--u) * 6) 0 #1C1610,
+    calc(var(--u) * -2) calc(var(--u) * 7) 0 #1C1610,
+     calc(var(--u) * 2) calc(var(--u) * 7) 0 #1C1610,
+    calc(var(--u) * -2) calc(var(--u) * 8) 0 #000000,
+     0 calc(var(--u) * 8) 0 #000000,
+     calc(var(--u) * 2) calc(var(--u) * 8) 0 #000000,
+
+    /* Soft ambient depth shadow */
+     0 calc(var(--u) * 12) calc(var(--u) * 10) rgba(28, 22, 16, 0.45);
+}
+
+.pixel-text-outline-thick {
+  color: #FFFFFF;
+  -webkit-text-stroke: 2.5px #1C1610;
+  paint-order: stroke fill;
+  text-shadow:
+    -3px -3px 0 #1C1610,
+     3px -3px 0 #1C1610,
+    -3px  3px 0 #1C1610,
+     3px  3px 0 #1C1610,
+     0    5px 0 #000000;
+}
+
+@keyframes terminalCursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-terminal-cursor {
+  animation: terminalCursorBlink 0.8s step-start infinite;
+}
+
+/* Endless motion stays transform-only so the browser runs it on the GPU: the outlined text is
+   painted once and slid, instead of being repainted (22 text shadows, one blurred) every frame. */
+@keyframes heroNameBob {
+  0%, 50%, 100% { transform: translateY(0); }
+  12.5% { transform: translateY(-1.5px); }
+  25% { transform: translateY(-3px); }
+  37.5% { transform: translateY(-1.5px); }
+  62.5% { transform: translateY(1.5px); }
+  75% { transform: translateY(3px); }
+  87.5% { transform: translateY(1.5px); }
+}
+
+.hero-name-letter {
+  display: inline-block;
+  will-change: transform;
+  animation: heroNameBob var(--bob-duration) ease-in-out var(--bob-delay) infinite;
+}
+
+/* Duck Hunt easter egg (T-071): crosshair over the hero, and a pixel burst where a shot lands.
+   Controls keep their own cursor. The burst only scales and fades (C-008). */
+.duck-hunt-area {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Ccircle cx='16' cy='16' r='10' stroke='%23000' stroke-width='4'/%3E%3Ccircle cx='16' cy='16' r='10' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M16 2v8M16 22v8M2 16h8M22 16h8' stroke='%23000' stroke-width='4'/%3E%3Cpath d='M16 3v6M16 23v6M3 16h6M23 16h6' stroke='%23fff' stroke-width='2'/%3E%3C/g%3E%3Crect x='15' y='15' width='2' height='2' fill='%23fff'/%3E%3C/svg%3E") 16 16, crosshair;
+}
+
+@keyframes duckShotBurst {
+  from { transform: scale(0.5); opacity: 1; }
+  to { transform: scale(1.6); opacity: 0; }
+}
+
+.duck-shot {
+  position: absolute;
+  z-index: 20;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  pointer-events: none;
+  background: var(--color-button-white);
+  box-shadow:
+    0 -8px 0 0 var(--color-butter), 0 8px 0 0 var(--color-butter),
+    -8px 0 0 0 var(--color-butter), 8px 0 0 0 var(--color-butter),
+    -6px -6px 0 0 var(--color-button-white), 6px -6px 0 0 var(--color-button-white),
+    -6px 6px 0 0 var(--color-button-white), 6px 6px 0 0 var(--color-button-white);
+  animation: duckShotBurst 240ms steps(3) forwards;
+}
+
+@keyframes hintBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.hint-bob {
+  will-change: transform;
+  animation: hintBob 1.1s ease-in-out infinite;
+}
+

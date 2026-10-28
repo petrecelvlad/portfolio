@@ -1,0 +1,609 @@
+[
+  {
+    "id": "exp-styngr-2026",
+    "company": "Styngr",
+    "companyLogo": "/assets/logos/Logo_Styngr.svg",
+    "companyUrl": "https://www.styngr.com/",
+    "startDate": "2026-04-13",
+    "endDate": "2026-08-31",
+    "projects": [
+      {
+        "id": "proj-playmusic",
+        "title": "PlayMusic",
+        "role": "Game Designer & Developer",
+        "startDate": "2026-04-13",
+        "endDate": "2026-08-31",
+        "description": "Styngr's music game platform, where creators customize ready-made game templates and the chosen song drives the gameplay. Designed and developed new templates end to end.",
+        "icon": "/assets/icons/Icon_PlayMusic.svg",
+        "type": "GAME",
+        "overview": {
+          "summary": "A music game platform by Styngr where creators customize game templates and the chosen song drives the gameplay. Game designer and developer of new game templates and the tools used to make them."
+        },
+        "responsibilities": [
+          "Designed and developed new game templates, taking each one from the design doc all the way to release",
+          "Designed music-driven gameplay, where the structure of each song sets the pace and what happens on screen",
+          "Built 4 rhythm game templates modeled on osu!, Mania, Catch the Fruit and Taiko",
+          "Prototyped a music-driven pinball game with a modular board that creators build themselves, where every element reacts to the song",
+          "Designed a modular shooter where every component is a config, so creators can build many different kinds of shooters",
+          "Redesigned and rebuilt the team’s internal editor, pulling scattered ad-hoc features together into one clear UI and UX",
+          "Co-designed the modular architecture that all the templates are built on"
+        ],
+        "achievements": [
+          "First studio role covering both game design and development, through AI-assisted coding"
+        ],
+        "technologies": ["Game Design", "System Design", "Game Development", "Claude Code", "GitHub"],
+        "keyScreenshots": ["/assets/screenshots/PlayMusic/SS_PlayMusic_1.jpg"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=mrIzOBLPwA0", "pages": [{ "kind": "website", "url": "https://playmusic.gg/" }, { "kind": "facebook", "url": "https://www.facebook.com/profile.php?id=61583843487005" }, { "kind": "instagram", "url": "https://www.instagram.com/playmusic.gg" }, { "kind": "x", "url": "https://x.com/playmusic_gg" }, { "kind": "discord", "url": "https://discord.gg/SwyzcgME5z" }] }
+      }
+    ]
+  },
+  {
+    "id": "exp-astrocade-2026",
+    "company": "Astrocade",
+    "companyLogo": "/assets/logos/Logo_Astrocade.svg",
+    "companyUrl": "https://www.astrocade.com/",
+    "startDate": "2026-01-01",
+    "endDate": "2026-04-01",
+    "projects": [
+      {
+        "id": "proj-astrocade",
+        "title": "Astrocade",
+        "role": "Game Designer & Developer",
+        "startDate": "2026-01-01",
+        "endDate": "2026-04-01",
+        "description": "A social gaming platform where anyone makes games by prompting AI. Designed and released 3 games on it, with 700K+ plays.",
+        "icon": "/assets/icons/Icon_Astrocade.svg",
+        "type": "GAME",
+        "overview": {
+          "summary": "An AI-driven social game platform that generates playable games from text prompts. Solo game designer and developer with several games released on the platform."
+        },
+        "responsibilities": [
+          "Designed and released 3 games solo, handling everything from the first concept to launch",
+          "**Fruit Frenzy** is a fruit-linking puzzle game where you connect tumbling fruits, create powerful boosters with longer chains, and clear an increasingly crowded pile before it overflows!",
+          "**Brick Breaker** is a physics-based reverse-breakout arcade game in which gravity-affected cannon shots ricochet through rising numeric blocks, destroying them before the stack reaches the top boundary.",
+          "**Kubes** is a physics-based projectile-merge puzzle game in which launched cubes combine with matching values as a piston advances the stack; the goal is to reach 2048 before a cube crosses the danger line.",
+          "Balanced each game over many rounds of tuning, until the difficulty and pacing felt right",
+          "Polished the art of each game until it all fit together into one visual style",
+          "Tuned the visual effects so every link, hit and merge feels juicy and satisfying"
+        ],
+        "achievements": [
+          "700K+ plays from 3 games"
+        ],
+        "technologies": ["Game Design", "Game Development", "Self-Publishing"],
+        "keyScreenshots": ["/assets/screenshots/Astrocade/SS_Astrocade_1.jpg", "/assets/screenshots/Astrocade/SS_Astrocade_2.jpg", "/assets/screenshots/Astrocade/SS_Astrocade_3.jpg"],
+        "frameOrientation": "portrait",
+        "links": { "pages": [{ "kind": "website", "url": "https://www.astrocade.com/profile/Octo" }] }
+      }
+    ]
+  },
+  {
+    "id": "exp-metacore-2024",
+    "company": "Metacore",
+    "companyLogo": "/assets/logos/Logo_Metacore.svg",
+    "companyUrl": "https://metacoregames.com/",
+    "location": "Remote",
+    "startDate": "2024-08-01",
+    "endDate": "2025-01-30",
+    "projects": [
+      {
+        "id": "proj-merge-mansion",
+        "title": "Merge Mansion",
+        "role": "Level Designer",
+        "startDate": "2024-08-01",
+        "endDate": "2025-01-30",
+        "description": "One of the world's top-grossing merge games. Rebalanced the progression of its Maze region.",
+        "icon": "/assets/icons/Icon_MM.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "A mobile merge-puzzle game by Metacore, built around restoring a mansion and the family mystery behind it. Level designer focused on region progression and balancing."
+        },
+        "responsibilities": [
+          "Led a rebalance of the Maze region’s progression, driven by player data",
+          "Found where progression was frustrating players by digging into KPIs and player feedback",
+          "Restructured quest requirements so the region plays at a smoother, steadier pace",
+          "Worked with the other designers and the Narrative team to keep the changes consistent across regions"
+        ],
+        "achievements": [
+          "Rebalanced the Maze region of one of the world's top-grossing merge games"
+        ],
+        "technologies": ["Level Design", "Balancing", "Research"],
+        "keyScreenshots": ["/assets/screenshots/MergeMansion/SS_MergeMansion_1.jpg"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=DUZSjukx2OI", "pages": [{ "kind": "website", "url": "https://mergemansion.com/" }, { "kind": "appStore", "url": "https://apps.apple.com/app/id1484442152" }, { "kind": "googlePlay", "url": "https://play.google.com/store/apps/details?id=com.everywear.game5" }, { "kind": "facebook", "url": "https://www.facebook.com/MergeMansionOfficial" }, { "kind": "instagram", "url": "https://www.instagram.com/mergemansion" }, { "kind": "x", "url": "https://x.com/Mergemansion" }] }
+      }
+    ]
+  },
+  {
+    "id": "exp-upit-2023-2025",
+    "company": "FRVR",
+    "companyLogo": "/assets/logos/Logo_FRVR.png",
+    "companyUrl": "https://frvr.com/",
+    "startDate": "2023-11-28",
+    "endDate": "2025-06-28",
+    "projects": [
+      {
+        "id": "proj-upit",
+        "title": "Upit",
+        "role": "Game Designer & Developer",
+        "startDate": "2023-11-28",
+        "endDate": "2025-06-28",
+        "description": "The first AI-powered game engine, launched as FRVR, where games are made by prompting AI. Designed and released 30 games on it, with 300K+ plays.",
+        "icon": "/assets/icons/Icon_Upit.svg",
+        "type": "GAME",
+        "overview": {
+          "summary": "An AI game engine in which complete games are built and refined through prompts to an agent. One-person team designing and developing a catalog of games on the platform."
+        },
+        "responsibilities": [
+          "Designed and released 30 games solo, from the first concept through the code to launch",
+          "Prototyped a wide range of genres and mechanics, releasing games fast to see what worked",
+          "**Curling Cup** is a circular arena breakout game in which a paddle orbiting the perimeter bounces a ball inward to keep it in play while collecting bonus coins, ending when the ball escapes the arena.",
+          "**Hit the Slopes** is a physics-based projectile game in which snowballs are launched toward moving snowboarders, with the objective to eliminate all of them before running out of ammunition.",
+          "**Dagger Drop** is a precision-based arcade game where players time the release of falling daggers to destroy moving targets across progressively challenging levels, earning multiplied points for consecutive hits before losing all daggers or targets escape.",
+          "Built up a following of 4,000+ players across the catalog"
+        ],
+        "achievements": [
+          "30 games released, 300K+ plays in total"
+        ],
+        "technologies": ["Game Design", "Game Development", "Prototyping", "Self-Publishing"],
+        "keyScreenshots": [],
+        "frameOrientation": "portrait",
+        "links": { "youtube": "https://www.youtube.com/shorts/0bB7_PFdU9A", "pages": [{ "kind": "website", "url": "https://upit.com/@octo/games" }] }
+      }
+    ]
+  },
+  {
+    "id": "exp-deca-games-2023",
+    "company": "DECA Games",
+    "companyLogo": "/assets/logos/Logo_DECA.png",
+    "companyUrl": "https://decagames.com/",
+    "location": "Remote",
+    "startDate": "2023-05-01",
+    "endDate": "2023-10-31",
+    "projects": [
+      {
+        "id": "proj-deca-rotmg",
+        "title": "Realm of the Mad God",
+        "role": "Sr. Game Designer",
+        "startDate": "2023-05-01",
+        "endDate": "2023-10-31",
+        "description": "A long-running MMO in DECA Games' portfolio. Designed the Crucible event system and two class sets released in Exalt 4.0.4.0.",
+        "icon": "/assets/icons/Icon_ROTMG.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "A long-running bullet-hell MMO by DECA Games, defined by co-op dungeon runs and permanent character death. Senior game designer for live events, loot and new class content."
+        },
+        "responsibilities": [
+          "Designed Crucibles, a modular event system that makes it cheap to create many different live events",
+          "Owned Crucibles end to end, from the requirements and technical scoping with engineering to the UX of the internal tool",
+          "Proposed a dynamic weapon stat system so each loot drop rolls its own stats, prepared to be tested through an A/B test",
+          "Designed a full set of weapons to go out with the new system’s phased rollout",
+          "Designed the Sorcerer’s Storm Shaman Set and the Knight’s Mad Minotaur Set"
+        ],
+        "achievements": [
+          "Designed the event system behind Crucibles, released in Exalt 4.0.4.0"
+        ],
+        "technologies": ["Game Design", "System Design", "Live Ops", "UX Design", "A/B Testing"],
+        "keyScreenshots": ["/assets/screenshots/ROTMG/SS_ROTMG_1.jpg", "/assets/screenshots/ROTMG/SS_ROTMG_2.jpg"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=fFNaSLSmp2k", "pages": [{ "kind": "website", "url": "https://www.realmofthemadgod.com/" }, { "kind": "steam", "url": "https://store.steampowered.com/app/200210/" }, { "kind": "article", "label": "Update 4.0.4.0", "url": "https://www.realmeye.com/wiki/release-history-2023#exalt-version-4-0-4-0" }, { "kind": "article", "label": "Storm Shaman Set", "url": "https://www.realmeye.com/wiki/storm-shaman-set" }, { "kind": "article", "label": "Mad Minotaur Set", "url": "https://www.realmeye.com/wiki/mad-minotaur-set" }, { "kind": "facebook", "url": "https://www.facebook.com/rotmg" }, { "kind": "x", "url": "https://x.com/RotMG_news" }, { "kind": "discord", "url": "https://discord.gg/rotmg" }] }
+      }
+    ]
+  },
+  {
+    "id": "exp-amber-2019-2023",
+    "company": "Amber Studio",
+    "companyLogo": "/assets/logos/Logo_Amber.svg",
+    "companyUrl": "https://amberstudio.com/",
+    "location": "Bucharest",
+    "startDate": "2019-03-01",
+    "endDate": "2023-04-30",
+    "projects": [
+      {
+        "id": "proj-lead-level-designer",
+        "title": "Amber",
+        "role": "Lead Level Designer",
+        "startDate": "2019-03-01",
+        "endDate": "2022-10-30",
+        "description": "Level production for puzzle games from King and other clients at Amber Studio. Built and led 5 level design teams, each until it ran on its own.",
+        "icon": "/assets/icons/Icon_Amber.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "Amber Studio's level production for puzzle games from King and other clients. Lead level designer heading the level design teams and their production pipeline."
+        },
+        "responsibilities": [
+          "Built and led 5 level design teams, running each one for about 6 months until it could work on its own",
+          "Main point of contact for King on Diamond Diaries, Pet Rescue and Bubble Witch 2, turning what the client needed into clear direction for the teams",
+          "Trained 12 level designers, picked from QA testers who showed a talent for design",
+          "Volunteered in Amber’s student training program, mentoring a design student from Mexico for 3 months",
+          "Designed the level production pipeline, from sprint cadence and reviews to the definition of done, with client feedback closing each cycle",
+          "Pulled all the documentation into one design standard, so every batch of levels felt like it came from one team",
+          "Created the Puzzle Tag System, which tags levels by archetype to plan varied batches, later used on other projects too",
+          "Built 1,000+ levels personally, out of the 5,000+ the teams shipped"
+        ],
+        "achievements": [
+          "Coordinated 5 teams, defining the main design pipeline and daily workflows."
+        ],
+        "technologies": ["Level Design", "Team Leadership", "Pipeline Design", "Agile Planning", "Process Standardization"],
+        "keyScreenshots": [
+          { "src": "/assets/screenshots/Amber/SS_DiamondDiaries_1.jpg", "caption": "Diamond Diaries Saga", "links": [{ "kind": "website", "url": "https://www.king.com/game/diamonddiaries" }, { "kind": "appStore", "url": "https://apps.apple.com/app/id1313343774" }, { "kind": "googlePlay", "url": "https://play.google.com/store/apps/details?id=com.king.diamonddiariessaga" }, { "kind": "article", "label": "Case study", "url": "https://amberstudio.com/insights/case-studies/collaborating-with-king-to-deliver-high-quality-content-for-diamond-diaries-saga" }] },
+          { "src": "/assets/screenshots/Amber/SS_BWS_2.jpg", "caption": "Bubble Witch 2 Saga", "links": [{ "kind": "website", "url": "https://www.king.com/game/bubblewitch2" }, { "kind": "appStore", "url": "https://apps.apple.com/app/id834393815" }, { "kind": "googlePlay", "url": "https://play.google.com/store/apps/details?id=com.midasplayer.apps.bubblewitchsaga2" }] },
+          { "src": "/assets/screenshots/Amber/SS_PetRescue_4.jpg", "caption": "Pet Rescue Saga", "links": [{ "kind": "website", "url": "https://www.king.com/game/petrescue" }, { "kind": "appStore", "url": "https://apps.apple.com/app/id572821456" }, { "kind": "googlePlay", "url": "https://play.google.com/store/apps/details?id=com.king.petrescuesaga" }] },
+          { "src": "/assets/screenshots/Amber/SS_Frozen_5.webp", "caption": "Frozen Free Fall", "links": [{ "kind": "appStore", "url": "https://apps.apple.com/app/id692412579" }, { "kind": "googlePlay", "url": "https://play.google.com/store/apps/details?id=com.disney.frozensaga_goo" }] },
+          { "src": "/assets/screenshots/Amber/SS_WildThings_6.jpg", "caption": "Wild Things: Animal Adventures", "links": [{ "kind": "appStore", "url": "https://apps.apple.com/app/id1615431398" }, { "kind": "googlePlay", "url": "https://play.google.com/store/apps/details?id=com.netflix.NGP.WildThingsAnimalAdventures" }, { "kind": "article", "label": "Video", "url": "https://amberstudio.com/insights/video/wild-things-animal-adventures-a-new-mobile-game-delight" }] }
+        ],
+        "links": { "pages": [] }
+      },
+      {
+        "id": "proj-fe-high-voltage",
+        "title": "Formula E High Voltage",
+        "role": "Principal Game Designer",
+        "startDate": "2022-11-01",
+        "endDate": "2023-04-30",
+        "description": "A Formula E team-management game by Animoca Brands, with NFT cars and drivers in the REVV token ecosystem. Principal designer who owned every core gameplay system.",
+        "icon": "/assets/icons/Icon_FEHV.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "A Formula E team-management game made for Animoca Brands, with cars and drivers owned as NFTs. Principal game designer responsible for the core gameplay systems."
+        },
+        "responsibilities": [
+          "Led the high-level design of the game’s core systems and features",
+          "Researched real Formula E cars, races and circuits, turning them into mechanics and tracks that match the real ones",
+          "Designed the energy system, which decides how each car spends its energy and when it can use the Nitro boost",
+          "Designed the Skills system, with active and passive skills that come from NFTs and get stronger with rarity",
+          "Worked with the UI team and the Economy Designer to keep the core systems in sync with their work",
+          "Helped bring the weather system into the core gameplay"
+        ],
+        "achievements": [
+          "Designed the core systems of an official Formula E game"
+        ],
+        "technologies": ["Blockchain / NFTs", "Game Design", "System Design", "Research"],
+        "keyScreenshots": ["/assets/screenshots/FEHV/SS_FEHV_1.png", "/assets/screenshots/FEHV/SS_FEHV_2.jpg", "/assets/screenshots/FEHV/SS_FEHV_3.jpg", "/assets/screenshots/FEHV/SS_FEHV_4.png", "/assets/screenshots/FEHV/SS_FEHV_5.png"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=NlQGp6XngcI", "pages": [{ "kind": "facebook", "url": "https://www.facebook.com/FormulaEHighVoltage" }, { "kind": "x", "url": "https://x.com/FormulaE_HV" }, { "kind": "discord", "url": "https://discord.com/invite/Ge6mKzteCZ" }] },
+        "isDiscontinued": true,
+        "client": { "company": "Animoca Brands", "companyLogo": "/assets/logos/Logo_Animoca.svg", "companyUrl": "https://www.animocabrands.com/" }
+      }
+    ]
+  },
+  {
+    "id": "exp-idle-td-2018-2019",
+    "company": "Independent",
+    "companyLogo": "",
+    "startDate": "2018-05-01",
+    "endDate": "2019-02-28",
+    "projects": [
+      {
+        "id": "proj-idle-td",
+        "title": "Tap TD",
+        "role": "Game Producer",
+        "startDate": "2018-05-01",
+        "endDate": "2019-02-28",
+        "description": "A first-of-its-kind active tower defense for mobile, blending idle clicking with tower defense. Conceived and produced it, owning everything but the code and art.",
+        "icon": "/assets/icons/Icon_TapTD.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "A mobile tower-defense game blending idle clicking with direct combat on the map. Game producer leading the team through the full production cycle, from first concept to post-launch updates."
+        },
+        "responsibilities": [
+          "Came up with the idea for Tap TD, a tower defense where players also fight enemies directly on the map",
+          "Produced the game with 3 former King employees, from the first concept to launch and the live updates after",
+          "Coordinated the art and programming, and took on every other discipline",
+          "Ran the marketing, from the strategy and promotional videos to social media and the community",
+          "Balanced how enemy HP scales against tower damage and abilities, across the whole progression",
+          "Set up the monetization, designing the shop, everything in it and the pricing of the premium packs",
+          "Kept ads fully optional, using only rewarded ads that players choose to watch",
+          "Designed the maps and the meta loop that moves players through them, along with the abilities and skills",
+          "Designed the UI and UX for both the menus and the in-game interface",
+          "Wrote the story and lore, and built the branding so the towers, the enemies and the game share one identity",
+          "Reworked the core and meta loops after launch, based on what the live KPIs showed"
+        ],
+        "achievements": [
+          "Reached 100K organic installs on Google Play"
+        ],
+        "technologies": ["Game Production", "Game Design", "Marketing", "Economy Design", "Monetization", "Level Design", "UX Design", "Community Mgmt", "KPI Tracking"],
+        "keyScreenshots": ["/assets/screenshots/TapTD/SS_TapTD_1.png", "/assets/screenshots/TapTD/SS_TapTD_2.png", "/assets/screenshots/TapTD/SS_TapTD_3.png", "/assets/screenshots/TapTD/SS_TapTD_4.png", "/assets/screenshots/TapTD/SS_TapTD_5.png", "/assets/screenshots/TapTD/SS_TapTD_6.png", "/assets/screenshots/TapTD/SS_TapTD_7.png"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=6OuN6ncCRNo", "pages": [] },
+        "isDiscontinued": true
+      }
+    ]
+  },
+  {
+    "id": "exp-newton-slots-2017-2018",
+    "company": "Newton Slots",
+    "companyLogo": "/assets/logos/Logo_Newton.png",
+    "companyUrl": "https://www.newtonslots.com/",
+    "startDate": "2017-10-01",
+    "endDate": "2018-04-30",
+    "projects": [
+      {
+        "id": "proj-newton-slots",
+        "title": "Lucky Slots & Friends",
+        "role": "Game Designer",
+        "startDate": "2017-10-01",
+        "endDate": "2018-04-30",
+        "description": "A slots game where players interact with the reels, a Slots + Match-3 hybrid. Designed its first-of-its-kind hybrid mechanic from concept to implementation.",
+        "icon": "/assets/icons/Icon_Slots.jpg",
+        "type": "GAME",
+        "overview": {
+          "summary": "An interactive slots game by Newton Slots, with reels that can be swapped by hand once they stop. Game designer behind the reel swap mechanic, new themed slot games and their bonus games."
+        },
+        "responsibilities": [
+          "Designed new slot games, each with a unique bonus game built around the game’s own theme",
+          "Designed a mechanic that lets players manually swap a reel after it stops, giving them some control over the result",
+          "Wrote the full rule set for the swapping mechanic and worked with the developers to get it built",
+          "Prototyped the UI and UX for each game, which the graphic artist then turned into the final art",
+          "Worked with the senior game designer in charge of the economy and math, making sure his payout tables were implemented correctly in each slot",
+          "Designed the loot box system and how its rewards grow as players progress"
+        ],
+        "achievements": [
+          "One of the first slots games where players control the reels after a spin"
+        ],
+        "technologies": ["Game Design", "UX Design", "Mechanics Design"],
+        "keyScreenshots": ["/assets/screenshots/LuckySlots/SS_LuckySlots_1.jpg"],
+        "links": { "pages": [{ "kind": "website", "url": "https://newtonslots.com" }] }
+      }
+    ]
+  },
+  {
+    "id": "exp-clash-of-towers-2017",
+    "company": "Independent",
+    "companyLogo": "",
+    "startDate": "2017-07-01",
+    "endDate": "2017-09-30",
+    "projects": [
+      {
+        "id": "proj-clash-of-towers",
+        "title": "Towers Clash",
+        "role": "Indie Game Producer",
+        "startDate": "2017-07-01",
+        "endDate": "2017-09-30",
+        "description": "A casual idle game where players build up their tower and battle rival kingdoms brick by brick. Released free on Google Play.",
+        "icon": "/assets/icons/Icon_COT.jpg",
+        "type": "GAME",
+        "overview": {
+          "summary": "An independent mobile idle game centered on upgrading a castle tower to battle rival kingdoms. Producer across design, art, monetization and marketing."
+        },
+        "responsibilities": [
+          "Designed the core loop: earn gold, upgrade the tower, attack rival kingdoms",
+          "Designed the economy, the tower’s upgrade progression and the monetization",
+          "Created all of the game’s art and UI",
+          "Wrote the design document, then ran the marketing for the Google Play launch"
+        ],
+        "achievements": [
+          "Concept to Google Play launch in two months"
+        ],
+        "technologies": ["Game Production", "Game Design", "Game Art"],
+        "keyScreenshots": ["/assets/screenshots/COT/SS_COT_1.png", "/assets/screenshots/COT/SS_COT_2.png"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=jEIxA66bLrc", "pages": [{ "kind": "website", "url": "https://clashoftowers.com/" }, { "kind": "googlePlay", "url": "https://play.google.com/store/apps/details?id=com.towersclash.app" }, { "kind": "x", "url": "https://x.com/towersclashgame" }] }
+      }
+    ]
+  },
+  {
+    "id": "exp-intense-life-2016-2017",
+    "company": "Intense Life",
+    "companyLogo": "",
+    "startDate": "2016-07-01",
+    "endDate": "2017-06-30",
+    "projects": [
+      {
+        "id": "proj-fitkin",
+        "title": "FitKin",
+        "role": "Game Designer",
+        "startDate": "2016-07-01",
+        "endDate": "2017-06-30",
+        "description": "A gamified health app where real-world steps move users across a story map that unlocks brain-training mini-games. Designed new mini-games, built their scenes in Unity and continued the team’s user persona research.",
+        "icon": "/assets/icons/Icon_Fitkin.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "A gamified health app by Intense Life where real-world steps advance progress on a story-driven map, with mini-games unlocked at milestones. Game designer of new brain-training mini-games, from the design to building their scenes in Unity."
+        },
+        "responsibilities": [
+          "Designed new mini-games for an already established app, unlocked as rewards when users reach step milestones on the map",
+          "Built each mini-game’s scenes in Unity, once the developers had set up how it plugs into the app",
+          "Designed each mini-game to train a different mental skill, like memory, quick reflexes, reasoning or deduction",
+          "Continued the team’s user persona research, studying what motivates people to keep a healthy lifestyle",
+          "Turned those insights into mini-games, each designed for a specific use case",
+          "Fit each mini-game into the story of its map, so it made sense within that map’s narrative"
+        ],
+        "achievements": [
+          "Designed mini-games for a gamified fitness app"
+        ],
+        "technologies": ["Gamification", "Game Design", "Level Design", "Research"],
+        "keyScreenshots": ["/assets/screenshots/FitKin/SS_FitKin_1.png"],
+        "links": { "pages": [] },
+        "isDiscontinued": true
+      }
+    ]
+  },
+  {
+    "id": "exp-freelance-2015-2016",
+    "company": "Freelance",
+    "companyLogo": "",
+    "startDate": "2015-11-01",
+    "endDate": "2016-06-30",
+    "projects": [
+      {
+        "id": "proj-castellum",
+        "title": "Castellum",
+        "role": "Freelance Game Designer",
+        "startDate": "2015-11-01",
+        "endDate": "2016-06-30",
+        "description": "An idle brawler game designed and produced for a client. Owned the full production cycle and the client relationship.",
+        "icon": "/assets/icons/Icon_Castellum.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "An idle brawler game developed for a private client. Freelance game designer and producer, from the game itself to the client relationship."
+        },
+        "responsibilities": [
+          "Designed and produced an idle brawler game for a private client, from the first brief to the final delivery",
+          "Led a team of 4 people across design, art and development",
+          "Handled the relationship with the client, using regular reviews to keep the design on track",
+          "Wrote the full game design document and designed the UX and UI",
+          "Made promotional videos the client used for marketing and for pitching to investors"
+        ],
+        "achievements": [
+          "Owned the entire game vision, from the team's work to every system in it"
+        ],
+        "technologies": ["Game Design", "UX Design", "UI Design"],
+        "keyScreenshots": ["/assets/screenshots/Castellum/SS_Castellum_1.jpg", "/assets/screenshots/Castellum/SS_Castellum_2.png"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=dRoPBmkO5iY", "pages": [] },
+        "isDiscontinued": true
+      }
+    ]
+  },
+  {
+    "id": "exp-king-2013-2015",
+    "company": "King",
+    "companyLogo": "/assets/logos/Logo_King.svg",
+    "companyUrl": "https://www.king.com/",
+    "startDate": "2013-10-01",
+    "endDate": "2015-10-30",
+    "projects": [
+      {
+        "id": "proj-bubble-witch-saga",
+        "title": "Bubble Witch Saga",
+        "role": "Jr. Level Designer",
+        "startDate": "2013-10-01",
+        "endDate": "2014-03-30",
+        "description": "One of King's founding hits, a bubble-shooter puzzle game. Designed and balanced live levels as Jr. Level Designer.",
+        "icon": "/assets/icons/Icon_BWS1.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "A witch-themed bubble-shooter puzzle game by King. Junior level designer handling live levels and their balancing."
+        },
+        "responsibilities": [
+          "First project after joining King, and the start of working as a level designer",
+          "Built levels in King’s in-house editor, a custom tool made specifically for this game",
+          "Made end-of-content levels for the most experienced players, hard enough to challenge them but always beatable",
+          "Tuned each level to King’s pass-rate targets, so players beat it within a set number of tries",
+          "Built levels following King’s established patterns for difficulty, pacing and player psychology",
+          "Designed levels to end just a few moves short of winning, a King technique that encourages players to spend",
+          "Promoted after 6 months and moved to King’s next in-house project, AlphaBetty Saga"
+        ],
+        "achievements": [
+          "Contributed to one of King's founding hits"
+        ],
+        "technologies": ["Level Design", "Puzzle Design"],
+        "keyScreenshots": ["/assets/screenshots/BWS/SS_BWS_1.jpg"],
+        "links": { "pages": [{ "kind": "facebook", "url": "https://www.facebook.com/BubbleWitchSaga" }] },
+        "isDiscontinued": true
+      },
+      {
+        "id": "proj-alphabetty-saga",
+        "title": "AlphaBetty Saga",
+        "role": "Level Designer",
+        "startDate": "2014-04-01",
+        "endDate": "2015-10-30",
+        "description": "A match-3 word game where letters replace candies, ranked among the top 5 word games worldwide. Level designer who owned onboarding and difficulty tuning.",
+        "icon": "/assets/icons/Icon_Alphabetty.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "A match-3 word game by King that swaps candies for letters. Level designer specializing in onboarding and difficulty tuning."
+        },
+        "responsibilities": [
+          "Owned the first-time user experience, deciding when each mechanic is introduced and how the tutorials teach it",
+          "Ran A/B tests on how hard the onboarding should be, measured against retention",
+          "Tuned level difficulty and pacing together with the Data Science team, based on player data",
+          "Presented level design insights and best practices to other King studios",
+          "Mentored a junior level designer, guiding them through the whole production workflow"
+        ],
+        "achievements": [
+          "Trusted with full level design ownership on a new King game"
+        ],
+        "technologies": ["Level Design", "Puzzle Design", "FTUE & Onboarding", "A/B Testing", "KPI Tracking"],
+        "keyScreenshots": ["/assets/screenshots/AlphaBetty/SS_AlphaBetty_1.png"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=BX3bAjDRLdM", "pages": [] },
+        "isDiscontinued": true
+      }
+    ]
+  },
+  {
+    "id": "exp-flash-era-2008-2013",
+    "company": "Independent (Flash Era)",
+    "companyLogo": "",
+    "startDate": "2008-01-01",
+    "endDate": "2013-09-30",
+    "projects": [
+      {
+        "id": "proj-newgrounds",
+        "title": "Newgrounds Flash Games",
+        "role": "Graphic & Game Designer",
+        "startDate": "2008-01-01",
+        "endDate": "2011-12-31",
+        "description": "Flash games and tutorials published on Newgrounds, mostly in collaboration with programmers. The start of a career in games, moving from graphic design into game design.",
+        "icon": "/assets/icons/Icon_NG.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "A catalog of Flash games and tutorials released on Newgrounds, most of them collaborations with independent developers. Graphic and game designer on the experimental projects where a career in games began."
+        },
+        "responsibilities": [
+          "Published 20+ Flash games and tutorials on Newgrounds during the Flash era",
+          "Started out as a graphic designer and slowly moved into game design, one project at a time",
+          "Made most of the games together with programmers, handling the art and design while they wrote the code",
+          "Experimented freely with genres and mechanics, making games mostly for fun and learning by doing",
+          "Learned to collaborate with other creators online, splitting the work across art, design and code",
+          "Handled the first deals with clients and Flash game sponsors, the business side of making indie games"
+        ],
+        "achievements": [
+          "The indie portfolio that led to a first job at King"
+        ],
+        "technologies": ["Game Art", "Game Design", "Coordination", "Self-Publishing"],
+        "keyScreenshots": [{ "src": "/assets/screenshots/Newgrounds/SS_Newgrounds_1.gif" }],
+        "links": { "pages": [{ "kind": "newgrounds", "url": "https://argentin.newgrounds.com/games" }] }
+      },
+      {
+        "id": "proj-bounzy",
+        "title": "Bounzy 1 & 2",
+        "role": "Lead Designer & Artist",
+        "startDate": "2012-01-01",
+        "endDate": "2012-12-31",
+        "description": "A zombie shooter and its sequel, built around a bouncing bullet mechanic. Classic Flash era games with massive web reach.",
+        "icon": "/assets/icons/Icon_Bounzy.jpg",
+        "type": "GAME",
+        "overview": {
+          "summary": "A ricochet puzzle shooter series in which each shot must bounce off obstacles to hit zombies placed across the map. Lead designer and artist, shaping mechanics, levels and art for both games."
+        },
+        "responsibilities": [
+          "Designed the core mechanic, where aimed shots ricochet off obstacles to reach the zombies",
+          "Designed 100+ levels across both games, placing zombies and obstacles so each level plays like an aiming puzzle",
+          "Created all the art, animation and visual effects for both games",
+          "Coordinated a small team of a developer, a sound designer and a voice actor",
+          "Handled the deals with sponsors, including the contracts",
+          "Made Christmas and Halloween reskins for sponsors, plus a custom version for Rob Dyrdek with him as the main character"
+        ],
+        "achievements": [
+          "Sponsor demand led to a sequel, holiday reskins and a custom Rob Dyrdek edition"
+        ],
+        "technologies": ["Mechanics Design", "Game Design", "Game Art"],
+        "keyScreenshots": ["/assets/screenshots/Bounzy/SS_Bounzy_1.jpg"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=r6ZpABMwLmQ", "pages": [{ "kind": "newgrounds", "label": "Bounzy 1", "url": "https://www.newgrounds.com/portal/view/587105" }, { "kind": "newgrounds", "label": "Bounzy 2", "url": "https://www.newgrounds.com/portal/view/597537" }, { "kind": "youtube", "label": "Bounzy 1 Trailer", "url": "https://www.youtube.com/watch?v=O_oEgknw5wo" }, { "kind": "youtube", "label": "Bounzy 2 Trailer", "url": "https://www.youtube.com/watch?v=r6ZpABMwLmQ" }] }
+      },
+      {
+        "id": "proj-marble-frenzy-2",
+        "title": "Marble Frenzy 2",
+        "role": "Lead Designer & Artist",
+        "startDate": "2013-01-01",
+        "endDate": "2013-09-30",
+        "description": "A Match-3 marble breaking game with innovative hybrid mechanics. Second installment of the Marble Frenzy series.",
+        "icon": "/assets/icons/Icon_MF.png",
+        "type": "GAME",
+        "overview": {
+          "summary": "A match-3 marble-breaking game built on power-ups, the sequel to Marble Frenzy. Lead designer and artist in charge of mechanics and visuals."
+        },
+        "responsibilities": [
+          "Designed the game for mobile, adapting the gameplay of the original web version to phones",
+          "Created all the game’s graphics, keeping one consistent visual style across the whole game",
+          "Designed power-ups that help push through when a level gets tough and progress stalls",
+          "Designed a procedural level system that brings in new marbles over time, so the difficulty ramps up on its own",
+          "Coordinated a small remote team, with a developer on the code and a sound designer on the audio",
+          "Made the game’s marketing material, including its video trailer",
+          "Ran a small guerrilla marketing campaign, putting up stickers around the city to get the game noticed locally"
+        ],
+        "achievements": [
+          "First step into mobile, with a mechanic that stood out among bubble shooters"
+        ],
+        "technologies": ["Mechanics Design", "Game Design", "Game Art"],
+        "keyScreenshots": ["/assets/screenshots/MF2/SS_MF2_1.png"],
+        "links": { "youtube": "https://www.youtube.com/watch?v=wTmoO1LFgWs", "pages": [{ "kind": "newgrounds", "url": "https://www.newgrounds.com/portal/view/540922" }] },
+        "isDiscontinued": true
+      }
+    ]
+  }
+]

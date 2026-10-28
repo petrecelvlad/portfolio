@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 50 800 450" width="800" height="450">
+  <defs>
+    <pattern id="pixelGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="16" height="16" fill="#1F1420"/>
+      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#2B1A2E" stroke-width="1"/>
+    </pattern>
+    <pattern id="scanlines" width="800" height="4" patternUnits="userSpaceOnUse">
+      <rect width="800" height="2" fill="#000000" fill-opacity="0.12"/>
+    </pattern>
+    <pattern id="belt-stripes" width="20" height="50" patternUnits="userSpaceOnUse">
+      <path d="M-10,50 L10,0 M10,50 L30,0 M30,50 L50,0" stroke="#3B4A61" stroke-width="7" stroke-linecap="square"/>
+    </pattern>
+    <pattern id="hazardStripes" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="16" height="16" fill="#FACC15"/>
+      <path d="M -4 12 L 12 -4 M 4 20 L 20 4 M 0 16 L 16 0" stroke="#1E212F" stroke-width="4"/>
+    </pattern>
+    <linearGradient id="chromeGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#647388"/><stop offset="20%" stop-color="#94A3B8"/><stop offset="45%" stop-color="#E2E8F0"/>
+      <stop offset="70%" stop-color="#647388"/><stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="pistonGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#475569"/><stop offset="30%" stop-color="#E2E8F0"/><stop offset="70%" stop-color="#94A3B8"/><stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <clipPath id="belt-clip"><rect x="166" y="381" width="468" height="42" rx="6"/></clipPath>
+  </defs>
+
+  <style>
+    /* Stop-and-go line, one press stroke (1.667 s) per block: everything moves one station in the
+       first 0.7 s, then stands still while the hopper drops a block and the press stamps one. */
+    .scroll-belt { animation: belt 1.667s linear infinite; }
+    .spin-gear { animation: gear 1.667s linear infinite; }
+    @keyframes belt { 0% { transform: translateX(0px); animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); } 41.992%, 100% { transform: translateX(160px); } }
+    @keyframes gear { 0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); } 41.992%, 100% { transform: rotate(270deg); } }
+
+    /* Press: speeds up into the hit, holds, lifts. The rod moves with the head. */
+    .press-motion { animation: press 1.667s linear infinite; }
+    @keyframes press { 0.000% { transform: translateY(0px); animation-timing-function: linear; } 34.793% { transform: translateY(0px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); } 43.191% { transform: translateY(39px); animation-timing-function: linear; } 46.431% { transform: translateY(69px); animation-timing-function: linear; } 52.430% { transform: translateY(69px); animation-timing-function: linear; } 56.029% { transform: translateY(39px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); } 65.387% { transform: translateY(0px); animation-timing-function: linear; } 100.000% { transform: translateY(0px); animation-timing-function: linear; } }
+    .sparkle-motion { animation: sparkle 1.667s ease-out infinite; }
+    @keyframes sparkle { 0%, 46.371% { opacity: 0; transform: scale(0.4); } 46.431% { opacity: 1; transform: scale(0.8); } 58.428% { opacity: 0; transform: scale(1.5); } 100% { opacity: 0; transform: scale(1.5); } }
+
+    /* Hopper kicks back as it pushes a block out of the nozzle. */
+    .hopper-motion { animation: hopper 1.667s ease-out infinite; transform-origin: 240px 240px; }
+    @keyframes hopper { 0%, 44.991% { transform: rotate(0deg) translate(0, 0); } 47.990% { transform: rotate(-3deg) translate(-4px, 3px); } 52.789% { transform: rotate(1deg) translate(1px, -1px); } 59.988%, 100% { transform: rotate(0deg) translate(0, 0); } }
+    .led-pulse { animation: led 1.667s ease-in-out infinite alternate; }
+    @keyframes led { from { opacity: 0.3; } to { opacity: 1; } }
+
+    /* "+1" over the bin as each finished block drops in. */
+    .plus-one { animation: plus 1.667s linear infinite; }
+    @keyframes plus { 0%, 45.567% { opacity: 0; transform: translate(740px, 432px) scale(0.7); } 45.627% { opacity: 1; transform: translate(740px, 432px) scale(0.7); } 52.825% { opacity: 1; transform: translate(740px, 414px) scale(1.15); } 75.621% { opacity: 0; transform: translate(740px, 384px) scale(1); } 100% { opacity: 0; transform: translate(740px, 384px) scale(1); } }
+
+    /* Blocks: one shared 6.668 s path (nozzle, three stations, bin), each block a stroke behind the last. */
+    .blk { animation: blk 6.668s linear infinite; }
+    @keyframes blk { 0.000% { transform: translate(240px, 300px) scale(0.5, 1.3); } 11.248% { transform: translate(240px, 300px) scale(0.5, 1.3); } 11.498% { transform: translate(240px, 300.238px) scale(0.511, 1.29); } 11.748% { transform: translate(240px, 300.951px) scale(0.522, 1.28); } 11.998% { transform: translate(240px, 302.139px) scale(0.533, 1.27); } 12.248% { transform: translate(240px, 303.802px) scale(0.544, 1.26); } 12.498% { transform: translate(240px, 305.941px) scale(0.556, 1.25); } 12.747% { transform: translate(240px, 308.556px) scale(0.567, 1.24); } 12.997% { transform: translate(240px, 311.645px) scale(0.578, 1.23); } 13.247% { transform: translate(240px, 315.21px) scale(0.589, 1.22); } 13.497% { transform: translate(240px, 319.25px) scale(0.6, 1.21); } 13.747% { transform: translate(240px, 323.765px) scale(0.611, 1.2); } 13.997% { transform: translate(240px, 328.756px) scale(0.622, 1.19); } 14.247% { transform: translate(240px, 334.222px) scale(0.633, 1.18); } 14.497% { transform: translate(240px, 340.164px) scale(0.644, 1.17); } 14.747% { transform: translate(240px, 346.58px) scale(0.656, 1.16); } 14.997% { transform: translate(240px, 353.472px) scale(0.667, 1.15); } 15.247% { transform: translate(240px, 360.84px) scale(0.678, 1.14); } 15.497% { transform: translate(240px, 368.682px) scale(0.689, 1.13); } 15.747% { transform: translate(240px, 377px) scale(0.7, 1.12); } 15.997% { transform: translate(240px, 377px) scale(0.867, 1.017); } 16.247% { transform: translate(240px, 377px) scale(1.033, 0.914); } 16.497% { transform: translate(240px, 377px) scale(1.2, 0.812); } 16.747% { transform: translate(240px, 377px) scale(1.27, 0.776); } 16.997% { transform: translate(240px, 377px) scale(1.195, 0.84); } 17.247% { transform: translate(240px, 377px) scale(1.12, 0.905); } 17.497% { transform: translate(240px, 377px) scale(1.045, 0.97); } 17.746% { transform: translate(240px, 377px) scale(0.97, 1.034); } 17.996% { transform: translate(240px, 377px) scale(0.948, 1.053); } 18.246% { transform: translate(240px, 377px) scale(0.96, 1.04); } 18.496% { transform: translate(240px, 377px) scale(0.973, 1.027); } 18.746% { transform: translate(240px, 377px) scale(0.985, 1.015); } 18.996% { transform: translate(240px, 377px) scale(0.997, 1.003); } 19.246% { transform: translate(240px, 377px) scale(1, 1); } 24.995% { transform: translate(240px, 377px) scale(1, 1); } 25.245% { transform: translate(240.146px, 377px) scale(1, 1); } 25.495% { transform: translate(240.604px, 377px) scale(1, 1); } 25.745% { transform: translate(241.389px, 377px) scale(1, 1); } 25.995% { transform: translate(242.517px, 377px) scale(1, 1); } 26.245% { transform: translate(244.001px, 377px) scale(1, 1); } 26.495% { transform: translate(245.857px, 377px) scale(1, 1); } 26.745% { transform: translate(248.099px, 377px) scale(1, 1); } 26.995% { transform: translate(250.739px, 377px) scale(1, 1); } 27.245% { transform: translate(253.788px, 377px) scale(1, 1); } 27.495% { transform: translate(257.255px, 377px) scale(1, 1); } 27.744% { transform: translate(261.145px, 377px) scale(1, 1); } 27.994% { transform: translate(265.459px, 377px) scale(1, 1); } 28.244% { transform: translate(270.191px, 377px) scale(1, 1); } 28.494% { transform: translate(275.331px, 377px) scale(1, 1); } 28.744% { transform: translate(280.857px, 377px) scale(1, 1); } 28.994% { transform: translate(286.742px, 377px) scale(1, 1); } 29.244% { transform: translate(292.947px, 377px) scale(1, 1); } 29.494% { transform: translate(299.422px, 377px) scale(1, 1); } 29.744% { transform: translate(306.112px, 377px) scale(1, 1); } 29.994% { transform: translate(312.948px, 377px) scale(1, 1); } 30.244% { transform: translate(319.861px, 377px) scale(1, 1); } 30.494% { transform: translate(326.776px, 377px) scale(1, 1); } 30.744% { transform: translate(333.617px, 377px) scale(1, 1); } 30.994% { transform: translate(340.314px, 377px) scale(1, 1); } 31.244% { transform: translate(346.799px, 377px) scale(1, 1); } 31.494% { transform: translate(353.015px, 377px) scale(1, 1); } 31.744% { transform: translate(358.914px, 377px) scale(1, 1); } 31.994% { transform: translate(364.455px, 377px) scale(1, 1); } 32.244% { transform: translate(369.611px, 377px) scale(1, 1); } 32.494% { transform: translate(374.36px, 377px) scale(1, 1); } 32.743% { transform: translate(378.691px, 377px) scale(1, 1); } 32.993% { transform: translate(382.598px, 377px) scale(1, 1); } 33.243% { transform: translate(386.082px, 377px) scale(1, 1); } 33.493% { transform: translate(389.147px, 377px) scale(1, 1); } 33.743% { transform: translate(391.803px, 377px) scale(1, 1); } 33.993% { transform: translate(394.061px, 377px) scale(1, 1); } 34.243% { transform: translate(395.932px, 377px) scale(1, 1); } 34.493% { transform: translate(397.431px, 377px) scale(1, 1); } 34.743% { transform: translate(398.572px, 377px) scale(1, 1); } 34.993% { transform: translate(399.371px, 377px) scale(1, 1); } 35.243% { transform: translate(399.842px, 377px) scale(1, 1); } 35.493% { transform: translate(400px, 377px) scale(1, 1); } 35.743% { transform: translate(400px, 377px) scale(1, 1); } 35.993% { transform: translate(400px, 377px) scale(1.084, 0.88); } 36.243% { transform: translate(400px, 377px) scale(1.192, 0.725); } 36.493% { transform: translate(400px, 377px) scale(1.3, 0.571); } 36.743% { transform: translate(400px, 377px) scale(1.35, 0.5); } 37.992% { transform: translate(400px, 377px) scale(1.35, 0.5); } 38.242% { transform: translate(400px, 377px) scale(1.298, 0.575); } 38.492% { transform: translate(400px, 377px) scale(1.2, 0.714); } 38.742% { transform: translate(400px, 377px) scale(1.103, 0.853); } 38.992% { transform: translate(400px, 377px) scale(1.006, 0.992); } 39.242% { transform: translate(400px, 377px) scale(0.989, 1.016); } 39.492% { transform: translate(400px, 377px) scale(0.977, 1.032); } 39.742% { transform: translate(400px, 377px) scale(0.966, 1.049); } 39.992% { transform: translate(400px, 377px) scale(0.954, 1.066); } 40.242% { transform: translate(400px, 377px) scale(0.942, 1.082); } 40.492% { transform: translate(400px, 377px) scale(0.931, 1.099); } 40.742% { transform: translate(400px, 377px) scale(0.941, 1.084); } 40.992% { transform: translate(400px, 377px) scale(0.953, 1.068); } 41.242% { transform: translate(400px, 377px) scale(0.964, 1.051); } 41.492% { transform: translate(400px, 377px) scale(0.976, 1.034); } 41.742% { transform: translate(400px, 377px) scale(0.988, 1.018); } 41.992% { transform: translate(400px, 377px) scale(0.999, 1.001); } 42.242% { transform: translate(400px, 377px) scale(1, 1); } 49.990% { transform: translate(400px, 377px) scale(1, 1); } 50.240% { transform: translate(400.14px, 377px) scale(1, 1); } 50.490% { transform: translate(400.591px, 377px) scale(1, 1); } 50.740% { transform: translate(401.37px, 377px) scale(1, 1); } 50.990% { transform: translate(402.491px, 377px) scale(1, 1); } 51.240% { transform: translate(403.968px, 377px) scale(1, 1); } 51.490% { transform: translate(405.816px, 377px) scale(1, 1); } 51.740% { transform: translate(408.05px, 377px) scale(1, 1); } 51.990% { transform: translate(410.682px, 377px) scale(1, 1); } 52.240% { transform: translate(413.723px, 377px) scale(1, 1); } 52.490% { transform: translate(417.181px, 377px) scale(1, 1); } 52.739% { transform: translate(421.063px, 377px) scale(1, 1); } 52.989% { transform: translate(425.368px, 377px) scale(1, 1); } 53.239% { transform: translate(430.093px, 377px) scale(1, 1); } 53.489% { transform: translate(435.224px, 377px) scale(1, 1); } 53.739% { transform: translate(440.743px, 377px) scale(1, 1); } 53.989% { transform: translate(446.621px, 377px) scale(1, 1); } 54.239% { transform: translate(452.82px, 377px) scale(1, 1); } 54.489% { transform: translate(459.291px, 377px) scale(1, 1); } 54.739% { transform: translate(465.976px, 377px) scale(1, 1); } 54.989% { transform: translate(472.811px, 377px) scale(1, 1); } 55.239% { transform: translate(479.723px, 377px) scale(1, 1); } 55.489% { transform: translate(486.638px, 377px) scale(1, 1); } 55.739% { transform: translate(493.482px, 377px) scale(1, 1); } 55.989% { transform: translate(500.182px, 377px) scale(1, 1); } 56.239% { transform: translate(506.672px, 377px) scale(1, 1); } 56.489% { transform: translate(512.894px, 377px) scale(1, 1); } 56.739% { transform: translate(518.799px, 377px) scale(1, 1); } 56.989% { transform: translate(524.348px, 377px) scale(1, 1); } 57.239% { transform: translate(529.512px, 377px) scale(1, 1); } 57.489% { transform: translate(534.269px, 377px) scale(1, 1); } 57.738% { transform: translate(538.608px, 377px) scale(1, 1); } 57.988% { transform: translate(542.524px, 377px) scale(1, 1); } 58.238% { transform: translate(546.016px, 377px) scale(1, 1); } 58.488% { transform: translate(549.09px, 377px) scale(1, 1); } 58.738% { transform: translate(551.754px, 377px) scale(1, 1); } 58.988% { transform: translate(554.019px, 377px) scale(1, 1); } 59.238% { transform: translate(555.898px, 377px) scale(1, 1); } 59.488% { transform: translate(557.404px, 377px) scale(1, 1); } 59.738% { transform: translate(558.553px, 377px) scale(1, 1); } 59.988% { transform: translate(559.358px, 377px) scale(1, 1); } 60.238% { transform: translate(559.836px, 377px) scale(1, 1); } 60.488% { transform: translate(560px, 377px) scale(1, 1); } 74.985% { transform: translate(560px, 377px) scale(1, 1); } 75.235% { transform: translate(560.134px, 377px) scale(1, 1); } 75.485% { transform: translate(560.579px, 377px) scale(1, 1); } 75.735% { transform: translate(561.351px, 377px) scale(1, 1); } 75.985% { transform: translate(562.465px, 377px) scale(1, 1); } 76.235% { transform: translate(563.935px, 377px) scale(1, 1); } 76.485% { transform: translate(565.776px, 377px) scale(1, 1); } 76.735% { transform: translate(568.002px, 377px) scale(1, 1); } 76.985% { transform: translate(570.625px, 377px) scale(1, 1); } 77.235% { transform: translate(573.658px, 377px) scale(1, 1); } 77.485% { transform: translate(577.108px, 377px) scale(1, 1); } 77.734% { transform: translate(580.981px, 377px) scale(1, 1); } 77.984% { transform: translate(585.278px, 377px) scale(1, 1); } 78.234% { transform: translate(589.994px, 377px) scale(1, 1); } 78.484% { transform: translate(595.118px, 377px) scale(1, 1); } 78.734% { transform: translate(600.629px, 377px) scale(1, 1); } 78.984% { transform: translate(606.5px, 377px) scale(1, 1); } 79.234% { transform: translate(612.693px, 377px) scale(1, 1); } 79.484% { transform: translate(619.159px, 377px) scale(1, 1); } 79.734% { transform: translate(625.841px, 377px) scale(1, 1); } 79.984% { transform: translate(632.673px, 377px) scale(1, 1); } 80.234% { transform: translate(639.584px, 377px) scale(1, 1); } 80.484% { transform: translate(646.5px, 377px) scale(1, 1); } 80.734% { transform: translate(653.346px, 377px) scale(1, 1); } 80.984% { transform: translate(660.049px, 377px) scale(1, 1); } 81.234% { transform: translate(666.544px, 377px) scale(1, 1); } 81.484% { transform: translate(672.773px, 377px) scale(1, 1); } 81.734% { transform: translate(678.684px, 377px) scale(1, 1); } 81.984% { transform: translate(684.297px, 377.209px) scale(1, 1); } 82.234% { transform: translate(689.95px, 378.119px) scale(1, 1); } 82.484% { transform: translate(695.604px, 379.751px) scale(1, 1); } 82.733% { transform: translate(701.257px, 382.105px) scale(1, 1); } 82.983% { transform: translate(706.91px, 385.182px) scale(1, 1); } 83.233% { transform: translate(712.564px, 388.981px) scale(1, 1); } 83.483% { transform: translate(718.217px, 393.502px) scale(1, 1); } 83.733% { transform: translate(723.871px, 398.745px) scale(1, 1); } 83.983% { transform: translate(729.524px, 404.711px) scale(1, 1); } 84.233% { transform: translate(735.178px, 411.399px) scale(1, 1); } 84.483% { transform: translate(740.831px, 418.809px) scale(1, 1); } 84.733% { transform: translate(746.484px, 426.941px) scale(1, 1); } 84.983% { transform: translate(752.138px, 435.795px) scale(1, 1); } 85.233% { transform: translate(757.791px, 445.372px) scale(1, 1); } 85.483% { transform: translate(763.445px, 455.671px) scale(1, 1); } 85.733% { transform: translate(769.098px, 466.692px) scale(1, 1); } 85.983% { transform: translate(774.752px, 478.435px) scale(1, 1); } 86.233% { transform: translate(780.405px, 490.901px) scale(1, 1); } 86.483% { transform: translate(786.059px, 504.089px) scale(1, 1); } 86.733% { transform: translate(791.712px, 517.999px) scale(1, 1); } 86.983% { transform: translate(797.365px, 532.631px) scale(1, 1); } 87.233% { transform: translate(801.94px, 545px) scale(1, 1); } 100.000% { transform: translate(801.94px, 545px) scale(1, 1); } }
+    .face { animation: face 6.668s step-end infinite; }
+    .mark { animation: mark 6.668s step-end infinite; }
+    @keyframes face { 0% { opacity: 0; } 36.608% { opacity: 1; } }
+    @keyframes mark { 0% { opacity: 0.3; } 36.608% { opacity: 0; } }
+    .b0, .b0 .face, .b0 .mark { animation-delay: 0s; }
+    .b1, .b1 .face, .b1 .mark { animation-delay: -5.001s; }
+    .b2, .b2 .face, .b2 .mark { animation-delay: -3.334s; }
+    .b3, .b3 .face, .b3 .mark { animation-delay: -1.667s; }
+  </style>
+
+  <rect x="0" y="50" width="800" height="450" fill="url(#pixelGrid)"/>
+
+  <!-- Background piping, run into the press gantry -->
+  <g fill="none" stroke="#2D1A2E" stroke-width="12">
+    <path d="M 0 130 L 260 130 L 260 75 L 310 75"/>
+    <path d="M 490 75 L 540 75 L 540 110 L 800 110"/>
+  </g>
+
+  <!-- Conveyor legs -->
+  <g stroke="#1E212F" stroke-width="4" stroke-linejoin="miter">
+    <rect x="180" y="420" width="24" height="110" fill="#334155"/>
+    <rect x="320" y="420" width="24" height="110" fill="#334155"/>
+    <rect x="460" y="420" width="24" height="110" fill="#334155"/>
+    <rect x="600" y="420" width="24" height="110" fill="#334155"/>
+    <path d="M 204,440 L 320,510 M 344,440 L 460,510 M 484,440 L 600,510" stroke="#1E212F" stroke-width="4"/>
+  </g>
+
+  <!-- Bin, back wall -->
+  <rect x="684" y="436" width="120" height="70" fill="#151A26" stroke="#1E212F" stroke-width="4"/>
+
+  <!-- Belt and its gears -->
+  <rect x="130" y="375" width="540" height="54" rx="27" fill="#1E212F"/>
+  <rect x="134" y="379" width="532" height="46" rx="23" fill="#2E3A4D" stroke="#1E212F" stroke-width="3"/>
+  <g clip-path="url(#belt-clip)">
+    <g class="scroll-belt"><rect x="-20" y="379" width="680" height="46" fill="url(#belt-stripes)"/></g>
+  </g>
+  <path d="M 166,379 L 634,379 M 166,425 L 634,425" stroke="#1E212F" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 166,383 L 634,383" stroke="#475569" stroke-width="2"/>
+  
+  <g transform="translate(170, 402)">
+    <g class="spin-gear">
+      <circle r="30" fill="#647388" stroke="#1E212F" stroke-width="4"/>
+      <path d="M -4,-34 L 4,-34 L 4,-26 L -4,-26 Z M -4,26 L 4,26 L 4,34 L -4,34 Z M -34,-4 L -34,4 L -26,4 L -26,-4 Z M 26,-4 L 26,4 L 34,4 L 34,-4 Z" fill="#647388" stroke="#1E212F" stroke-width="3"/>
+      <circle cx="-12" cy="-12" r="7" fill="#1E212F"/><circle cx="12" cy="-12" r="7" fill="#1E212F"/>
+      <circle cx="-12" cy="12" r="7" fill="#1E212F"/><circle cx="12" cy="12" r="7" fill="#1E212F"/>
+      <circle r="8" fill="#94A3B8" stroke="#1E212F" stroke-width="3"/><circle r="3" fill="#1E212F"/>
+    </g>
+  </g>
+  <g transform="translate(630, 402)">
+    <g class="spin-gear">
+      <circle r="30" fill="#647388" stroke="#1E212F" stroke-width="4"/>
+      <path d="M -4,-34 L 4,-34 L 4,-26 L -4,-26 Z M -4,26 L 4,26 L 4,34 L -4,34 Z M -34,-4 L -34,4 L -26,4 L -26,-4 Z M 26,-4 L 26,4 L 34,4 L 34,-4 Z" fill="#647388" stroke="#1E212F" stroke-width="3"/>
+      <circle cx="-12" cy="-12" r="7" fill="#1E212F"/><circle cx="12" cy="-12" r="7" fill="#1E212F"/>
+      <circle cx="-12" cy="12" r="7" fill="#1E212F"/><circle cx="12" cy="12" r="7" fill="#1E212F"/>
+      <circle r="8" fill="#94A3B8" stroke="#1E212F" stroke-width="3"/><circle r="3" fill="#1E212F"/>
+    </g>
+  </g>
+
+  <!-- Blocks: drawn before the hopper and the press, which both sit in front of them -->
+  <g class="blk b0">
+   <g transform="scale(1.5)">
+    <rect x="-20" y="-40" width="40" height="40" rx="5" fill="#4ADE80" stroke="#1E212F" stroke-width="3.5"/>
+    <path d="M -15 -36 L 15 -36" stroke="#86EFAC" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -16 -35 L -16 -8" stroke="#86EFAC" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -15 -4 L 15 -4" stroke="#16A34A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 16 -34 L 16 -5" stroke="#16A34A" stroke-width="3" stroke-linecap="round"/>
+    <circle class="mark" cx="0" cy="-20" r="3" fill="#16A34A" opacity="0.3"/>
+    <g class="face"><rect x="-10" y="-28" width="5" height="7" rx="2" fill="#1E212F"/><rect x="5" y="-28" width="5" height="7" rx="2" fill="#1E212F"/><path d="M -9 -14 Q 0 -6 9 -14" fill="none" stroke="#1E212F" stroke-width="3.5" stroke-linecap="round"/></g>
+   </g>
+  </g>
+  <g class="blk b1">
+   <g transform="scale(1.5)">
+    <rect x="-20" y="-40" width="40" height="40" rx="5" fill="#FACC15" stroke="#1E212F" stroke-width="3.5"/>
+    <path d="M -15 -36 L 15 -36" stroke="#FEF08A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -16 -35 L -16 -8" stroke="#FEF08A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -15 -4 L 15 -4" stroke="#CA8A04" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 16 -34 L 16 -5" stroke="#CA8A04" stroke-width="3" stroke-linecap="round"/>
+    <circle class="mark" cx="0" cy="-20" r="3" fill="#CA8A04" opacity="0.3"/>
+    <g class="face"><path d="M -12 -22 L -8 -28 L -4 -22" fill="none" stroke="#1E212F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 4 -22 L 8 -28 L 12 -22" fill="none" stroke="#1E212F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M -10 -13 C -10 -5 10 -5 10 -13" fill="none" stroke="#1E212F" stroke-width="3.5" stroke-linecap="round"/></g>
+   </g>
+  </g>
+  <g class="blk b2">
+   <g transform="scale(1.5)">
+    <rect x="-20" y="-40" width="40" height="40" rx="5" fill="#38BDF8" stroke="#1E212F" stroke-width="3.5"/>
+    <path d="M -15 -36 L 15 -36" stroke="#BAE6FD" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -16 -35 L -16 -8" stroke="#BAE6FD" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -15 -4 L 15 -4" stroke="#0284C7" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 16 -34 L 16 -5" stroke="#0284C7" stroke-width="3" stroke-linecap="round"/>
+    <circle class="mark" cx="0" cy="-20" r="3" fill="#0284C7" opacity="0.3"/>
+    <g class="face"><path d="M -12 -22 C -12 -29 -4 -29 -4 -22" fill="none" stroke="#1E212F" stroke-width="3.5" stroke-linecap="round"/><path d="M 4 -22 C 4 -29 12 -29 12 -22" fill="none" stroke="#1E212F" stroke-width="3.5" stroke-linecap="round"/><path d="M -8 -14 Q 0 -4 8 -14 Z" fill="#1E212F"/></g>
+   </g>
+  </g>
+  <g class="blk b3">
+   <g transform="scale(1.5)">
+    <rect x="-20" y="-40" width="40" height="40" rx="5" fill="#BF83FD" stroke="#1E212F" stroke-width="3.5"/>
+    <path d="M -15 -36 L 15 -36" stroke="#E9D5FF" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -16 -35 L -16 -8" stroke="#E9D5FF" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -15 -4 L 15 -4" stroke="#9333EA" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 16 -34 L 16 -5" stroke="#9333EA" stroke-width="3" stroke-linecap="round"/>
+    <circle class="mark" cx="0" cy="-20" r="3" fill="#9333EA" opacity="0.3"/>
+    <g class="face"><line x1="-12" y1="-24" x2="-4" y2="-24" stroke="#1E212F" stroke-width="3.5" stroke-linecap="round"/><line x1="4" y1="-24" x2="12" y2="-24" stroke="#1E212F" stroke-width="3.5" stroke-linecap="round"/><path d="M -8 -12 Q 0 -8 8 -15" fill="none" stroke="#1E212F" stroke-width="3.5" stroke-linecap="round"/></g>
+   </g>
+  </g>
+
+  <!-- Hopper -->
+  <g class="hopper-motion">
+    <g transform="translate(110, 0)">
+      <rect x="-114" y="180" width="214" height="20" fill="#334155" stroke="#1E212F" stroke-width="4"/>
+      <polygon points="45,150 175,150 155,280 105,280" fill="url(#chromeGrad)" stroke="#1E212F" stroke-width="4"/>
+      <polygon points="55,158 165,158 150,272 110,272" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/>
+      <rect x="40" y="140" width="140" height="16" rx="3" fill="#94A3B8" stroke="#1E212F" stroke-width="4"/>
+      <polygon points="107,250 153,250 148,280 105,280" fill="url(#hazardStripes)" stroke="#1E212F" stroke-width="3"/>
+      <rect x="108" y="280" width="44" height="25" fill="#475569" stroke="#1E212F" stroke-width="4"/>
+      <rect x="114" y="300" width="32" height="10" fill="#1E293B" stroke="#1E212F" stroke-width="2"/>
+      <circle cx="55" cy="148" r="2" fill="#1E212F"/><circle cx="165" cy="148" r="2" fill="#1E212F"/>
+      <circle cx="145" cy="170" r="5" fill="#4ADE80" stroke="#1E212F" stroke-width="2" class="led-pulse"/>
+    </g>
+  </g>
+
+  <!-- Stamping press: rod and head move together; the guide tube sits between them -->
+  <rect x="310" y="50" width="180" height="50" fill="#334155" stroke="#1E212F" stroke-width="4"/>
+  <rect x="320" y="60" width="160" height="30" fill="#1E293B" stroke="#1E212F" stroke-width="3"/>
+  <rect x="310" y="50" width="20" height="50" fill="url(#hazardStripes)" stroke="#1E212F" stroke-width="3"/>
+  <rect x="470" y="50" width="20" height="50" fill="url(#hazardStripes)" stroke="#1E212F" stroke-width="3"/>
+  <g class="press-motion"><rect x="388" y="100" width="24" height="100" fill="url(#pistonGrad)" stroke="#1E212F" stroke-width="3.5"/></g>
+  <rect x="375" y="100" width="50" height="70" fill="#647388" stroke="#1E212F" stroke-width="4"/>
+  <rect x="385" y="100" width="30" height="70" fill="#475569"/>
+  <g class="press-motion">
+    <rect x="380" y="195" width="40" height="15" rx="2" fill="#475569" stroke="#1E212F" stroke-width="3"/>
+    <rect x="335" y="210" width="130" height="50" rx="5" fill="#E63350" stroke="#1E212F" stroke-width="4"/>
+    <path d="M 342 216 L 458 216" stroke="#FF6B81" stroke-width="3" stroke-linecap="round"/>
+    <rect x="342" y="260" width="116" height="12" fill="#A01B30" stroke="#1E212F" stroke-width="3"/>
+    <rect x="355" y="272" width="90" height="6" fill="#94A3B8" stroke="#1E212F" stroke-width="2"/>
+    <g fill="#FFFFFF" stroke="#1E212F" stroke-width="3" paint-order="stroke fill">
+      <path d="M 362 225 H 378 V 232 H 370 V 237 H 376 V 243 H 370 V 252 H 362 Z"/>
+      <path d="M 384 225 H 392 V 244 H 398 V 225 H 406 V 246 Q 406 252 398 252 H 392 Q 384 252 384 246 Z"/>
+      <path d="M 412 225 H 420 L 428 242 V 225 H 436 V 252 H 428 L 420 235 V 252 H 412 Z"/>
+    </g>
+    <circle cx="346" cy="223" r="3" fill="#A01B30"/><circle cx="454" cy="223" r="3" fill="#A01B30"/>
+    <circle cx="346" cy="247" r="3" fill="#A01B30"/><circle cx="454" cy="247" r="3" fill="#A01B30"/>
+  </g>
+
+  <!-- Impact sparkles: placed by the outer group, burst from the impact point by the inner one -->
+  <g transform="translate(400, 343)">
+    <g class="sparkle-motion">
+      <rect x="-62" y="-12" width="8" height="8" fill="#FACC15" stroke="#1E212F" stroke-width="2"/>
+      <rect x="-76" y="2" width="6" height="6" fill="#FFFFFF"/>
+      <rect x="54" y="-12" width="8" height="8" fill="#FACC15" stroke="#1E212F" stroke-width="2"/>
+      <rect x="70" y="2" width="6" height="6" fill="#FFFFFF"/>
+    </g>
+  </g>
+
+  <!-- Bin, front: finished blocks drop in behind it -->
+  <rect x="680" y="440" width="128" height="70" fill="#475569" stroke="#1E212F" stroke-width="4"/>
+  <rect x="676" y="434" width="136" height="12" rx="3" fill="#94A3B8" stroke="#1E212F" stroke-width="4"/>
+  <rect x="696" y="458" width="96" height="14" fill="url(#hazardStripes)" stroke="#1E212F" stroke-width="3"/>
+
+  <g class="plus-one">
+    <text x="0" y="0" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="51" fill="#FFFFFF" stroke="#1E212F" stroke-width="5" paint-order="stroke fill" text-anchor="middle">+1</text>
+  </g>
+
+  <rect x="0" y="50" width="800" height="450" fill="url(#scanlines)"/>
+</svg>

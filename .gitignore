@@ -1,0 +1,16 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+*.zip
+tools/shader-capture/out/
+
+# Agent docs and local tooling live in the private repo (.cone-git) or stay local
+cone/
+AGENT.md
+CLAUDE.md
+.cone-git/
+.claude/

@@ -1,0 +1,424 @@
+[
+  {
+    "ng_id": "597537",
+    "ng_url": "https://www.newgrounds.com/portal/view/597537",
+    "title": "Bounzy 2",
+    "upload_date_iso": "2012-06-18",
+    "upload_date_display": "Jun 18, 2012 12:20 PM EDT",
+    "views": 18486,
+    "votes": 34,
+    "faves": 21,
+    "score": 3.68,
+    "genre": "Action - Fighting - Brawler",
+    "tags": [
+      "apocalypse",
+      "bounzy",
+      "shooting",
+      "zombie"
+    ],
+    "description": "Killing zombies with bouncing bullets has never been this fun! Can you survive the apocalypse?\n***Available for Site-locks***",
+    "credits": {
+      "Artist": "Argentin",
+      "Programming": "Rocanten"
+    }
+  },
+  {
+    "ng_id": "593343",
+    "ng_url": "https://www.newgrounds.com/portal/view/593343",
+    "title": "Passage of Time",
+    "upload_date_iso": "2012-04-07",
+    "upload_date_display": "Apr 7, 2012 10:29 AM EDT",
+    "views": 30825,
+    "votes": 70,
+    "faves": 42,
+    "score": 3.93,
+    "genre": "Action - Platformer - Other",
+    "tags": [
+      "cannabalt",
+      "life",
+      "running",
+      "time"
+    ],
+    "description": "Avoid obstacles and collect memories in this runner game that will make you look at life from a different point of view. Time passes fast, so hurry.\nThis game was made for a 48 houre competition. We tried to do a simple, yet fun game with a message about how time passes fast. We are proud to announce it won the first place.",
+    "credits": {
+      "Programming": "HighUpStudio",
+      "Design": "Argentin"
+    }
+  },
+  {
+    "ng_id": "587105",
+    "ng_url": "https://www.newgrounds.com/portal/view/587105",
+    "title": "Bounzy",
+    "upload_date_iso": "2012-01-01",
+    "upload_date_display": "Jan 1, 2012 6:35 AM EST",
+    "views": 10137,
+    "votes": 23,
+    "faves": 12,
+    "score": 4.13,
+    "genre": "Action - Shooter - Fixed",
+    "tags": [
+      "apocalypse",
+      "bounzy",
+      "shooting",
+      "zombie"
+    ],
+    "description": "Credits:\nGraphics: Argentin\nProgramming: Rocanten",
+    "credits": {
+      "Artist": "Argentin",
+      "Production": "Ramthundar",
+      "Programming": "Rocanten"
+    }
+  },
+  {
+    "ng_id": "578360",
+    "ng_url": "https://www.newgrounds.com/portal/view/578360",
+    "title": "Space Hornet",
+    "upload_date_iso": "2011-08-29",
+    "upload_date_display": "Aug 29, 2011 10:51 AM EDT",
+    "views": 4670,
+    "votes": 4,
+    "faves": null,
+    "score": 4.17,
+    "genre": "",
+    "tags": [
+      "empire",
+      "galaxy",
+      "hornet",
+      "space"
+    ],
+    "description": "A fast paced space shooter with a very addictive game play and shinny graphics.\nDestroy the aliens ships, collect power-ups and upgrade your own ship to become more powerful",
+    "credits": {
+      "Artist": "Argentin"
+    }
+  },
+  {
+    "ng_id": "575965",
+    "ng_url": "https://www.newgrounds.com/portal/view/575965",
+    "title": "BlobWars",
+    "upload_date_iso": "2011-08-01",
+    "upload_date_display": "Aug 1, 2011 9:52 AM EDT",
+    "views": 8687,
+    "votes": 14,
+    "faves": 7,
+    "score": 2.53,
+    "genre": "",
+    "tags": [
+      "adventure",
+      "blob",
+      "epic",
+      "wars"
+    ],
+    "description": "Blob Wars is a turn based strategy game, where you have to save Blob Land, a peaceful planet inhabited by blobs.\nDr.Evil sent his minions to create havoc and destruction and only you can stop them.\nProve to the world, and to yourself, that you are the legendary savior the prophecy foretold!\nBug Fixes\n- *BUG* Sliders on Boss 2 cover up some graphics, put it on a lower layer\n- *BUG* Boss 3 Killed himself by placing a rock on his own square\n- *BUG* Boss 4 sustained more than 3 damage, as there were two bosses, the counter didn't support this\n- *BUG* Boss 6 can kill himself if pushed away from the center",
+    "credits": {
+      "Artist": "Argentin",
+      "Programming": "Rowkilla"
+    }
+  },
+  {
+    "ng_id": "563397",
+    "ng_url": "https://www.newgrounds.com/portal/view/563397",
+    "title": "Aztek Blocks",
+    "upload_date_iso": "2011-02-26",
+    "upload_date_display": "Feb 26, 2011 5:31 AM EST",
+    "views": 2011,
+    "votes": 15,
+    "faves": 7,
+    "score": 3.62,
+    "genre": "",
+    "tags": [
+      "brick",
+      "puzzle",
+      "skill",
+      "tetris"
+    ],
+    "description": "Mass hysteria broke out among the citizens of Geptiku today, when a curse was put over their village.\nUse magic totems to get rid of cursed spirits that lay in the mystical blocks as much as possible, before they overwhelm you and the village",
+    "credits": {
+      "Programming": "iluvAS",
+      "Artist": "Argentin",
+      "Sound": "Bahdshah"
+    }
+  },
+  {
+    "ng_id": "553276",
+    "ng_url": "https://www.newgrounds.com/portal/view/553276",
+    "title": "Digital Upgrade",
+    "upload_date_iso": "2010-11-10",
+    "upload_date_display": "Nov 10, 2010 2:07 AM EST",
+    "views": 229302,
+    "votes": 282,
+    "faves": 495,
+    "score": 4.08,
+    "genre": "Puzzles - Falling",
+    "tags": [
+      "achievements",
+      "hacker",
+      "match3",
+      "virus"
+    ],
+    "description": "Build up your own crazy virus, out of random computer parts! Match the pieces to make them grow stronger. Just watch out not to overflow and destroy yourself!",
+    "credits": {
+      "Programming": "iluvAS",
+      "Artist": "Argentin"
+    }
+  },
+  {
+    "ng_id": "547308",
+    "ng_url": "https://www.newgrounds.com/portal/view/547308",
+    "title": "Rapid Rush",
+    "upload_date_iso": "2010-09-03",
+    "upload_date_display": "Sep 3, 2010 12:20 PM EDT",
+    "views": 3619,
+    "votes": 4,
+    "faves": 1,
+    "score": 4.92,
+    "genre": "",
+    "tags": [
+      "rapid",
+      "rush"
+    ],
+    "description": "Try to collect as many points as possible before you run out of time\nSubmit your highest score to compare it with your friends",
+    "credits": {
+      "Artist": "Argentin"
+    }
+  },
+  {
+    "ng_id": "545658",
+    "ng_url": "https://www.newgrounds.com/portal/view/545658",
+    "title": "Strawberryclock Adventure",
+    "upload_date_iso": "2010-08-16",
+    "upload_date_display": "Aug 16, 2010 7:53 AM EDT",
+    "views": 7030,
+    "votes": 16,
+    "faves": 5,
+    "score": 3.18,
+    "genre": "Adventure - Other",
+    "tags": [
+      "adventure",
+      "clock",
+      "great",
+      "strawberry"
+    ],
+    "description": "The Great Strawberry Clock Adventure\nPlay as the Strawberry Clock in this amazingly great game and fulfill his destiny.\nControls: Keyboard Arrows\n(There is also a hidden Easter Egg)",
+    "credits": {
+      "Artist": "Argentin",
+      "Programming": "iluvAS"
+    }
+  },
+  {
+    "ng_id": "541282",
+    "ng_url": "https://www.newgrounds.com/portal/view/541282",
+    "title": "Bullet Bash",
+    "upload_date_iso": "2010-07-05",
+    "upload_date_display": "Jul 5, 2010 4:31 AM EDT",
+    "views": 5929,
+    "votes": 4,
+    "faves": null,
+    "score": 3.78,
+    "genre": "Skill - Collect",
+    "tags": [
+      "bash",
+      "block",
+      "bullet"
+    ],
+    "description": "Stop as many bullets as you can in this fast paced gamed.\nUse the arrow keys to control your paddle and get ready for some bullet bashing!",
+    "credits": {
+      "Artist": "Argentin",
+      "Programming": "MrRandomist"
+    }
+  },
+  {
+    "ng_id": "540922",
+    "ng_url": "https://www.newgrounds.com/portal/view/540922",
+    "title": "Marble Frenzy",
+    "upload_date_iso": "2010-07-01",
+    "upload_date_display": "Jul 1, 2010 10:58 AM EDT",
+    "views": 8873,
+    "votes": 14,
+    "faves": 15,
+    "score": 3.45,
+    "genre": "",
+    "tags": [
+      "aim",
+      "frenzy",
+      "marble",
+      "match3"
+    ],
+    "description": "Take a seat and get ready to have hours of fun in this addictive marble breaking game.\nShoot, Swap, Strategize and do whatever you need to do, to destroy wave after wave of marble frenzy.\nINSTRUCTIONS:\nUse your mouse to aim at the center of the game play, and click to shoot the marble.\nPress Space to swap between the two available marbles.",
+    "credits": {
+      "Artist": "Argentin",
+      "Programming": "iluvAS"
+    }
+  },
+  {
+    "ng_id": "511133",
+    "ng_url": "https://www.newgrounds.com/portal/view/511133",
+    "title": "Rising Angel",
+    "upload_date_iso": "2009-09-10",
+    "upload_date_display": "Sep 10, 2009 12:59 PM EDT",
+    "views": 10924,
+    "votes": 8,
+    "faves": 4,
+    "score": 3.57,
+    "genre": "Skill - Toss",
+    "tags": [],
+    "description": "[Story]\nLucius the angel hurt his wings as he fell down from the sky!\nWhat else could he possibly do now, but grab his divine hook and some rope, and swing around collecting coins for his hospital bill?\n[Tips]\n- Don't throw a hook onto a platform near you: you will gain almost no velocity from that! Instead, try to find the best distance between the angel and a platform for maximum speed!\n- When hunting coins, maximum speed isn't always optimal.\n[Controls]\nLeft mouse button - Throw a new hook\nA and S keys - Activate powerups bought in the shop\nRight click - Options\n[About]\nThis started out as a small project, but it eventually grew into something.. uhm, fairly medium-sized :) The gameplay is simple, but raising the money to fix those wings of yours might not be! Can you do it quickly and make it onto the leaderboard?\nHope you enjoy, and feel free to add this game to your site if you wish (see info on the menu)!\nArt - Argentin\nProgramming - knugen\nMusic - qeshi",
+    "credits": {
+      "Programming": "knugen",
+      "Artist": "Argentin"
+    }
+  },
+  {
+    "ng_id": "492970",
+    "ng_url": "https://www.newgrounds.com/portal/view/492970",
+    "title": "Einstein's Quiz",
+    "upload_date_iso": "2009-04-25",
+    "upload_date_display": "Apr 25, 2009 12:30 PM EDT",
+    "views": 6990,
+    "votes": 6,
+    "faves": 4,
+    "score": 2.94,
+    "genre": "",
+    "tags": [],
+    "description": "Some of you may know this game, some of you may not\nTest your intelligence in this awesome quiz.\n(I'm sorry but it doesn't have a preloader)",
+    "credits": {
+      "Author": "Argentin"
+    }
+  },
+  {
+    "ng_id": "486610",
+    "ng_url": "https://www.newgrounds.com/portal/view/486610",
+    "title": "1 Day Quest",
+    "upload_date_iso": "2009-03-11",
+    "upload_date_display": "Mar 11, 2009 1:43 PM EDT",
+    "views": 9339,
+    "votes": 12,
+    "faves": 4,
+    "score": 4.16,
+    "genre": "",
+    "tags": [
+      "day",
+      "game"
+    ],
+    "description": "This project started out of pure boredom\nI thought I should team up with some other bored people on Newgrounds and try making a game in a day\nIt actually took us less then 24 hours which include the game idea, the game graphics, the programming and the music (all done in less then a day)\nGAME:You have to pick up items, combine them and stretch your brain to the max because even though it's a really small game with only a few graphics it's really hard\nIf you have trouble solving it feel free to check out the Walkthrough we provided in the game",
+    "credits": {
+      "Author": "Argentin",
+      "Programming": "knugen",
+      "Sound": "svsaproductions"
+    }
+  },
+  {
+    "ng_id": "478067",
+    "ng_url": "https://www.newgrounds.com/portal/view/478067",
+    "title": "Awesome Effects Tutorial",
+    "upload_date_iso": "2009-01-11",
+    "upload_date_display": "Jan 11, 2009 2:39 AM EST",
+    "views": 6056,
+    "votes": 14,
+    "faves": 7,
+    "score": 3.98,
+    "genre": "Tutorial",
+    "tags": [
+      "awesome",
+      "effects",
+      "tutorial"
+    ],
+    "description": "This tutorial teaches you how to do some amazing effects for your games or any application you may think of\nThis is for both advanced or newbie flash users\nNow it has music in it due to users request\nIf you think this was useful in any way please recommend it for the tutorial section\n===Don't forget to check out the forum for more tutorials===",
+    "credits": {
+      "Author": "Argentin"
+    }
+  },
+  {
+    "ng_id": "477862",
+    "ng_url": "https://www.newgrounds.com/portal/view/477862",
+    "title": "Mouth Tutorial",
+    "upload_date_iso": "2009-01-10",
+    "upload_date_display": "Jan 10, 2009 10:48 AM EST",
+    "views": null,
+    "votes": 7,
+    "faves": null,
+    "score": 2.64,
+    "genre": "Tutorial",
+    "tags": [
+      "mouth",
+      "tutorial"
+    ],
+    "description": "This tutorial only covers 4 mouth states but I guess it's better then nothing\nNo tutorial from this series is going to have any music because I just want to keep them simple and small so they load fast\nTell me what you think about this tutorial since this is rather unique and I don't know if it's useful or not",
+    "credits": {
+      "Author": "Argentin"
+    }
+  },
+  {
+    "ng_id": "477821",
+    "ng_url": "https://www.newgrounds.com/portal/view/477821",
+    "title": "Advanced Shading Tutorial",
+    "upload_date_iso": "2009-01-10",
+    "upload_date_display": "Jan 10, 2009 12:58 AM EST",
+    "views": 4266,
+    "votes": 8,
+    "faves": 4,
+    "score": 1.88,
+    "genre": "Tutorial",
+    "tags": [],
+    "description": "Shading is an important skill an artist needs to have\nShading makes your drawings look much more professional",
+    "credits": {
+      "Author": "Argentin"
+    }
+  },
+  {
+    "ng_id": "471714",
+    "ng_url": "https://www.newgrounds.com/portal/view/471714",
+    "title": "Tripicus",
+    "upload_date_iso": "2008-11-30",
+    "upload_date_display": "Nov 30, 2008 1:19 PM EST",
+    "views": 6430,
+    "votes": 22,
+    "faves": 3,
+    "score": 4.24,
+    "genre": "Skill - Avoid",
+    "tags": [
+      "avoid",
+      "tripicus"
+    ],
+    "description": "After almost 10 hours of work I have finally completed this game\nInstructions:\nAvoid the falling green tripoids falling from above\nCollect as many blue marbles as you can before you die\n1 new tripoid appears every 10 seconds\nLet's see how much you can last\nPost your score here if you think it's a good one",
+    "credits": {
+      "Author": "Argentin"
+    }
+  },
+  {
+    "ng_id": "467493",
+    "ng_url": "https://www.newgrounds.com/portal/view/467493",
+    "title": "FBF in 30 minutes",
+    "upload_date_iso": "2008-10-31",
+    "upload_date_display": "Oct 31, 2008 6:45 PM EDT",
+    "views": 3307,
+    "votes": 3,
+    "faves": null,
+    "score": 2.33,
+    "genre": "",
+    "tags": [
+      "by",
+      "frame"
+    ],
+    "description": "Took me about 30-45 minutes to make\nI only did this because I was angry cause I had a fight with somebody.\nI worked really really fast at this so...I don't know i just needed to express my anger",
+    "credits": {
+      "Author": "Argentin"
+    }
+  },
+  {
+    "ng_id": "451057",
+    "ng_url": "https://www.newgrounds.com/portal/view/451057",
+    "title": "Spermatron v2",
+    "upload_date_iso": "2008-07-28",
+    "upload_date_display": "Jul 28, 2008 1:11 PM EDT",
+    "views": 9356,
+    "votes": 9,
+    "faves": null,
+    "score": 2.61,
+    "genre": "",
+    "tags": [],
+    "description": "Coding - Captin Chu\nGraphics - Argentin\nThe object of Spermatron is to use your mouse to continue your way through your mother's uterus and leave all your fellow brothers to rot in her vagina. Avoid the uturan lining and avoid other sperm or it is game over.\nThis version has Power Ups and has a different music\nHope you like it now.",
+    "credits": {
+      "Author": "Argentin, CaptinChu"
+    }
+  }
+]

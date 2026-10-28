@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="fav-grad" gradientUnits="userSpaceOnUse" x1="80" y1="80" x2="432" y2="432">
+      <stop offset="0" stop-color="#1ED2EB"/>
+      <stop offset="0.3686" stop-color="#A555F5"/>
+      <stop offset="0.6588" stop-color="#EB4696"/>
+      <stop offset="1" stop-color="#FAC814"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded indigo square so the mark reads on any browser chrome -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="#160734"/>
+  <!-- PlayMusic icon: 5 rounded vertical bars + notehead.
+       Source paths from /brand/playmusic-source.svg (icon bounds ~95-167 x, 205-275 y).
+       Scaled 4.4x and centered on the 512 square (icon center ~(131,240) → (256,256)). -->
+  <g transform="translate(-320.4 -800) scale(4.4)">
+    <path fill-rule="evenodd" clip-rule="evenodd" fill="url(#fav-grad)" d="M146.9,205.4c-2.2,0-4,1.8-4,4v46.8c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4v-46.8C150.9,207.1,149.1,205.4,146.9,205.4z M126.3,257.2c0.3,0,0.5,0,0.8,0v-33.1c0-2.2,1.8-4,4-4c2.2,0,4,1.8,4,4v41.8c0,4.8-3.9,8.7-8.7,8.7c-4.8,0-8.7-3.9-8.7-8.7S121.5,257.2,126.3,257.2z M110.5,242.6c0.3,0,0.5,0,0.8,0v-33.3c0-2.2,1.8-4,4-4c2.2,0,4,1.8,4,4v42v0c0,4.8-3.9,8.7-8.7,8.7s-8.7-3.9-8.7-8.7C101.7,246.5,105.6,242.6,110.5,242.6L110.5,242.6z M99.4,218.2c-2.2,0-4,1.8-4,4v16.4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4v-16.4C103.4,220,101.6,218.2,99.4,218.2L99.4,218.2z M162.7,218.2c-2.2,0-4,1.8-4,4v16.4c0,2.2,1.8,4,4,4s4-1.8,4-4v-16.4C166.7,220,164.9,218.2,162.7,218.2L162.7,218.2z"/>
+  </g>
+</svg>
