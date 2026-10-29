@@ -93,9 +93,9 @@ export function Hero() {
 
   const achievements: AchievementData[] = [
     { id: 'exp', shaderType: 'levelup', value: String(careerYears), label: 'YEARS OF EXPERIENCE' },
-    { id: 'games', shaderType: 'cartridge', value: '31', label: 'PRODUCED GAMES' },
+    { id: 'games', shaderType: 'cartridge', value: '+30', label: 'PRODUCED GAMES' },
     { id: 'levels', shaderType: 'factory', value: '+5000', label: 'SHIPPED LEVELS' },
-    { id: 'teams', shaderType: 'teamslead', value: '9', label: 'TEAMS LEAD' },
+    { id: 'teams', shaderType: 'teamslead', value: '8', label: 'TEAMS LEAD' },
   ];
 
   return (

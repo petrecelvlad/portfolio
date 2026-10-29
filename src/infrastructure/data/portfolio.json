@@ -292,15 +292,15 @@
           "Designed the maps and the meta loop that moves players through them, along with the abilities and skills",
           "Designed the UI and UX for both the menus and the in-game interface",
           "Wrote the story and lore, and built the branding so the towers, the enemies and the game share one identity",
-          "Reworked the core and meta loops after launch, based on what the live KPIs showed"
+          "Reworked the core and meta loops after launch, based on what the live KPIs showed",
+          "Released it first as Idle TD, then paused it and relaunched it as Tap TD to solve the original's design flaws"
         ],
         "achievements": [
-          "Reached 100K organic installs on Google Play"
+          "Reached 100K organic installs on Google Play with Idle TD"
         ],
         "technologies": ["Game Production", "Game Design", "Marketing", "Economy Design", "Monetization", "Level Design", "UX Design", "Community Mgmt", "KPI Tracking"],
         "keyScreenshots": ["/assets/screenshots/TapTD/SS_TapTD_1.png", "/assets/screenshots/TapTD/SS_TapTD_2.png", "/assets/screenshots/TapTD/SS_TapTD_3.png", "/assets/screenshots/TapTD/SS_TapTD_4.png", "/assets/screenshots/TapTD/SS_TapTD_5.png", "/assets/screenshots/TapTD/SS_TapTD_6.png", "/assets/screenshots/TapTD/SS_TapTD_7.png"],
-        "links": { "youtube": "https://www.youtube.com/watch?v=6OuN6ncCRNo", "pages": [] },
-        "isDiscontinued": true
+        "links": { "youtube": "https://www.youtube.com/watch?v=6OuN6ncCRNo", "pages": [{ "kind": "googlePlay", "label": "Idle TD", "url": "https://play.google.com/store/apps/details?id=com.FunParticle.IdleTD" }, { "kind": "googlePlay", "label": "Tap TD", "url": "https://play.google.com/store/apps/details?id=com.FunParticle.IdleTowerDefense" }] }
       }
     ]
   },
