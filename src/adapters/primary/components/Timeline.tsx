@@ -134,7 +134,7 @@ export function Timeline({ experiences, containerRef, sectionRefs, onActiveSecti
           section behind it (SkillTree/whatever's above) showed through. */}
       {activeIndex !== -1 && (
         <div className="[grid-area:1/1] sticky top-0 h-[calc(100vh-var(--chrome-navbar-height))] w-full">
-          <ProjectStage project={projects[activeIndex]} showDetailsHint />
+          <ProjectStage project={projects[activeIndex]} index={activeIndex} showDetailsHint />
         </div>
       )}
     </div>

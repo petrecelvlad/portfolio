@@ -4,9 +4,10 @@
  *   "role": "UI_COMPONENT",
  *   "constraints": [
  *     "C-008: the details hint hand bobs as a CSS transform animation (index.css .hint-bob)",
- *     "C-010: the hand stops through index.css's reduced-motion rule; the tab flip's rotateX is covered by MotionConfig"
+ *     "C-008: page turns are Motion transform strings and opacity (ClipboardPage.tsx)",
+ *     "C-010: the hand stops through index.css's reduced-motion rule; page turns check useReducedMotion and crossfade instead"
  *   ],
- *   "agent_instructions": "The clipboard for one project. Only the hint hand moves nonstop, and only until the visitor's first tab click."
+ *   "agent_instructions": "The clipboard for the project on show. Only the hint hand moves nonstop, and only until the visitor's first tab click. A tab click turns the page; a project swap (projectSwap.ts) tears the sheet off or drops a new one on."
  * }
  */
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
@@ -18,6 +19,8 @@ import {
 import { Text } from '@/src/components/atoms/Text';
 import { InstantPhoto } from '@/src/components/atoms/InstantPhoto';
 import { ResponsibilitiesSlotProps } from '@/src/components/bento/ports';
+import { useProjectSwap } from '@/src/components/bento/projectSwap';
+import { ClipboardPage, type PageTurn } from './ClipboardPage';
 import type { IProjectLink, ProjectLinkKind } from '@/src/core/domain/models';
 import { formatDateToQuarter, formatDuration } from '@/src/core/domain/formatDate';
 import { splitUnconfirmed } from '@/src/core/domain/unconfirmedCopy';
@@ -54,7 +57,6 @@ const TAB_TUCK_PX = 14;
 // How long the Overview stays open before the hand points at the Details tab.
 const DETAILS_HINT_DWELL_MS = 2000;
 
-const PAPER_UNDERSHADOW = '2px 2px 0px rgba(43, 32, 22, 0.15)';
 // The project icon itself (frame, scotch tape, shadow) is the shared InstantPhoto atom
 // (components/atoms/InstantPhoto.tsx) — also used by SkillTree's project photos, same recipe,
 // sized differently per consumer. Used to be a bespoke torn-edge clip-path here; replaced
@@ -273,6 +275,15 @@ export function BentoResponsibilities(props: ResponsibilitiesSlotProps) {
     company, companyLogo, companyUrl, links, isDiscontinued = false, showDetailsHint = false,
   } = props;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [turn, setTurn] = useState<PageTurn>({ kind: 'tab', direction: 1 });
+  // A project swap opens the new project on its first page.
+  const swap = useProjectSwap();
+  const [shownSwapKey, setShownSwapKey] = useState(swap.key);
+  if (shownSwapKey !== swap.key) {
+    setShownSwapKey(swap.key);
+    setActiveIndex(0);
+    setTurn({ kind: 'project', direction: swap.direction === -1 ? -1 : 1 });
+  }
   const sections = SECTIONS.filter((section) => section.isPresent(props));
   const activeSection = sections[activeIndex];
   const detailsIndex = sections.findIndex((section) => section.type === 'details');
@@ -302,6 +313,7 @@ export function BentoResponsibilities(props: ResponsibilitiesSlotProps) {
   }, [isHintDue]);
 
   const openSection = (index: number) => {
+    setTurn({ kind: 'tab', direction: index > activeIndex ? 1 : -1 });
     setActiveIndex(index);
     dismissDetailsHint();
   };
@@ -441,7 +453,7 @@ export function BentoResponsibilities(props: ResponsibilitiesSlotProps) {
   };
 
   return (
-    <div className="relative h-full pl-1 pr-1" style={{ perspective: 1600 }}>
+    <div className="relative h-full pl-1 pr-1">
       <BinderClip />
 
       {/* Section tabs — behind the board, poking up past its top edge on either
@@ -513,45 +525,12 @@ export function BentoResponsibilities(props: ResponsibilitiesSlotProps) {
           aria-hidden
         />
 
-        {/* Front sheet — sharp corners, thin paper-like border, the actual content.
-            Tilt mirrored (Vlad, 2026-07-24): rotate(-1deg) -> rotate(1deg), same
-            "negate the angle" mirror as the back sheet. Content stays readable —
-            confirmed with Vlad that a true scaleX(-1) here (which would also
-            mirror all the text/photo, rendering it backwards) was not wanted. */}
-        <div
-          ref={sheetRef}
-          className="relative z-20 h-full border-[1.5px] border-ink-base overflow-hidden rotate-[1deg]"
-          style={{
-            backgroundColor: PAPER_COLOR,
-            boxShadow: PAPER_UNDERSHADOW,
-          }}
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={activeIndex}
-              data-ruled-page
-              initial={{ rotateX: -100, opacity: 0 }}
-              animate={{ rotateX: 0, opacity: 1 }}
-              exit={{ rotateX: 100, opacity: 0 }}
-              transition={{ duration: 0.45, ease: 'easeInOut' }}
-              style={{
-                transformOrigin: 'top center',
-                // Ruled lines live here (2026-07-24), on the same padded
-                // element the text sits in — background-origin
-                // defaults to padding-box, so this gradient's own y=0
-                // lands exactly at the padding edge, the same coordinate
-                // the text content starts from, and scrolls together with
-                // it since it's the same element. See RULE_HEIGHT/
-                // PAPER_BASELINE_NUDGE above for how every text block
-                // inside stays in phase with this from here on.
-                background: `repeating-linear-gradient(
-                  to bottom,
-                  transparent, transparent ${RULE_HEIGHT - 1}px,
-                  var(--color-rule-soft) ${RULE_HEIGHT - 1}px, var(--color-rule-soft) ${RULE_HEIGHT}px
-                )`,
-              }}
-              className="relative tablet:absolute tablet:inset-0 p-6 md:p-8 overflow-hidden flex flex-col"
-            >
+        {/* Front sheets — the pages on the pile, tilted the mirror of the back sheet. The tilt
+            flattens 3D for everything inside, so the perspective for the page turns sits here on
+            the same element rather than further up. */}
+        <div ref={sheetRef} className="relative z-20 h-full rotate-[1deg]" style={{ perspective: 1600 }}>
+          <AnimatePresence mode="popLayout" initial={false} custom={turn}>
+            <ClipboardPage key={`${shownSwapKey}:${activeSection?.type}`} ruleHeight={RULE_HEIGHT}>
               {/* Single shared phase correction for EVERYTHING below — see
                   the RULE_HEIGHT/PAPER_BASELINE_NUDGE comment above. Every
                   child here is positioned relative to EACH OTHER by normal
@@ -562,7 +541,7 @@ export function BentoResponsibilities(props: ResponsibilitiesSlotProps) {
               <div className="relative flex-1 flex flex-col" style={{ transform: `translateY(${PAPER_BASELINE_NUDGE}px)` }}>
                 {activeSection && renderSectionBody(activeSection.type)}
               </div>
-            </motion.div>
+            </ClipboardPage>
           </AnimatePresence>
         </div>
       </div>

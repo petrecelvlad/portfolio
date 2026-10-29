@@ -28,6 +28,14 @@ export function ProjectDetails({ project, isActive, showDetailsHint = false }: P
     setSlide(0);
   }
   const [viewer, setViewer] = useState<{ index: number; from: DOMRect } | null>(null);
+  // On the project stage this stays mounted while projects swap in, so a new project starts
+  // over too: first screenshot, no photo open.
+  const [shownProjectId, setShownProjectId] = useState(project.id);
+  if (shownProjectId !== project.id) {
+    setShownProjectId(project.id);
+    setSlide(0);
+    setViewer(null);
+  }
   const openPhoto = (index: number, from: DOMRect) => setViewer({ index, from });
   const pages = project.isDiscontinued && project.links.youtube
     ? [...project.links.pages, { kind: 'youtube' as const, url: project.links.youtube }]
@@ -73,11 +81,11 @@ export function ProjectDetails({ project, isActive, showDetailsHint = false }: P
           </div>
           {/* Mobile has no screen height to fill, so the frame takes a 16:9 box of its own. Only the
               active project gets its YouTube player; the rest show their screenshot in the same shell.
-              The key swaps the whole frame: the YouTube API replaces the player's placeholder node with
-              its iframe, so React must never be left to remove that node on its own. */}
+              The key swaps the whole frame, per project too: the YouTube API replaces the player's
+              placeholder node with its iframe, so React must never be left to remove that node on its own. */}
           <div className="aspect-video tablet:aspect-auto flex-grow min-h-0 flex flex-col">
             <BentoVideoFrame
-              key={isActive ? 'player' : 'screenshot'}
+              key={`${project.id}-${isActive ? 'player' : 'screenshot'}`}
               orientation={project.frameOrientation ?? 'landscape'}
               screenshots={project.keyScreenshots}
               slide={slide}

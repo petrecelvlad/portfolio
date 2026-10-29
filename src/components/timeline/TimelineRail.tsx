@@ -1,3 +1,4 @@
+import type React from 'react';
 import { AnimatePresence, motion, useReducedMotion, type Transition } from 'motion/react';
 import { IProject } from '@/src/core/domain/models';
 import { useScreenTier } from '@/src/hooks/useScreenTier';
@@ -15,6 +16,8 @@ const OFFSCREEN_X = '-200%';
 // Motion runs `transform` strings on the GPU (x/y/scale run in JS), but its reduced-motion switch
 // only covers x/y/scale, so every motion in this file checks the setting itself.
 const RAIL_SLIDE: Transition = { duration: 0.4, ease: [0.16, 1, 0.3, 1] };
+const HOP_REST = 'translateY(0px) scale(1)';
+const RAIL_HOP: Transition = { duration: 0.38, times: [0, 0.45, 1], ease: [0.3, 0.7, 0.4, 1] };
 
 function getProgress(activeIndex: number, projectCount: number): number {
   return projectCount > 1 ? activeIndex / (projectCount - 1) : 0;
@@ -55,6 +58,21 @@ function RailDot({ isPassed, className }: { isPassed: boolean; className: string
   );
 }
 
+// The project just reached hops, so the rail confirms the change along with the stage.
+function DotHop({ isActive, children }: { isActive: boolean; children: React.ReactNode }) {
+  const isReducedMotion = useReducedMotion();
+  return (
+    <motion.span
+      className="flex"
+      initial={false}
+      animate={{ transform: isActive && !isReducedMotion ? [HOP_REST, 'translateY(-7px) scale(1.25)', HOP_REST] : HOP_REST }}
+      transition={RAIL_HOP}
+    >
+      {children}
+    </motion.span>
+  );
+}
+
 // Mobile: the same rail turned horizontal, pinned under the navbar over the page as it scrolls,
 // sliding down from behind the navbar instead of in from the left. Dots are drawn at 16px; each
 // one's tap area is its whole slice of the width, so all of them fit a phone.
@@ -85,7 +103,9 @@ function HorizontalRail({ projects, activeIndex, onNavigate }: Omit<TimelineRail
             aria-current={index === activeIndex}
             className="relative z-10 flex-1 flex items-center justify-center pointer-events-auto cursor-pointer"
           >
-            <RailDot isPassed={index <= activeIndex} className="w-4 h-4" />
+            <DotHop isActive={index === activeIndex}>
+              <RailDot isPassed={index <= activeIndex} className="w-4 h-4" />
+            </DotHop>
           </button>
         ))}
       </div>
@@ -155,7 +175,9 @@ export function TimelineRail({ projects, activeIndex, isInFullView, onNavigate }
                 aria-current={index === activeIndex}
                 className="relative z-10 flex items-center justify-center w-[40px] h-10 pointer-events-auto cursor-pointer"
               >
-                <RailDot isPassed={index <= activeIndex} className="w-[25px] h-[25px]" />
+                <DotHop isActive={index === activeIndex}>
+                  <RailDot isPassed={index <= activeIndex} className="w-[25px] h-[25px]" />
+                </DotHop>
               </button>
             ))}
           </div>

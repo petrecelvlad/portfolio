@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { Volume2, VolumeX, Play, Pause } from 'lucide-react';
-import { useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { useVideoPrefs } from '@/src/context/VideoPrefsContext';
 import { getYoutubeId } from '@/src/core/domain/projectMedia';
 import type { FrameOrientation, IScreenshot } from '@/src/core/domain/models';
 import { ResponsiveImage } from '../atoms/ResponsiveImage';
+import { SWAP_DELAY, useProjectSwap } from './projectSwap';
 
 interface BentoVideoFrameProps {
   orientation: FrameOrientation;
@@ -391,6 +392,37 @@ function portraitWidth(count: number): string {
   return `min(calc((100cqw - ${(count - 1) * PORTRAIT_GAP_PX}px) / ${count}), calc(100cqh * 9 / 16))`;
 }
 
+// The frame mounts fresh for every project, so after a project swap its screen starts dark and
+// wakes on the new project: the black lifts while the picture settles from slightly enlarged.
+const WAKE_HOLD_SECONDS = SWAP_DELAY.screen + 0.14;
+
+function WakingScreen({ children }: { children: ReactNode }) {
+  const { direction } = useProjectSwap();
+  const isReducedMotion = useReducedMotion();
+  const isWaking = direction !== 0;
+  return (
+    <>
+      <motion.div
+        className="absolute inset-0"
+        initial={{ transform: `scale(${isWaking && !isReducedMotion ? 1.06 : 1})` }}
+        animate={{ transform: 'scale(1)' }}
+        transition={{ duration: 0.46, delay: WAKE_HOLD_SECONDS, ease: [0.2, 0.8, 0.2, 1] }}
+      >
+        {children}
+      </motion.div>
+      {isWaking && (
+        <motion.div
+          className="absolute inset-0 z-50 bg-black pointer-events-none"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.34, delay: WAKE_HOLD_SECONDS, ease: 'easeOut' }}
+          aria-hidden
+        />
+      )}
+    </>
+  );
+}
+
 // w-full + aspect-ratio + max-h-full (the old sizing here) fight each other:
 // aspect-ratio only fills in whichever dimension is left unset, so with width
 // pinned to 100% it always derives height from that width first, then
@@ -430,7 +462,7 @@ function PhoneShell({ orientation, width, children }: {
         ) : (
           <div className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-20 bg-[var(--chrome-device-shell)] rounded-r-[12px] z-20" />
         )}
-        {children}
+        <WakingScreen>{children}</WakingScreen>
       </div>
     </div>
   );

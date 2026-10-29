@@ -1,5 +1,7 @@
 import React from 'react';
+import { AnimatePresence, motion, useReducedMotion, type Variants } from 'motion/react';
 import { SkillsSlotProps } from '@/src/components/bento/ports';
+import { SWAP_DELAY, useProjectSwap } from '@/src/components/bento/projectSwap';
 import { SKILL_ICONS } from '@/src/core/domain/skillIcons';
 import { HERITAGE_PALETTE } from './palette';
 
@@ -219,8 +221,36 @@ function StickyNote({ color, rotation, skill, effect, pinColor, foldCorner }: St
   );
 }
 
+// A project swap peels the old notes off one after another, then slaps the new ones on with a
+// little bounce. The row's labels drive each note's own variant, staggered by the row.
+const NOTE_ROW: Variants = {
+  enter: {},
+  rest: { transition: { staggerChildren: 0.06 } },
+  leave: { transition: { staggerChildren: 0.035, delayChildren: SWAP_DELAY.notes } },
+};
+const NOTE_SWAP: Variants = {
+  enter: { transform: 'translate(0px, -16px) rotate(0deg) scale(1.35)', opacity: 0 },
+  rest: {
+    transform: 'translate(0px, 0px) rotate(0deg) scale(1)',
+    opacity: 1,
+    transition: { duration: 0.34, ease: [0.34, 1.56, 0.64, 1], opacity: { duration: 0.15 } },
+  },
+  leave: (slot: number) => ({
+    transform: `translate(${slot % 2 ? 10 : -10}px, -28px) rotate(${slot % 2 ? 16 : -16}deg) scale(1)`,
+    opacity: 0,
+    transition: { duration: 0.2, ease: 'easeIn' },
+  }),
+};
+const NOTE_FADE: Variants = {
+  enter: { opacity: 0 },
+  rest: { opacity: 1, transition: { duration: 0.2 } },
+  leave: { opacity: 0, transition: { duration: 0.15 } },
+};
+
 export function BentoSkills({ skills }: SkillsSlotProps) {
   const displaySkills = skills.slice(0, 6);
+  const swap = useProjectSwap();
+  const isReducedMotion = useReducedMotion();
 
   return (
     <div className="flex flex-col items-center gap-2 md:gap-3">
@@ -244,22 +274,30 @@ export function BentoSkills({ skills }: SkillsSlotProps) {
           positions and marking the rest empty. */}
       {/* Mobile: 124px notes, two per row. Tablet and up: one row, each note 148px or whatever the
           row's width allows for this many notes. */}
-      <div
-        className="flex flex-wrap justify-center gap-x-6 gap-y-4 tablet:flex-nowrap tablet:justify-evenly tablet:gap-2 w-full [container-type:inline-size] max-w-[300px] tablet:max-w-none"
-        style={{ '--note-size': `min(148px, calc((100cqw - ${displaySkills.length - 1} * 8px) / ${displaySkills.length}))` } as React.CSSProperties}
-      >
-        {displaySkills.map((skill, i) => (
-          <StickyNote
-            key={i}
-            color={NOTE_COLORS[i]}
-            rotation={NOTE_ROTATIONS[i]}
-            skill={skill}
-            effect={NOTE_EFFECTS[i]}
-            pinColor={PIN_COLORS[i]}
-            foldCorner={NOTE_FOLD_CORNERS[i]}
-          />
-        ))}
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={swap.key}
+          className="flex flex-wrap justify-center gap-x-6 gap-y-4 tablet:flex-nowrap tablet:justify-evenly tablet:gap-2 w-full [container-type:inline-size] max-w-[300px] tablet:max-w-none"
+          style={{ '--note-size': `min(148px, calc((100cqw - ${displaySkills.length - 1} * 8px) / ${displaySkills.length}))` } as React.CSSProperties}
+          variants={NOTE_ROW}
+          initial="enter"
+          animate="rest"
+          exit="leave"
+        >
+          {displaySkills.map((skill, i) => (
+            <motion.div key={i} className="flex-shrink-0" variants={isReducedMotion ? NOTE_FADE : NOTE_SWAP} custom={i}>
+              <StickyNote
+                color={NOTE_COLORS[i]}
+                rotation={NOTE_ROTATIONS[i]}
+                skill={skill}
+                effect={NOTE_EFFECTS[i]}
+                pinColor={PIN_COLORS[i]}
+                foldCorner={NOTE_FOLD_CORNERS[i]}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

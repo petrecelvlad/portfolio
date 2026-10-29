@@ -1,32 +1,30 @@
+import { useMemo, useState } from 'react';
 import { ITimelineProject } from '@/src/core/domain/models';
 import { ProjectDetails } from '@/src/components/timeline/ProjectDetails';
 import { WoodBackground } from '@/src/components/bento/shared/WoodBackground';
+import { ProjectSwapProvider, type ProjectSwap, type SwapDirection } from '@/src/components/bento/projectSwap';
 
 interface ProjectStageProps {
   project: ITimelineProject;
+  index: number;
   showDetailsHint: boolean;
 }
 
-// The persistent Project Viewer shell — Phase 1 of
-// cone/project/architecture/systems/PROJECT_VIEWER.md. Mounted ONCE by
-// Timeline.tsx as a `position: sticky` overlay spanning the whole project
-// list's scroll range. This component doesn't know or care about scroll
-// position — it just renders whichever `project` it's handed. The
-// background/clipboard/phone/notes/banner chrome never remounts as the user
-// scrolls between projects; only this component's `project` prop changes,
-// swapping the content inside the same mounted DOM tree.
+// The persistent Project Viewer shell (cone/project/architecture/systems/PROJECT_VIEWER.md).
+// Mounted ONCE by Timeline.tsx as a `position: sticky` overlay spanning the whole project list's
+// scroll range; it just renders whichever `project` it's handed.
 //
-// `key={project.id}` on ProjectDetails below is deliberate, not incidental:
-// without it, BentoResponsibilities' internal page-tab state (and any other
-// per-project local state deeper in the tree) would persist across a
-// project change, since React would see "the same component, new props"
-// rather than "a different project" — e.g. leaving the clipboard on page 3
-// when scrolling from a project you'd flipped ahead on into the next one.
-// Keying on the project forces a clean remount of the content subtree (but
-// not this shell) on every swap, which for Phase 1's "instant swap, no
-// animation" posture is exactly the right amount of continuity: the frame
-// stays, the content starts fresh.
-export function ProjectStage({ project, showDetailsHint }: ProjectStageProps) {
+// Phase 2: the content stays mounted across project changes too, so each piece can animate from
+// the old project to the new one. The swap (which project, which way the visitor moved) goes down
+// through ProjectSwapProvider; every piece that keeps per-project state resets it when the swap's
+// key changes, and the pieces that animate run their own exit and entry from it.
+export function ProjectStage({ project, index, showDetailsHint }: ProjectStageProps) {
+  const [shown, setShown] = useState<{ index: number; direction: SwapDirection }>({ index, direction: 0 });
+  if (shown.index !== index) {
+    setShown({ index, direction: index > shown.index ? 1 : -1 });
+  }
+  const swap = useMemo<ProjectSwap>(() => ({ key: project.id, direction: shown.direction }), [project.id, shown.direction]);
+
   return (
     <div className="relative z-0 h-full w-full flex">
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
@@ -40,7 +38,9 @@ export function ProjectStage({ project, showDetailsHint }: ProjectStageProps) {
       <div className="relative z-0 flex-grow h-full pt-[24px] pb-5 pr-4 min-w-0 flex flex-col justify-start">
         <div className="w-full h-full mx-auto overflow-hidden flex items-start justify-center pointer-events-auto">
           <div className="w-full h-full flex flex-col justify-start min-h-0">
-            <ProjectDetails key={project.id} project={project} isActive showDetailsHint={showDetailsHint} />
+            <ProjectSwapProvider value={swap}>
+              <ProjectDetails project={project} isActive showDetailsHint={showDetailsHint} />
+            </ProjectSwapProvider>
           </div>
         </div>
       </div>
