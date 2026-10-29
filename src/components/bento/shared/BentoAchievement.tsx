@@ -8,20 +8,19 @@ import { SWAP_DELAY, useProjectSwap } from '../projectSwap';
 
 type SwapMotion = Record<'initial' | 'animate' | 'exit', TargetAndTransition>;
 
-// A project swap brings the new achievement in like a game's "achievement unlocked" popup: it
-// slides in from the right, overshoots a touch, and a shine sweeps across it.
-const UNLOCK: SwapMotion = {
-  initial: { transform: 'translateX(115%)' },
-  animate: {
-    transform: ['translateX(115%)', 'translateX(-1.5%)', 'translateX(0%)'],
-    transition: { duration: 0.52, times: [0, 0.72, 1], ease: [0.2, 0.8, 0.3, 1] },
-  },
-  exit: {
-    transform: 'translateX(-5%)',
-    opacity: 0,
-    transition: { duration: 0.15, delay: SWAP_DELAY.achievement, ease: 'easeIn' },
-  },
-};
+// A project swap stamps the new achievement down: it lands oversized and tilted, squashes a touch
+// past its size, then settles.
+function stamp(restingOpacity: number): SwapMotion {
+  return {
+    initial: { transform: 'scale(1.35) rotate(-4deg)', opacity: 0 },
+    animate: {
+      transform: ['scale(1.35) rotate(-4deg)', 'scale(0.96) rotate(0deg)', 'scale(1) rotate(0deg)'],
+      opacity: [0, restingOpacity, restingOpacity],
+      transition: { duration: 0.38, times: [0, 0.6, 1], ease: [0.3, 0.7, 0.4, 1] },
+    },
+    exit: { opacity: 0, transition: { duration: 0, delay: SWAP_DELAY.achievement } },
+  };
+}
 
 function fade(restingOpacity: number): SwapMotion {
   return {
@@ -35,12 +34,13 @@ export function BentoAchievement({ achievement }: AchievementSlotProps) {
   const swap = useProjectSwap();
   const isReducedMotion = useReducedMotion();
   const isEmpty = !achievement;
-  const swapMotion = isReducedMotion ? fade(isEmpty ? 0.4 : 1) : UNLOCK;
+  const restingOpacity = isEmpty ? 0.4 : 1;
+  const swapMotion = isReducedMotion ? fade(restingOpacity) : stamp(restingOpacity);
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={swap.key}
-        className={`relative overflow-hidden border-[length:var(--border-width-sm)] border-ink-base px-4 py-3 rounded-xl shadow-[var(--shadow-raised)] ${isEmpty ? 'bg-surface-base border-dashed opacity-40' : 'bg-[var(--role-achievement-accent)]'}`}
+        className={`relative border-[length:var(--border-width-sm)] border-ink-base px-4 py-3 rounded-xl shadow-[var(--shadow-raised)] ${isEmpty ? 'bg-surface-base border-dashed opacity-40' : 'bg-[var(--role-achievement-accent)]'}`}
         initial={swapMotion.initial}
         animate={swapMotion.animate}
         exit={swapMotion.exit}
@@ -56,15 +56,6 @@ export function BentoAchievement({ achievement }: AchievementSlotProps) {
             </Text>
           </Row>
         </Row>
-        {swap.direction !== 0 && !isReducedMotion && !isEmpty && (
-          <motion.div
-            className="absolute -inset-y-2 left-0 w-2/5 pointer-events-none bg-gradient-to-r from-transparent via-white/75 to-transparent"
-            initial={{ transform: 'translateX(-130%) skewX(-20deg)' }}
-            animate={{ transform: 'translateX(280%) skewX(-20deg)' }}
-            transition={{ duration: 0.65, delay: 0.4, ease: 'easeInOut' }}
-            aria-hidden
-          />
-        )}
       </motion.div>
     </AnimatePresence>
   );
