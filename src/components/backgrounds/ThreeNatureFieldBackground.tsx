@@ -37,6 +37,8 @@ interface ThreeNatureFieldBackgroundProps {
   isVisible?: boolean;
   /** The element whose clicks shoot at the ducks and which shows the crosshair (the hero). */
   shootingAreaRef: RefObject<HTMLElement | null>;
+  /** Called once the scene first shows: its first frame, or the static fallback without WebGL. */
+  onFirstFrame?: () => void;
 }
 
 const GRASS_COUNT = 8000; // was 12000 — reduced for perf; indistinguishable at this scale, less per-frame wind-sway math
@@ -80,7 +82,7 @@ function showShotEffect(layer: HTMLElement, x: number, y: number) {
   layer.appendChild(burst);
 }
 
-export function ThreeNatureFieldBackground({ className = '', isVisible = true, shootingAreaRef }: ThreeNatureFieldBackgroundProps) {
+export function ThreeNatureFieldBackground({ className = '', isVisible = true, shootingAreaRef, onFirstFrame }: ThreeNatureFieldBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   // Paused for the whole scroll gesture, not only once Hero's visibility crosses a threshold:
   // a threshold still let full-cost frames render for however long the scroll took to cross it.
@@ -91,6 +93,8 @@ export function ThreeNatureFieldBackground({ className = '', isVisible = true, s
   const isReducedMotion = useReducedMotion();
   const isReducedMotionRef = useRef(isReducedMotion);
   isReducedMotionRef.current = isReducedMotion;
+  const onFirstFrameRef = useRef(onFirstFrame);
+  onFirstFrameRef.current = onFirstFrame;
   const [webglUnavailable, setWebglUnavailable] = useState(false);
 
   useEffect(() => {
@@ -114,6 +118,7 @@ export function ThreeNatureFieldBackground({ className = '', isVisible = true, s
     } catch (err) {
       console.warn('ThreeNatureFieldBackground: WebGL unavailable, falling back to a static background.', err);
       setWebglUnavailable(true);
+      onFirstFrameRef.current?.();
       return;
     }
     // Shadow maps and PBR shading cost more than all the geometry together on integrated GPUs
@@ -655,6 +660,7 @@ export function ThreeNatureFieldBackground({ className = '', isVisible = true, s
       camera.lookAt(lookTargetVec);
 
       renderer.render(scene, camera);
+      if (!hasRenderedFrame) onFirstFrameRef.current?.();
       hasRenderedFrame = true;
     };
     animate();

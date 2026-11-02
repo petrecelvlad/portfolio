@@ -11,7 +11,7 @@
  *   "agent_instructions": "Hosts every always-on layer of the hero: the 3D background, the island, the character video, the name letters and the 4 achievement cards. Its cost is the sum of those layers, so check C-008 to C-012 in GUARDRAILS.md before adding or changing any motion here."
  * }
  */
-import { useMemo, useLayoutEffect, useRef, useState, lazy, Suspense, type CSSProperties } from 'react';
+import { useEffect, useMemo, useLayoutEffect, useRef, useState, lazy, Suspense, type CSSProperties } from 'react';
 import { useReducedMotion } from 'motion/react';
 import { AchievementShaderCanvas, ShaderType } from '@/src/components/backgrounds/AchievementShaderCanvas';
 import { FloatingIslandBackdrop } from '@/src/components/backgrounds/FloatingIslandBackdrop';
@@ -87,6 +87,25 @@ export function Hero() {
     return () => observer.disconnect();
   }, [sideBySide]);
 
+  // The bio note slides out from under the ribbon (index.css .hero-bio-reveal) every time it comes
+  // into view. On load it waits for the 3D background's first frame: building that scene is the
+  // page's heaviest work, and a slide started before it would mostly play while the page is frozen.
+  // Out of view it goes back under the ribbon. Reduced motion has no animation to play.
+  const bioNoteRef = useRef<HTMLDivElement>(null);
+  const { ref: bioRevealRef, isVisible: isBioVisible } = useIsVisible<HTMLDivElement>();
+  const [isSceneShown, setIsSceneShown] = useState(false);
+
+  useEffect(() => {
+    const reveal = bioNoteRef.current!.getAnimations()[0];
+    if (!reveal) return;
+    if (!isBioVisible) {
+      reveal.pause();
+      reveal.currentTime = 0;
+    } else if (isSceneShown) {
+      reveal.play();
+    }
+  }, [isBioVisible, isSceneShown]);
+
   const islandTransform = `translate(${islandPosition.offsetX}px, ${islandPosition.offsetY}px) scale(${islandPosition.scale})`;
 
   const careerYears = useMemo(() => getCareerYears(new Date()), []);
@@ -103,7 +122,7 @@ export function Hero() {
       {/* ── Layer 0: Base Background ── */}
       {canvasesReady && (
         <Suspense fallback={null}>
-          <ThreeNatureFieldBackground isVisible={isVisible} shootingAreaRef={heroRef} />
+          <ThreeNatureFieldBackground isVisible={isVisible} shootingAreaRef={heroRef} onFirstFrame={() => setIsSceneShown(true)} />
         </Suspense>
       )}
 
@@ -183,33 +202,35 @@ export function Hero() {
                 <PixelRibbonBanner className="-mb-[34px] w-[calc(100%+120px)] -mx-[60px]">
                   <h2>GAME PRODUCER</h2>
                 </PixelRibbonBanner>
-                <div className="relative z-10 w-full">
-                  <TornPaperPanel
-                    className="w-full"
-                    paperColor="#FFFDF7"
-                    strokeColor="#1C1610"
-                    strokeWidth={3}
-                    shadowOffset={4}
-                    shadowColor="#1C1610"
-                    toothWidth={36}
-                    toothHeight={13}
-                    cornerRadius={8}
-                    showPunchHoles={false}
-                    paddingTop={56}
-                    paddingBottom={56}
-                    ruleInsetX={16}
-                    showRuledLines={true}
-                    lineSpacing={28}
-                    lineColor="rgba(203, 213, 225, 0.65)"
-                    rotateDeg={0}
-                  >
-                    <p
-                      style={{ lineHeight: '28px' }}
-                      className="font-mono text-xs sm:text-sm lg:text-base text-[#1C1610] text-center font-medium select-text px-1 m-0"
+                <div ref={bioRevealRef} className="hero-bio-reveal relative z-10 w-full">
+                  <div ref={bioNoteRef}>
+                    <TornPaperPanel
+                      className="w-full"
+                      paperColor="#FFFDF7"
+                      strokeColor="#1C1610"
+                      strokeWidth={3}
+                      shadowOffset={4}
+                      shadowColor="#1C1610"
+                      toothWidth={36}
+                      toothHeight={13}
+                      cornerRadius={8}
+                      showPunchHoles={false}
+                      paddingTop={56}
+                      paddingBottom={56}
+                      ruleInsetX={16}
+                      showRuledLines={true}
+                      lineSpacing={28}
+                      lineColor="rgba(203, 213, 225, 0.65)"
+                      rotateDeg={0}
                     >
-                      Building games since 2007 across hypercasual to midcore titles, I focus entirely on crafting engaging player experiences. Having worked across every phase of game creation from art and systems to coding and marketing, I maintain a holistic view of the overall project. Today, I use my broad experience to streamline the dev process, remove friction, and consistently build fun games.
-                    </p>
-                  </TornPaperPanel>
+                      <p
+                        style={{ lineHeight: '28px' }}
+                        className="font-mono text-xs sm:text-sm lg:text-base text-[#1C1610] text-center font-medium select-text px-1 m-0"
+                      >
+                        Building games since 2007 across hypercasual to midcore titles, I focus entirely on crafting engaging player experiences. Having worked across every phase of game creation from art and systems to coding and marketing, I maintain a holistic view of the overall project. Today, I use my broad experience to streamline the dev process, remove friction, and consistently build fun games.
+                      </p>
+                    </TornPaperPanel>
+                  </div>
                 </div>
               </div>
             </div>
