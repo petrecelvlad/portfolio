@@ -4,7 +4,6 @@
  */
 
 import { useEffect, useState, useRef, useMemo, lazy, Suspense } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { IExperience } from '@/src/core/domain/models';
 import { JsonExperienceRepository } from '@/src/adapters/secondary/JsonExperienceRepo';
 import { Navbar } from '@/src/adapters/primary/components/Navbar';
@@ -46,10 +45,6 @@ export default function App() {
   return (
     <IslandPositionProvider>
       <div className="bg-bg text-text h-screen overflow-hidden flex flex-col relative">
-        <Helmet>
-          <title>Vlad Petre | Senior Game Designer Portfolio</title>
-        </Helmet>
-
         <Navbar activeSection={activeSection} onNavigate={navigateTo} />
         <IslandPositionPanel />
 
@@ -108,7 +103,7 @@ export default function App() {
               </div>
 
               <div className="font-mono pt-10 tablet:pt-20 border-t border-surface-base/10 w-full text-center text-xs font-bold uppercase tracking-[0.2em] tablet:tracking-[0.5em] text-surface-base/30">
-                &copy; {new Date().getFullYear()} Vlad Petre &bull; Game Designer &amp; Producer
+                &copy; {new Date().getFullYear()} Vlad Petre &bull; Game Producer
               </div>
             </div>
           </footer>
