@@ -562,27 +562,6 @@ body::before {
   animation: heroNameBob var(--bob-duration) ease-in-out var(--bob-delay) infinite;
 }
 
-/* The bio note slides down out from under the ribbon. The clip hides everything above the paper's
-   resting top edge, which sits behind the ribbon's body, so the paper only shows below it. It waits
-   paused, hidden, until Hero plays it. */
-@keyframes heroBioReveal {
-  from { transform: translateY(-100%); }
-}
-
-.hero-bio-reveal {
-  clip-path: inset(0 -48px -48px -48px);
-}
-
-.hero-bio-reveal > * {
-  animation: heroBioReveal 1000ms cubic-bezier(0.33, 1, 0.68, 1) both paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-bio-reveal > * {
-    animation: none;
-  }
-}
-
 /* Duck Hunt easter egg (T-071): crosshair over the hero, and a pixel burst where a shot lands.
    Controls keep their own cursor. The burst only scales and fades (C-008). */
 .duck-hunt-area {

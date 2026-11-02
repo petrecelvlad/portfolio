@@ -1,7 +1,8 @@
-import { Gamepad2, Linkedin, Mail, Network, type LucideIcon } from 'lucide-react';
+import { FileText, Gamepad2, Linkedin, Mail, Network, type LucideIcon } from 'lucide-react';
 import { Row } from '@/src/components/atoms/Row';
 import { Button, BUTTON_COLORS, type ButtonColor } from '@/src/components/atoms/Button';
 import type { PageSection } from '@/src/hooks/useTimelineOrchestrator';
+import { linkedinUrl } from '@/src/adapters/secondary/contact';
 import { BOARD_COLOR } from '@/src/components/bento/shared/palette';
 import {
   OUTLINE_COLOR, OUTLINE_WIDTH, BOARD_HIGHLIGHT_COLOR, BOARD_ELEVATION_COLOR,
@@ -18,9 +19,10 @@ const NAV_ITEMS: { label: string; section: PageSection; Icon: LucideIcon; color:
 interface NavbarProps {
   activeSection: PageSection;
   onNavigate: (section: PageSection) => void;
+  onOpenCv: () => void;
 }
 
-function ProfileLinks() {
+function ProfileLinks({ onOpenCv }: { onOpenCv: () => void }) {
   return (
     <Row align="center" gap="sm">
       <Button
@@ -29,11 +31,22 @@ function ProfileLinks() {
         rel="noopener noreferrer"
         aria-label="Astrocade"
         color={BUTTON_COLORS.white}
+        // Phones fit the name and five buttons; the CV button took this one's place there.
+        className="mobile:hidden"
       >
         <img src={`${import.meta.env.BASE_URL}assets/icons/astrocade.webp`} alt="" className="w-4 h-4" />
       </Button>
       <Button
-        href="https://www.linkedin.com/in/vladpetrebiz/"
+        onClick={onOpenCv}
+        aria-label="CV"
+        aria-haspopup="dialog"
+        color={BUTTON_COLORS.periwinkle}
+        className="text-white"
+      >
+        <FileText className="w-4 h-4" />
+      </Button>
+      <Button
+        href={linkedinUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="LinkedIn"
@@ -49,7 +62,7 @@ function ProfileLinks() {
 // Tablet and up: section links as carved text. Mobile: the section links become icon buttons, one
 // color each, centered in the bar; the grid's equal side columns keep them centered, and only shift
 // them right when the name is wider than its half (the narrowest phones).
-export function Navbar({ activeSection, onNavigate }: NavbarProps) {
+export function Navbar({ activeSection, onNavigate, onOpenCv }: NavbarProps) {
   return (
     <nav
       className="h-[var(--chrome-navbar-height)] flex-shrink-0 relative w-full z-50 flex flex-col"
@@ -100,7 +113,7 @@ export function Navbar({ activeSection, onNavigate }: NavbarProps) {
             ))}
           </Row>
           <div className="justify-self-end">
-            <ProfileLinks />
+            <ProfileLinks onOpenCv={onOpenCv} />
           </div>
         </div>
       </div>

@@ -27,6 +27,8 @@ export interface IProject {
   frameOrientation?: FrameOrientation;
   // Work for another company than the employer: the clipboard shows the client's name, logo and site instead.
   client?: Pick<IExperience, 'company' | 'companyLogo' | 'companyUrl'>;
+  // Shown on the site but left out of the generated CV (personal and AI-platform projects).
+  omitFromCv?: boolean;
 }
 
 // For an entry that covers several games (e.g. Amber): caption names the screenshot's game, and
@@ -66,6 +68,9 @@ export interface IExperience {
   // Left out when there is no company (freelance, independent) or it no longer exists.
   companyUrl?: string;
   location?: string;
+  // The CV shows this experience as one line with this role, its projects' titles and their whole
+  // date span, instead of one entry per project.
+  cvCombinedRole?: string;
   // ISO date "YYYY-MM-DD" | "Present". Brackets the full employment/engagement span.
   startDate: string;
   endDate: string;
@@ -76,4 +81,23 @@ export interface IExperience {
 // never sits in a file a scraper can read.
 export interface IContact {
   emailParts: [string, string];
+  linkedinUrl: string;
+  portfolioUrl: string;
+}
+
+// Who the site is about: the hero's name, role, bio and stats.
+export interface IProfile {
+  name: string;
+  role: string;
+  location: string;
+  // One entry per sentence: each starts on its own line.
+  bio: string[];
+  stats: IProfileStat[];
+}
+
+export interface IProfileStat {
+  id: string;
+  // Left out for the career length in whole years, which grows on its own (career.ts).
+  value?: string;
+  label: string;
 }

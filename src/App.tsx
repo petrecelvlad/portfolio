@@ -13,8 +13,10 @@ import { ErrorBoundary } from '@/src/components/ErrorBoundary';
 import { IslandPositionProvider } from '@/src/context/IslandPositionContext';
 import { IslandPositionPanel } from '@/src/components/IslandPositionPanel';
 import { ContactEmail } from '@/src/components/ContactEmail';
-import { contactEmail } from '@/src/adapters/secondary/contact';
-import { Circle, Square, Triangle, Linkedin } from 'lucide-react';
+import { contactEmail, linkedinUrl } from '@/src/adapters/secondary/contact';
+import { profile } from '@/src/adapters/secondary/profile';
+import { CvDialog } from '@/src/components/CvDialog';
+import { Circle, Square, Triangle, Linkedin, FileDown } from 'lucide-react';
 
 // Below-the-fold sections — kept out of the initial bundle so Hero can
 // paint before their JS (and the libraries they pull in)
@@ -32,6 +34,7 @@ export default function App() {
   const sectionRefs = useMemo<PageSectionRefs>(() => ({ skills: skillsRef, projects: projectsRef, contact: contactRef }), []);
   // Mirrors the Timeline orchestrator's activeSection (fed by onActiveSectionChange); never set anywhere else.
   const [activeSection, setActiveSection] = useState<PageSection>('hero');
+  const [isCvOpen, setIsCvOpen] = useState(false);
 
   useEffect(() => {
     repo.getAllExperiences().then(setExperiences);
@@ -45,7 +48,8 @@ export default function App() {
   return (
     <IslandPositionProvider>
       <div className="bg-bg text-text h-screen overflow-hidden flex flex-col relative">
-        <Navbar activeSection={activeSection} onNavigate={navigateTo} />
+        <Navbar activeSection={activeSection} onNavigate={navigateTo} onOpenCv={() => setIsCvOpen(true)} />
+        {isCvOpen && <CvDialog onClose={() => setIsCvOpen(false)} />}
         <IslandPositionPanel />
 
         <main ref={mainRef} className="flex-1 w-full relative overflow-y-auto tablet:snap-y tablet:snap-mandatory select-none">
@@ -85,14 +89,14 @@ export default function App() {
               <div className="text-center">
                 <div className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">VLAD PETRE</div>
                 <div className="font-display text-lg font-bold uppercase tracking-[0.4em] text-surface-base/50 italic">
-                  Making <span className="text-periwinkle">APPS</span> that make you H<span className="text-periwinkle">APP</span>Y!
+                  Putting the <span className="text-periwinkle">fun</span> inside every <span className="text-periwinkle">fun</span>ction
                 </div>
               </div>
 
               <div className="flex flex-col items-center gap-6">
                 <ContactEmail email={contactEmail} />
                 <a
-                  href="https://www.linkedin.com/in/vladpetrebiz/"
+                  href={linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.3em] text-surface-base/50 hover:text-periwinkle transition-colors"
@@ -100,10 +104,19 @@ export default function App() {
                   <Linkedin className="w-5 h-5" />
                   LinkedIn
                 </a>
+                <button
+                  type="button"
+                  onClick={() => setIsCvOpen(true)}
+                  aria-haspopup="dialog"
+                  className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.3em] text-surface-base/50 hover:text-periwinkle transition-colors cursor-pointer"
+                >
+                  <FileDown className="w-5 h-5" />
+                  Download CV
+                </button>
               </div>
 
               <div className="font-mono pt-10 tablet:pt-20 border-t border-surface-base/10 w-full text-center text-xs font-bold uppercase tracking-[0.2em] tablet:tracking-[0.5em] text-surface-base/30">
-                &copy; {new Date().getFullYear()} Vlad Petre &bull; Game Producer
+                &copy; {new Date().getFullYear()} {profile.name} &bull; {profile.role}
               </div>
             </div>
           </footer>

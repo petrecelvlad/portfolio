@@ -66,7 +66,7 @@ export const PixelRibbonBanner: React.FC<PixelRibbonBannerProps> = ({
   return (
     <div ref={containerRef} className={`relative ${className}`} style={{ height: HEIGHT }}>
       {/* Back layer: the tails. */}
-      {hasTails && <svg {...svgProps} style={{ zIndex: 0 }}>
+      {hasTails && <svg {...svgProps} data-ribbon-part="tails" style={{ zIndex: 0 }}>
         <g transform={`translate(0, ${u})`} fill={outlineColor} stroke={outlineColor} strokeWidth={OUTLINE} strokeLinejoin="miter">
           <path d={leftTail} />
           <path d={rightTail} />
@@ -83,7 +83,7 @@ export const PixelRibbonBanner: React.FC<PixelRibbonBannerProps> = ({
       </svg>}
 
       {/* Front layer: the body and its label. */}
-      <svg {...svgProps} style={{ zIndex: 20 }}>
+      <svg {...svgProps} data-ribbon-part="body" style={{ zIndex: 20 }}>
         <path d={body} transform={`translate(0, ${u})`} fill={outlineColor} stroke={outlineColor} strokeWidth={OUTLINE} strokeLinejoin="miter" />
         <path d={body} fill={faceColor} {...outlined} />
         <rect x={9 * u} y={0} width={W - 18 * u} height={BEVEL_WIDTH} fill={highlightColor} />
@@ -92,7 +92,10 @@ export const PixelRibbonBanner: React.FC<PixelRibbonBannerProps> = ({
         <rect x={10 * u} y={2 * u} width={u} height={u} fill={highlightColor} />
       </svg>
 
+      {/* The parts are named so a page can animate each one without wrapping the whole ribbon,
+          which would lift it into one layer and break the tails-behind, body-in-front stacking. */}
       <div
+        data-ribbon-part="label"
         className="absolute left-0 top-0 z-20 w-full flex items-center justify-center font-press-start text-base text-white uppercase tracking-[1px] leading-none drop-shadow-[0_3px_0_#1C1610]"
         style={{ height: 11 * u, paddingLeft: 9 * u, paddingRight: 9 * u }}
       >

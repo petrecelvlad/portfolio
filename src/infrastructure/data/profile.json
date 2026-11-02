@@ -1,0 +1,31 @@
+{
+  "name": "Vlad Petre",
+  "role": "Game Producer",
+  "location": "Bucharest, Romania",
+  "bio": [
+    "Building games since 2007, I blend indie adaptability with structured studio processes.",
+    "Hands-on experience across design, visuals, programming, and launch gives me a holistic vision for the entire project.",
+    "As a Producer, I keep workflows smooth to consistently build fun games."
+  ],
+  "stats": [
+    {
+      "id": "exp",
+      "label": "Years of experience"
+    },
+    {
+      "id": "games",
+      "value": "+30",
+      "label": "Produced games"
+    },
+    {
+      "id": "levels",
+      "value": "+5000",
+      "label": "Shipped levels"
+    },
+    {
+      "id": "teams",
+      "value": "8",
+      "label": "Teams lead"
+    }
+  ]
+}

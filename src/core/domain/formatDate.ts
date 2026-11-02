@@ -23,3 +23,12 @@ export function formatDuration(startIsoDate: string, endIsoDate: string): string
   if (months > 0) parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
   return parts.join(' ');
 }
+
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as const;
+
+// "Mar 2024": the form CV parsers read most reliably.
+export function formatMonthYear(isoDate: string): string {
+  if (isoDate === 'Present') return 'Present';
+  const [year, month] = isoDate.split('-').map(Number);
+  return `${MONTH_NAMES[month - 1]} ${year}`;
+}

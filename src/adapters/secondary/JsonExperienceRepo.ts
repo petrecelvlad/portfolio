@@ -1,5 +1,6 @@
 import { IExperience, IProject, IScreenshot } from '@/src/core/domain/models';
 import { IExperienceRepository } from '@/src/ports/experienceRepo';
+import { newestFirst } from '@/src/core/domain/experienceOrder';
 import portfolioData from '@/src/infrastructure/data/portfolio.json';
 import responsiveImages from 'virtual:responsive-images';
 
@@ -45,17 +46,13 @@ function resolveExperience(exp: JsonExperience): IExperience {
   };
 }
 
-function sortDesc(a: string, b: string): number {
-  return b.localeCompare(a);
-}
-
 function prepare(data: JsonExperience[]): IExperience[] {
   return [...data]
     .map(resolveExperience)
-    .sort((a, b) => sortDesc(a.startDate, b.startDate))
+    .sort(newestFirst)
     .map(exp => ({
       ...exp,
-      projects: [...exp.projects].sort((a, b) => sortDesc(a.startDate, b.startDate)),
+      projects: [...exp.projects].sort(newestFirst),
     }));
 }
 

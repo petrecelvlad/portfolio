@@ -1,0 +1,90 @@
+/* The hero's entrance: every timing lives in this block, so tune them here.
+
+   Order: the name types in, the ribbon unrolls, its label pops in, the bio note slides down, the
+   stat cards pop in, Explore pops in. Each step starts when the one before it ends (Hero.tsx chains them with
+   useRevealOnView, starting from the 3D background's first frame), so only durations are set here:
+   every start time follows from them. */
+:root {
+  --hero-name-type: 500ms;           /* the whole name, first letter to last */
+  --hero-ribbon-unroll: 400ms;       /* the ribbon opening from its centre to both ends */
+  --hero-ribbon-label-pop: 50ms;    /* "GAME PRODUCER" popping in */
+  --hero-bio-slide: 800ms;          /* the bio note sliding down from under the ribbon */
+  --hero-card-pop: 500ms;            /* one stat card popping in */
+  --hero-card-stagger: 100ms;         /* between one card starting and the next */
+  --hero-explore-pop: 500ms;         /* the Explore button popping in, last */
+}
+
+/* Everything below waits paused at its hidden first frame until Hero plays it. */
+
+/* Letters appear one at a time (Hero gives each its number and the count). A 1ms linear fade, not
+   step-end: the browser can end an animation at 99.99% progress, where step-end still shows the
+   hidden frame, so a letter could vanish right as it appeared. */
+@keyframes heroLetterAppear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-letter-reveal {
+  animation: heroLetterAppear 1ms linear both paused;
+  animation-delay: calc(var(--hero-name-type) * var(--letter) / var(--letters));
+}
+
+/* The tails and the body are masked separately: a mask on the whole ribbon would lift it into one
+   layer above the paper. The mask is a clip-path, the one exception to C-008 here: it can't be
+   done with a transform without squashing the pixel art, and it runs once. */
+@keyframes heroRibbonUnroll {
+  from { clip-path: inset(-8px 50% -8px 50%); }
+  to { clip-path: inset(-8px); }
+}
+
+.hero-ribbon-reveal [data-ribbon-part="tails"],
+.hero-ribbon-reveal [data-ribbon-part="body"] {
+  animation: heroRibbonUnroll var(--hero-ribbon-unroll) cubic-bezier(0.33, 1, 0.68, 1) both paused;
+}
+
+.hero-ribbon-reveal [data-ribbon-part="label"] {
+  animation: heroPop var(--hero-ribbon-label-pop) var(--hero-ribbon-unroll) both paused;
+}
+
+/* The clip hides everything above the paper's resting top edge, which sits behind the ribbon's
+   body, so the paper only shows below it. */
+@keyframes heroBioReveal {
+  /* The extra 32px tucks the torn edge's teeth and shadow, which hang below the paper's box, out of
+     sight too: the ribbon that used to cover them isn't there yet. */
+  from { transform: translateY(calc(-100% - 32px)); }
+}
+
+.hero-bio-reveal {
+  clip-path: inset(0 -48px -48px -48px);
+}
+
+.hero-bio-reveal > * {
+  animation: heroBioReveal var(--hero-bio-slide) cubic-bezier(0.33, 1, 0.68, 1) both paused;
+  animation-delay: calc(var(--hero-ribbon-unroll) + var(--hero-ribbon-label-pop));
+}
+
+/* Out of the centre, a little past full size, then settle. Hero gives each card its number. */
+@keyframes heroPop {
+  0% { transform: scale(0); animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  65% { transform: scale(1.1); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1); }
+}
+
+.hero-stat-pop {
+  animation: heroPop var(--hero-card-pop) both paused;
+  animation-delay: calc(var(--hero-card-stagger) * var(--card));
+}
+
+.hero-explore-pop {
+  animation: heroPop var(--hero-explore-pop) both paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter-reveal,
+  .hero-ribbon-reveal [data-ribbon-part],
+  .hero-bio-reveal > *,
+  .hero-stat-pop,
+  .hero-explore-pop {
+    animation: none;
+  }
+}

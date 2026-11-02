@@ -48,6 +48,7 @@
       {
         "id": "proj-astrocade",
         "title": "Astrocade",
+        "omitFromCv": true,
         "role": "Game Designer & Developer",
         "startDate": "2026-01-01",
         "endDate": "2026-04-01",
@@ -123,6 +124,7 @@
       {
         "id": "proj-upit",
         "title": "Upit",
+        "omitFromCv": true,
         "role": "Game Designer & Developer",
         "startDate": "2023-11-28",
         "endDate": "2025-06-28",
@@ -351,6 +353,7 @@
       {
         "id": "proj-clash-of-towers",
         "title": "Towers Clash",
+        "omitFromCv": true,
         "role": "Indie Game Producer",
         "startDate": "2017-07-01",
         "endDate": "2017-09-30",
@@ -517,6 +520,7 @@
   {
     "id": "exp-flash-era-2008-2013",
     "company": "Independent (Flash Era)",
+    "cvCombinedRole": "Game Designer & Artist",
     "companyLogo": "",
     "startDate": "2008-01-01",
     "endDate": "2013-09-30",

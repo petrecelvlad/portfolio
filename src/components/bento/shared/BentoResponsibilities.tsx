@@ -23,6 +23,7 @@ import { useProjectSwap } from '@/src/components/bento/projectSwap';
 import { ClipboardPage, type PageTurn } from './ClipboardPage';
 import type { IProjectLink, ProjectLinkKind } from '@/src/core/domain/models';
 import { formatDateToQuarter, formatDuration } from '@/src/core/domain/formatDate';
+import { linkLabel, orderLinks } from '@/src/core/domain/projectLinks';
 import { splitUnconfirmed } from '@/src/core/domain/unconfirmedCopy';
 import { splitEmphasis } from '@/src/core/domain/emphasizedCopy';
 import { dismissDetailsHint, useDetailsHintDismissed } from '@/src/hooks/useDetailsHint';
@@ -149,28 +150,26 @@ function BinderClip() {
   );
 }
 
-// Tag order is this object's order: pages to play or read about the game first, social pages after.
-const LINK_KINDS: Record<ProjectLinkKind, { label: string; Icon: LucideIcon }> = {
-  website: { label: 'Website', Icon: Globe },
-  article: { label: 'Article', Icon: Newspaper },
-  newgrounds: { label: 'Newgrounds', Icon: Play },
-  appStore: { label: 'App Store', Icon: Smartphone },
-  googlePlay: { label: 'Google Play', Icon: Play },
-  steam: { label: 'Steam', Icon: Gamepad2 },
-  youtube: { label: 'YouTube', Icon: Youtube },
-  facebook: { label: 'Facebook', Icon: Facebook },
-  instagram: { label: 'Instagram', Icon: Instagram },
-  x: { label: 'X', Icon: Twitter },
-  discord: { label: 'Discord', Icon: MessageCircle },
+const LINK_ICONS: Record<ProjectLinkKind, LucideIcon> = {
+  website: Globe,
+  article: Newspaper,
+  newgrounds: Play,
+  appStore: Smartphone,
+  googlePlay: Play,
+  steam: Gamepad2,
+  youtube: Youtube,
+  facebook: Facebook,
+  instagram: Instagram,
+  x: Twitter,
+  discord: MessageCircle,
 };
-const LINK_ORDER = Object.keys(LINK_KINDS) as ProjectLinkKind[];
 
 function LinkTags({ links }: { links: IProjectLink[] }) {
-  const sortedLinks = [...links].sort((a, b) => LINK_ORDER.indexOf(a.kind) - LINK_ORDER.indexOf(b.kind));
+  const sortedLinks = orderLinks(links);
   return (
     <div className="flex flex-wrap gap-x-2 gap-y-2.5">
       {sortedLinks.map((link, i) => {
-        const { label, Icon } = LINK_KINDS[link.kind];
+        const Icon = LINK_ICONS[link.kind];
         return (
           <a
             key={link.url}
@@ -181,7 +180,7 @@ function LinkTags({ links }: { links: IProjectLink[] }) {
             style={{ backgroundColor: HERITAGE_PALETTE[i % HERITAGE_PALETTE.length], rotate: `${i % 2 === 0 ? -1.5 : 1.5}deg` }}
           >
             <Icon className="w-3.5 h-3.5" strokeWidth={2.5} aria-hidden />
-            {link.label ?? label}
+            {linkLabel(link)}
           </a>
         );
       })}

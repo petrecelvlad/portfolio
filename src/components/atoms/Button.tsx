@@ -38,6 +38,7 @@ export interface ButtonProps extends Omit<React.HTMLAttributes<HTMLElement>, 'co
   href?: string;
   target?: string;
   rel?: string;
+  download?: string;
 }
 
 // The only raised button on the site: every instance shares the bevel and the hover/press slide;
@@ -51,6 +52,7 @@ export function Button({
   href,
   target,
   rel,
+  download,
   className = '',
   style,
   ...props
@@ -69,7 +71,7 @@ export function Button({
 
   if (href) {
     return (
-      <a href={href} target={target} rel={rel} className={buttonClassName} style={buttonStyle} {...props}>
+      <a href={href} target={target} rel={rel} download={download} className={buttonClassName} style={buttonStyle} {...props}>
         {children}
       </a>
     );

@@ -1,4 +1,4 @@
-import type { IProject } from './models';
+import type { IProfileStat, IProject } from './models';
 
 // The career start is fixed; the career length grows on its own, a whole year every anniversary.
 export const CAREER_START_DATE = '2007-01-01';
@@ -8,6 +8,10 @@ const [START_YEAR, START_MONTH, START_DAY] = CAREER_START_DATE.split('-').map(Nu
 export function getCareerYears(now: Date): number {
   const hadAnniversary = now >= new Date(now.getFullYear(), START_MONTH - 1, START_DAY);
   return now.getFullYear() - START_YEAR - (hadAnniversary ? 0 : 1);
+}
+
+export function getStatValue(stat: IProfileStat, now: Date): string {
+  return stat.value ?? String(getCareerYears(now));
 }
 
 // Whole calendar months, both ends included, the same way a project's duration is counted.
