@@ -37,7 +37,7 @@ interface ThreeNatureFieldBackgroundProps {
   isVisible?: boolean;
   /** The element whose clicks shoot at the ducks and which shows the crosshair (the hero). */
   shootingAreaRef: RefObject<HTMLElement | null>;
-  /** Called once the scene first shows: its first frame, or the static fallback without WebGL. */
+  /** Called once the scene first shows its first frame, or at once when there's no WebGL. */
   onFirstFrame?: () => void;
 }
 
@@ -111,10 +111,12 @@ export function ThreeNatureFieldBackground({ className = '', isVisible = true, s
     // THREE.WebGLRenderer's constructor throws (not returns null) when it can't acquire a
     // WebGL context — happens on old/blocklisted GPU drivers, common on older laptops. Left
     // uncaught, this crashed the entire page (no Error Boundary caught it, so React unmounted
-    // the whole tree). Fall back to a plain gradient instead.
+    // the whole tree). Fall back to Hero's wood board instead. failIfMajorPerformanceCaveat also
+    // refuses a software-rendered context (blocklisted GPU): there the scene took seconds to show
+    // its first frame and then crawled.
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer = new THREE.WebGLRenderer({ antialias: true, failIfMajorPerformanceCaveat: true });
     } catch (err) {
       console.warn('ThreeNatureFieldBackground: WebGL unavailable, falling back to a static background.', err);
       setWebglUnavailable(true);
@@ -707,12 +709,6 @@ export function ThreeNatureFieldBackground({ className = '', isVisible = true, s
     <div
       ref={containerRef}
       className={`absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0 ${className}`}
-    >
-      {webglUnavailable && (
-        // Same sky-dome colors the WebGL scene uses (topColor/bottomColor above), so the
-        // fallback reads as "the same background, just static" rather than a visibly broken page.
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0288d1] to-[#b3e5fc]" />
-      )}
-    </div>
+    />
   );
 }

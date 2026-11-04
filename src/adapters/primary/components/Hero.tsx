@@ -11,10 +11,11 @@
  *   "agent_instructions": "Hosts every always-on layer of the hero: the 3D background, the island, the character video, the name letters and the 4 achievement cards. Its cost is the sum of those layers, so check C-008 to C-012 in GUARDRAILS.md before adding or changing any motion here."
  * }
  */
-import { useMemo, useLayoutEffect, useRef, useState, lazy, Suspense, type CSSProperties } from 'react';
+import { useEffect, useMemo, useLayoutEffect, useRef, useState, lazy, Suspense, type CSSProperties } from 'react';
 import { useReducedMotion } from 'motion/react';
 import { AchievementShaderCanvas, ShaderType } from '@/src/components/backgrounds/AchievementShaderCanvas';
 import { FloatingIslandBackdrop } from '@/src/components/backgrounds/FloatingIslandBackdrop';
+import { WoodBackground } from '@/src/components/bento/shared/WoodBackground';
 import { Button, BUTTON_COLORS } from '@/src/components/atoms/Button';
 import { PixelRibbonBanner } from '@/src/components/atoms/PixelRibbonBanner';
 import { TornPaperPanel } from '@/src/components/atoms/TornPaperPanel';
@@ -22,7 +23,6 @@ import { StackedAlphaVideo } from '@/src/components/atoms/StackedAlphaVideo';
 import { useIsVisible } from '@/src/hooks/useIsVisible';
 import { useRevealOnView } from '@/src/hooks/useRevealOnView';
 import { useDeferredMount } from '@/src/hooks/useDeferredMount';
-import { useIslandPosition } from '@/src/context/IslandPositionContext';
 import { useScreenTier } from '@/src/hooks/useScreenTier';
 import { getStatValue } from '@/src/core/domain/career';
 import { profile } from '@/src/adapters/secondary/profile';
@@ -48,6 +48,10 @@ const NAME_LETTER_COUNT = NAME_CHARS.filter(char => char !== ' ').length;
 const NAME_LETTER_NUMBERS = NAME_CHARS.map((_, index) =>
   NAME_CHARS.slice(0, index + 1).filter(char => char !== ' ').length);
 
+// The entrance never waits longer than this for the 3D background's first frame: a slow machine
+// would otherwise sit on a still hero.
+const SCENE_WAIT_LIMIT_MS = 2000;
+
 const STAT_SHADERS: Record<string, ShaderType> = {
   exp: 'levelup',
   games: 'cartridge',
@@ -65,7 +69,6 @@ interface AchievementData {
 export function Hero() {
   const { ref: heroRef, isVisible } = useIsVisible<HTMLDivElement>();
   const isReducedMotion = useReducedMotion();
-  const { config: islandPosition } = useIslandPosition();
   // Text/layout renders immediately; WebGL shader canvases mount a beat
   // later so they never delay first paint.
   const canvasesReady = useDeferredMount();
@@ -106,15 +109,17 @@ export function Hero() {
   // The hero's entrance runs in sequence (heroEntrance.css, where its timings live), every time it comes into view: the name types
   // itself in, then the role ribbon unrolls, its label pops in and the bio note slides out from under
   // it, then the stat cards pop in, then Explore. The
-  // name waits for the 3D background's first frame: building that scene is the page's heaviest
-  // work, and motion started before it would mostly play while it's frozen.
+  // name waits for the 3D background's first frame (up to SCENE_WAIT_LIMIT_MS): building that
+  // scene is the page's heaviest work, and motion started before it would mostly play while it's frozen.
   const [isSceneShown, setIsSceneShown] = useState(false);
+  useEffect(() => {
+    const id = setTimeout(() => setIsSceneShown(true), SCENE_WAIT_LIMIT_MS);
+    return () => clearTimeout(id);
+  }, []);
   const { ref: nameRevealRef, isDone: isNameRevealed } = useRevealOnView<HTMLHeadingElement>(isSceneShown);
   const { ref: bioRevealRef, isDone: isBioRevealed } = useRevealOnView<HTMLDivElement>(isNameRevealed);
   const { ref: statsRevealRef, isDone: areStatsRevealed } = useRevealOnView<HTMLDivElement>(isBioRevealed);
   const { ref: exploreRevealRef } = useRevealOnView<HTMLDivElement>(areStatsRevealed);
-
-  const islandTransform = `translate(${islandPosition.offsetX}px, ${islandPosition.offsetY}px) scale(${islandPosition.scale})`;
 
   const achievements = useMemo<AchievementData[]>(() => {
     const now = new Date();
@@ -128,23 +133,15 @@ export function Hero() {
 
   return (
     <div ref={heroRef} className="relative w-full flex-1 flex items-center justify-center py-3 sm:py-4 md:py-6 overflow-hidden select-none">
-      {/* ── Layer 0: Base Background ── */}
+      {/* ── Layer 0: Base Background. The wood board shows until the 3D scene draws over it, and
+          stays where there's no WebGL. ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <WoodBackground />
+      </div>
       {canvasesReady && (
         <Suspense fallback={null}>
           <ThreeNatureFieldBackground isVisible={isVisible} shootingAreaRef={heroRef} onFirstFrame={() => setIsSceneShown(true)} />
         </Suspense>
-      )}
-
-      {/* ── Layer 1: Floating Island Pedestal Backdrop. Side by side it sits at root level, anchored to
-          the bottom of the character column; in the stacked layouts it moves into the character's own
-          cell so it stays under the character's feet. ── */}
-      {sideBySide && (
-        <div
-          className="absolute z-[2] pointer-events-none left-[calc(2rem-6%)] w-[42%] bottom-[8%] h-[62%]"
-          style={{ transform: islandTransform }}
-        >
-          <FloatingIslandBackdrop className="w-full h-full" />
-        </div>
       )}
 
       {/* ── Layer 3: Foreground UI Content ── */}
@@ -154,21 +151,20 @@ export function Hero() {
 
         {/* ── LEFT COLUMN (30% width, Center Anchored): Character Video ── */}
         <div className="[grid-area:char] [container-type:size] laptop:[container-type:normal] w-full laptop:w-[30%] flex-shrink-0 flex flex-col items-center justify-center p-1 sm:p-2 text-center h-[320px] tablet:h-full tablet:min-h-0 relative overflow-visible group">
-          {/* Stacked layouts: a square box the size of the (square) video, with the island placed in
-              it at the same proportions the side-by-side layout ends up with at 1920 × 1080, so the
-              character stands on it at any size. The island editor's px offsets stay desktop-only. */}
-          <div className="relative w-[min(100cqw,100cqh)] h-[min(100cqw,100cqh)] laptop:contents">
-          {!sideBySide && (
-            <div className="absolute z-0 pointer-events-none -left-[26.7%] w-[158.7%] top-[41.9%] h-[124%]">
-              <FloatingIslandBackdrop className="w-full h-full" />
-            </div>
-          )}
+          {/* A square box the size of the (square) video. The island is placed in it in shares of the
+              character's size, so the character stands on it at every screen size and tier. Its box
+              keeps the island art's 4:3 shape; the numbers are the desktop look approved at
+              1920 × 969, centred under the character. */}
+          <div className="relative w-[min(100cqw,100cqh)] h-[min(100cqw,100cqh)] laptop:w-full laptop:max-w-[600px] laptop:h-auto laptop:aspect-square">
+          <div className="absolute z-0 pointer-events-none -left-[23.6%] w-[147.2%] top-[46.5%] h-[110.4%]">
+            <FloatingIslandBackdrop className="w-full h-full" />
+          </div>
           {/* Character Selection Video overlaid on top of the island pedestal */}
           <StackedAlphaVideo
             src={stackedSrc}
             fallbackSrc={webmSrc}
             isVisible={isVisible && !isReducedMotion}
-            className="relative z-10 w-full h-full laptop:h-auto laptop:max-w-[600px] laptop:max-h-[750px] object-contain drop-shadow-2xl mx-auto pointer-events-none"
+            className="relative z-10 w-full h-full object-contain drop-shadow-2xl mx-auto pointer-events-none"
           />
           </div>
         </div>
